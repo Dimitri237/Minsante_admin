@@ -1,4 +1,46 @@
 <template>
+    <div class="heaths">
+        <!-- <div class="select">
+            <select class="select2" name="format" id="format">
+                <option selected disabled>Filtrer par</option>
+                <option v-for="type_acte in type_actes" :value="type_acte.id" v-bind:key="type_acte.id">
+                    {{ type_acte.libelle }}
+                </option>
+            </select>
+        </div> -->
+        <form class="seach" @submit.prevent="searchPersonnel">
+            <input type="text" v-model="searchTerm" placeholder="Rechercher un employé..." />
+            <button type="submit"><i class="fa fa-search"></i></button>
+            <!-- <button @click="searchPersonnel">Rechercher</button> -->
+        </form>
+    </div>
+    <div class="results-container">
+        <div v-if="employees.length > 0">
+            <div class="personnel_list animate__animated animate__fadeInDown">
+                <div class="intitule">
+                    <label for="" class="attr">Nom & Prenom</label>
+                    <label for="" class="attr">Matricule</label>
+                    <label for="" class="attr">Profession</label>
+                    <label for="" class="attr">Lieu de service</label>
+                    <label for="" class="attr">Actions</label>
+                </div>
+                <router-link class="objets" v-for="employee in employees" :key="employee.matricule"
+                    :to="'/PersonnelDetails/' + employee.matricule">
+                    <label for="" class="attr">{{ employee.nom_prenom }}</label>
+                    <label for="" class="attr">{{ employee.matricule }}</label>
+                    <label for="" class="attr">{{ employee.profession }}</label>
+                    <label for="" class="attr">{{ employee.lieu_service }}</label>
+                    <div style="width: 5%; display: flex; justify-content: space-between;" class="action">
+                        <button style="border: none; color: #007A5E;" type="button" class="btn custom-modal-btn"
+                            data-bs-toggle="modal" data-bs-target="#don" @click="showModal2(personnel)">
+                            <i style="font-size: 18px;" class="fa fa-eye" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </router-link>
+            </div>
+        </div>
+        <p v-else>{{ message }}</p>
+    </div>
     <div class="personnel_list">
         <div class="tete">
             <a class="titre1" href="">Liste du personnel</a>
@@ -133,33 +175,9 @@
                     <label>spécialisation:</label>
                     <h3>{{ selectedPersonnel.spécialisation }}</h3>
                 </div>
-                <!-- <div class="lieu-service-section">
-                    <h2 style="color: #007A5E;">Parcours</h2>
-                    <div class="lieu-service-item" v-for="selectedAffectation in selectedAffectations"
-                        :key="selectedAffectation.id">
-                        <div class="list_detail">
-                            <label>inclus dans l'acte N°:</label>
-                            <h3>{{ selectedAffectation.id_acte }}</h3>
-                        </div>
-                        <div class="list_detail">
-                            <label>Affecte de:</label>
-                            <h3>{{ selectedAffectation.id_fsactuel }}</h3>
-                        </div>
-                        <div class="list_detail">
-                            <label>Pour: </label>
-                            <h3>{{ selectedAffectation.id_fsnouvelle }}</h3>
-                        </div>
-                        <div class="list_detail">
-                            <label>Le: </label>
-                            <h3>{{ selectedAffectation.create_at }}</h3>
-                        </div>
-                    </div>
-                </div> -->
-
-                <button class="detailler"><router-link class="s_detailler"
+                <button class="detailler" @click="storeMatricule()"><router-link class="s_detailler"
                         :to="'/PersonnelDetails/' + selectedPersonnel.matricule">Plus de details</router-link></button>
             </div>
-
         </div>
     </div>
     <div v-if="modalVisible3" class="modals">
@@ -183,6 +201,9 @@ export default {
     components: {},
     data() {
         return {
+            searchTerm: '',
+            employees: [],
+            message: '',
             modalVisible1: false,
             modalVisible2: false,
             modalVisible3: false,
@@ -194,13 +215,18 @@ export default {
             selectedPersonnel: {},
             selectedAffectations: [],
             selectedFormations: [],
-            message: '',
+            matricule: null,
         };
     },
     async mounted() {
         this.getPersonnel();
     },
     methods: {
+        storeMatricule() {
+            this.matricule = this.selectedPersonnel.matricule;
+            localStorage.setItem('matricule', this.matricule);
+            console.log({'le matricule': this.matricule});
+        },
         async fetchLieuService(id_perso) {
             try {
                 await axios.get(`http://localhost:3000/lieu_service/${id_perso}`).then(
@@ -270,15 +296,13 @@ export default {
             try {
                 await axios.get(`http://localhost:3000/mise_stage/` + personnel.matricule).then(
                     res => {
-                        this.selectedFormations = res.data
-                        console.log('pp', this.selectedFormations);
+                        this.selectedFormations = res.data;
 
                     }
                 )
                 await axios.get(`http://localhost:3000/lieu_service/` + personnel.matricule).then(
                     res => {
-                        this.selectedAffectations = res.data
-                        console.log('pp', this.selectedAffectations);
+                        this.selectedAffectations = res.data;
 
                     }
                 )
@@ -288,6 +312,17 @@ export default {
                 throw error;
             }
             this.modalVisible2 = true;
+        },
+        async searchPersonnel() {
+            try {
+                const response = await fetch(`http://localhost:3000/personnel-search?q=${encodeURIComponent(this.searchTerm)}`)
+                const data = await response.json()
+                this.employees = data;
+                this.message = data.length === 0 ? 'Aucun résultat trouvé.' : ''
+            } catch (error) {
+                console.error('Erreur lors de la recherche d\'employés :', error)
+                this.message = 'Une erreur est survenue lors de la recherche d\'employés.'
+            }
         },
         showModal3() {
             this.modalVisible3 = true;
@@ -322,6 +357,7 @@ export default {
 </script>
 <style scoped>
 @import url(https://fonts.googleapis.com/css2?family=Monda:wght@100;200;300;400;500;600;700&display=swap);
+
 table {
     border-collapse: collapse;
     margin-top: 30px;
@@ -335,7 +371,9 @@ table td {
 table tr:last-child td {
     border-bottom: none;
 }
+
 .detailler {
+
     width: 100%;
     background-color: transparent;
     margin: auto;
@@ -931,8 +969,7 @@ select::-ms-expand {
 .select {
     position: relative;
     display: flex;
-    width: 55%;
-    margin: auto;
+    width: 15%;
     height: 3em;
     line-height: 3;
     background: #5c6664;
@@ -980,5 +1017,44 @@ select::-ms-expand {
 
 .select:hover::after {
     color: #23b499;
+}
+
+.heaths {
+    width: 95%;
+    background-color: rgba(0, 0, 0, 0.05);
+    margin: auto;
+}
+
+.heaths .seach {
+    width: 30%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.seach input {
+    height: 40px;
+    width: 85%;
+    margin: 0;
+    border: none;
+    background-color: white;
+    outline: none;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.03);
+}
+
+.seach button {
+    margin: 0;
+    width: 15%;
+    text-align: right;
+    padding: 5px 15px;
+    background-color: #007A5E;
+    border: none;
+    text-align: center;
+}
+
+.seach i {
+    font-size: 2rem;
+    color: white;
+
+
 }
 </style>

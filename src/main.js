@@ -20,12 +20,24 @@ import affectationPage from './components/admin_add/affectation_page.vue';
 import structureSanitaire from './components/admin_add/structure_sanitaire.vue';
 import PersonnelDetails from './components/detail_personnel.vue';
 import personnelPage from './components/personnel_page.vue';
+import personnelPage2 from './components/personnel_page2.vue';
+import side_bar from './components/includ/SideBar.vue';
+import acceuilPage2 from './components/cheats/acceuilPage2.vue';
+import acceuilPage3 from './components/cheats/acceuilPage3.vue';
+import acceuilPage4 from './components/cheats/acceuilPage4.vue';
+import acceuilPage5 from './components/cheats/acceuilPage5.vue';
+import acceuilPage6 from './components/cheats/acceuilPage6.vue';
+import acceuilPage7 from './components/cheats/acceuilPage7.vue';
+
+
 const routes = [
   { path: '/CreateAccount', component: CreateAccount },
   { path: '/', component: LoadingPage },
   { path: '/auth', component: AuthentificationPage },
+  { path: '/side_bar', component: side_bar },
   { path: '/PersonnelDetails/:matricule', component: PersonnelDetails },
   { path: '/personnelPage', component: personnelPage },
+  { path: '/personnelPage2', component: personnelPage2 },
   { path: '/affectationPage', component: affectationPage },
   { path: '/structures', component: structures },
   { path: '/structureSanitaire', component: structureSanitaire },
@@ -37,6 +49,12 @@ const routes = [
   { path: '/offrePage', component: offrePage },
   { path: '/realisationsPage', component: realisationsPage },
   { path: '/acceuilPage', component: acceuilPage },
+  { path: '/acceuilPage2', component: acceuilPage2 },
+  { path: '/acceuilPage3', component: acceuilPage3 },
+  { path: '/acceuilPage4', component: acceuilPage4 },
+  { path: '/acceuilPage5', component: acceuilPage5},
+  { path: '/acceuilPage6', component: acceuilPage6 },
+  { path: '/acceuilPage7', component: acceuilPage7 },
   {
     path: '/modifier-user/:userId?',
     name: 'modifierUser',

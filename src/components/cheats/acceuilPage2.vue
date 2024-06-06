@@ -229,12 +229,12 @@
 </template>
 
 <script>
-import actePage from './actePage.vue';
-import realisationsPage from './realisationsPage.vue';
-import processusPage from './processusPage.vue';
-import offrePage from './offrePage.vue';
-import personnelPage from './personnel_page.vue';
-import personnelPage2 from './personnel_page2.vue';
+import actePage from '../actePage.vue';
+import realisationsPage from '../realisationsPage.vue';
+import processusPage from '../processusPage.vue';
+import offrePage from '../offrePage.vue';
+import personnelPage from '../personnel_page.vue';
+import personnelPage2 from '../personnel_page2.vue';
 import axios from 'axios';
 
 
@@ -252,7 +252,7 @@ export default {
         return {
             modalVisible: false,
             showDetails: false,
-            currentPage: 'home',
+            currentPage: 'offres',
             selectedButton: 'button4',
             loggedIn: false,
             personnelCount: '',
