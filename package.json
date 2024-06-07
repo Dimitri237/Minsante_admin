@@ -33,6 +33,7 @@
     "vue": "^3.4.15",
     "vue-carousel": "^0.18.0",
     "vue-carrousel": "^1.0.5",
+    "vue-html2pdf": "^1.8.0",
     "vue-router": "^4.2.5",
     "vue-uuid": "^3.0.0",
     "vuex": "^4.1.0"

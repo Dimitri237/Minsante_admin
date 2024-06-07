@@ -1,97 +1,16 @@
 <template>
     <div class="container">
         <side_bar />
-        <div ref="detailsContainer" class="total">
+        <div class="total">
             <div class="heaths">
                 <div></div>
-                <div style=" width: 50%; display: flex; justify-content: space-between;">
+                <div
+                    style=" width: 50%; display: flex; justify-content: space-between;">
                     <button @click="showModal2" style="background-color: rgb(0, 122, 94);">Affecter</button>
-                    <button @click="generatePdf" style="background-color: rgb(0, 122, 94);">Imprimer</button>
                     <button style="background-color: red;" @click="deletePersonnel">Supprimer</button>
                 </div>
             </div>
-            <div class="Imprimable" id="imprimer_moi" style="margin-top: 30px!important; width: 100%; display: block;">
-                <h1 class="tete" style="color:rgb(0, 122, 94); background-color: white;  width: 100%; margin: auto;">Fiche de l'employe</h1>
-                <div class="personnel1">
-                    <h1 class="title">Détails du personnel</h1>
-                    <div v-if="personnel">
-                        <div class="personnel-details">
-                            <div class="detail">
-                                <label>Matricule :</label>
-                                <span>{{ personnel.matricule }}</span>
-                            </div>
-                            <div class="detail">
-                                <label>Nom et prénom :</label>
-                                <span>{{ personnel.nom_prenom }}</span>
-                            </div>
-                            <div class="detail">
-                                <label>Date de naissance :</label>
-                                <span>{{ formatDate(personnel.date_naissance) }}</span>
-                            </div>
-                            <div class="detail">
-                                <label>Lieu de naissance :</label>
-                                <span>{{ personnel.lieu_naissance }}</span>
-                            </div>
-                            <div class="detail">
-                                <label>Sexe :</label>
-                                <span>{{ personnel.sexe }}</span>
-                            </div>
-                            <div class="detail">
-                                <label>Profession :</label>
-                                <span>{{ personnel.profession }}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div v-else>
-                        <p>Chargement des informations...</p>
-                    </div>
-                </div>
-                <div class="affectation1">
-                    <h1 class="title">Mouvements</h1>
-                    <div class="lieu-service-item" v-for="lieu in lieuService" :key="lieu.id">
-                        <div class="list_detail">
-                            <label>inclus dans l'acte N°:</label>
-                            <span>{{ lieu.id_acte }}</span>
-                        </div>
-                        <div class="list_detail">
-                            <label>Affecte de:</label>
-                            <span>{{ lieu.id_fsactuel }}</span>
-                        </div>
-                        <div class="list_detail">
-                            <label>Pour:</label>
-                            <span>{{ lieu.id_fsnouvelle }}</span>
-                        </div>
-                        <div class="list_detail">
-                            <label>Le:</label>
-                            <span>{{ formatDate(lieu.create_at) }}</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="formation1">
-                    <h1 class="title">Formations</h1>
-                    <div>
-                        <div class="lieu-service-item" v-for="miseStage in miseStages" :key="miseStage.id">
-                            <div class="list_detail">
-                                <label>Admis en stage le:</label>
-                                <span>{{ formatDate(miseStage.create_at) }}</span>
-                            </div>
-                            <div class="list_detail">
-                                <label>A:</label>
-                                <span>{{ miseStage.id_fs }}</span>
-                            </div>
-                            <div class="list_detail">
-                                <label>Telephone:</label>
-                                <span>{{ miseStage.telephone }}</span>
-                            </div>
-                            <div class="list_detail">
-                                <label>Situation matrimoniale:</label>
-                                <span>{{ miseStage.situation_matri }}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- <div  style="width: 100%; display: flex; justify-content: space-between;">
+            <div style="width: 100%; display: flex; justify-content: space-between;">
                 <div class="personnel">
                     <h1>Détails du personnel</h1>
                     <div v-if="personnel">
@@ -170,7 +89,7 @@
                         </div>
                     </div>
                 </div>
-            </div> -->
+            </div>
         </div>
     </div>
     <div v-if="modalVisible2" class="modals2">
@@ -229,7 +148,6 @@
 <script>
 import axios from 'axios';
 import side_bar from './includ/SideBar.vue';
-import html2pdf from 'html2pdf.js'
 export default {
     data() {
         return {
@@ -266,37 +184,6 @@ export default {
         this.getStructure();
     },
     methods: {
-
-        generatePdf() {
-            // Récupérez l'élément HTML que vous souhaitez modifier
-            let elementToPrint = document.getElementById('imprimer_moi');
-            // Ou vous pouvez cacher des éléments que vous ne souhaitez pas inclure dans le PDF
-            let elementsToHide = elementToPrint.querySelectorAll('.hide-in-pdf');
-            elementsToHide.forEach(element => {
-                element.style.display = 'none';
-            });
-            let titre = elementToPrint.querySelectorAll('.title');
-            titre.forEach(element => {
-                element.style.backgroundColor = 'rgb(0, 122, 94)';
-                element.style.color = 'white';
-                element.style.padding = '5px';
-            });
-            let tet = elementToPrint.querySelectorAll('.tete');
-            tet.forEach(element => {
-                element.style.color = 'rgb(0, 122, 94)';
-                element.style.textAlign = 'center';
-            });
-
-            // Maintenant, générez le PDF
-            html2pdf(elementToPrint, {
-                margin: 10,
-                filename: 'nouveau',
-                image: {
-                    type: 'jpeg',
-                    quality: 2
-                },
-            });
-        },
         loadPersonnelDetails() {
             const matricule = this.$route.params.matricule;
             axios.get(`http://localhost:3000/personnel/${matricule}`)
@@ -400,7 +287,7 @@ export default {
 
 .total {
     display: block;
-    width: 70%;
+    width: 80%;
     margin: 0 auto;
 }
 
@@ -457,13 +344,6 @@ export default {
 .personnel,
 .formation {
     width: 32%;
-}
-
-.affectation1,
-.personnel1,
-.formation1 {
-    width: 100%;
-    margin: auto;
 }
 
 .heaths {

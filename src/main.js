@@ -28,6 +28,7 @@ import acceuilPage4 from './components/cheats/acceuilPage4.vue';
 import acceuilPage5 from './components/cheats/acceuilPage5.vue';
 import acceuilPage6 from './components/cheats/acceuilPage6.vue';
 import acceuilPage7 from './components/cheats/acceuilPage7.vue';
+import imprimerDetail from './components/imprimer_detail.vue';
 
 
 const routes = [
@@ -35,6 +36,7 @@ const routes = [
   { path: '/', component: LoadingPage },
   { path: '/auth', component: AuthentificationPage },
   { path: '/side_bar', component: side_bar },
+  { path: '/imprimerDetail/:matricule', component: imprimerDetail },
   { path: '/PersonnelDetails/:matricule', component: PersonnelDetails },
   { path: '/personnelPage', component: personnelPage },
   { path: '/personnelPage2', component: personnelPage2 },
