@@ -11,34 +11,39 @@
                 </div>
             </div>
             <div class="Imprimable" id="imprimer_moi" style="margin-top: 30px!important; width: 100%; display: block;">
-                <h1 class="tete" style="color:rgb(0, 122, 94); background-color: white;  width: 100%; margin: auto;">Fiche de l'employe</h1>
+                <h1 class="tete" style="color:rgb(0, 122, 94); background-color: white;  width: 100%; margin: auto;">
+                    Fiche du personnel</h1>
                 <div class="personnel1">
                     <h1 class="title">Détails du personnel</h1>
                     <div v-if="personnel">
                         <div class="personnel-details">
-                            <div class="detail">
-                                <label>Matricule :</label>
-                                <span>{{ personnel.matricule }}</span>
+                            <div class="call1">
+                                <div class="detail">
+                                    <label>Matricule :</label>
+                                    <span>{{ personnel.matricule }}</span>
+                                </div>
+                                <div class="detail">
+                                    <label>Nom et prénom :</label>
+                                    <span>{{ personnel.nom_prenom }}</span>
+                                </div>
+                                <div class="detail">
+                                    <label>Date de naissance :</label>
+                                    <span>{{ formatDate(personnel.date_naissance) }}</span>
+                                </div>
                             </div>
-                            <div class="detail">
-                                <label>Nom et prénom :</label>
-                                <span>{{ personnel.nom_prenom }}</span>
-                            </div>
-                            <div class="detail">
-                                <label>Date de naissance :</label>
-                                <span>{{ formatDate(personnel.date_naissance) }}</span>
-                            </div>
-                            <div class="detail">
-                                <label>Lieu de naissance :</label>
-                                <span>{{ personnel.lieu_naissance }}</span>
-                            </div>
-                            <div class="detail">
-                                <label>Sexe :</label>
-                                <span>{{ personnel.sexe }}</span>
-                            </div>
-                            <div class="detail">
-                                <label>Profession :</label>
-                                <span>{{ personnel.profession }}</span>
+                            <div class="call2">
+                                <div class="detail">
+                                    <label>Lieu de naissance :</label>
+                                    <span>{{ personnel.lieu_naissance }}</span>
+                                </div>
+                                <div class="detail">
+                                    <label>Sexe :</label>
+                                    <span>{{ personnel.sexe }}</span>
+                                </div>
+                                <div class="detail">
+                                    <label>Profession :</label>
+                                    <span>{{ personnel.profession }}</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -48,129 +53,56 @@
                 </div>
                 <div class="affectation1">
                     <h1 class="title">Mouvements</h1>
-                    <div class="lieu-service-item" v-for="lieu in lieuService" :key="lieu.id">
-                        <div class="list_detail">
-                            <label>inclus dans l'acte N°:</label>
-                            <span>{{ lieu.id_acte }}</span>
-                        </div>
-                        <div class="list_detail">
-                            <label>Affecte de:</label>
-                            <span>{{ lieu.id_fsactuel }}</span>
-                        </div>
-                        <div class="list_detail">
-                            <label>Pour:</label>
-                            <span>{{ lieu.id_fsnouvelle }}</span>
-                        </div>
-                        <div class="list_detail">
-                            <label>Le:</label>
-                            <span>{{ formatDate(lieu.create_at) }}</span>
-                        </div>
-                    </div>
+                    <table style="width: 100%; text-align: center;">
+                        <thead class="tabH">
+                            <tr>
+                                <th></th>
+                                <th><label for="" class="attr">Acte N</label></th>
+                                <th><label for="" class="attr">Signé le</label></th>
+                                <th><label for="" class="attr">Categorie</label></th>
+                                <th><label for="" class="attr">Lieu de service</label></th>
+                                <th><label for="" class="attr">Poste</label></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="table-row" v-for="(lieu, index) in lieuService" :key="lieu.id">
+                                <td>{{ index + 1 }}</td>
+                                <td>{{ lieu.id_acte }}</td>
+                                <td>{{ formatDate(lieu.date_signatureacte) }}</td>
+                                <td>{{ lieu.categorie_acte }}</td>
+                                <td>{{ lieu.id_fsnouvelle }}</td>
+                                <td>{{ lieu.poste }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
                 <div class="formation1">
                     <h1 class="title">Formations</h1>
-                    <div>
-                        <div class="lieu-service-item" v-for="miseStage in miseStages" :key="miseStage.id">
-                            <div class="list_detail">
-                                <label>Admis en stage le:</label>
-                                <span>{{ formatDate(miseStage.create_at) }}</span>
-                            </div>
-                            <div class="list_detail">
-                                <label>A:</label>
-                                <span>{{ miseStage.id_fs }}</span>
-                            </div>
-                            <div class="list_detail">
-                                <label>Telephone:</label>
-                                <span>{{ miseStage.telephone }}</span>
-                            </div>
-                            <div class="list_detail">
-                                <label>Situation matrimoniale:</label>
-                                <span>{{ miseStage.situation_matri }}</span>
-                            </div>
-                        </div>
-                    </div>
+                    <table style="width: 100%; text-align: center;">
+                        <thead class="tabH">
+                            <tr>
+                                <th></th>
+                                <th><label for="" class="attr">Acte N</label></th>
+                                <th><label for="" class="attr">Signé le</label></th>
+                                <th><label for="" class="attr">Structure</label></th>
+                                <th><label for="" class="attr">Debut</label></th>
+                                <th><label for="" class="attr">Fin</label></th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="table-row" v-for="(miseStage, index) in miseStages" :key="miseStage.id">
+                                <td>{{ index + 1 }}</td>
+                                <td>{{ miseStage.id_acte }}</td>
+                                <td>{{ formatDate(miseStage.date_signatureacte) }}</td>
+                                <td>{{ miseStage.lieu_stage }}</td>
+                                <td>{{ formatDate(miseStage.debut_stage) }}</td>
+                                <td>{{ formatDate(miseStage.fin_stage) }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            <!-- <div  style="width: 100%; display: flex; justify-content: space-between;">
-                <div class="personnel">
-                    <h1>Détails du personnel</h1>
-                    <div v-if="personnel">
-                        <div class="personnel-details">
-                            <div class="detail">
-                                <label>Matricule :</label>
-                                <span>{{ personnel.matricule }}</span>
-                            </div>
-                            <div class="detail">
-                                <label>Nom et prénom :</label>
-                                <span>{{ personnel.nom_prenom }}</span>
-                            </div>
-                            <div class="detail">
-                                <label>Date de naissance :</label>
-                                <span>{{ formatDate(personnel.date_naissance) }}</span>
-                            </div>
-                            <div class="detail">
-                                <label>Lieu de naissance :</label>
-                                <span>{{ personnel.lieu_naissance }}</span>
-                            </div>
-                            <div class="detail">
-                                <label>Sexe :</label>
-                                <span>{{ personnel.sexe }}</span>
-                            </div>
-                            <div class="detail">
-                                <label>Profession :</label>
-                                <span>{{ personnel.profession }}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div v-else>
-                        <p>Chargement des informations...</p>
-                    </div>
-                </div>
-                <div class="affectation">
-                    <h1>Mouvements</h1>
-                    <div class="lieu-service-item" v-for="lieu in lieuService" :key="lieu.id">
-                        <div class="list_detail">
-                            <label>inclus dans l'acte N°:</label>
-                            <span>{{ lieu.id_acte }}</span>
-                        </div>
-                        <div class="list_detail">
-                            <label>Affecte de:</label>
-                            <span>{{ lieu.id_fsactuel }}</span>
-                        </div>
-                        <div class="list_detail">
-                            <label>Pour:</label>
-                            <span>{{ lieu.id_fsnouvelle }}</span>
-                        </div>
-                        <div class="list_detail">
-                            <label>Le:</label>
-                            <span>{{ formatDate(lieu.create_at) }}</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="formation">
-                    <h1>Formations</h1>
-                    <div>
-                        <div class="lieu-service-item" v-for="miseStage in miseStages" :key="miseStage.id">
-                            <div class="list_detail">
-                                <label>Admis en stage le:</label>
-                                <span>{{ formatDate(miseStage.create_at) }}</span>
-                            </div>
-                            <div class="list_detail">
-                                <label>A:</label>
-                                <span>{{ miseStage.id_fs }}</span>
-                            </div>
-                            <div class="list_detail">
-                                <label>Telephone:</label>
-                                <span>{{ miseStage.telephone }}</span>
-                            </div>
-                            <div class="list_detail">
-                                <label>Situation matrimoniale:</label>
-                                <span>{{ miseStage.situation_matri }}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
         </div>
     </div>
     <div v-if="modalVisible2" class="modals2">
@@ -268,8 +200,26 @@ export default {
     methods: {
 
         generatePdf() {
-            // Récupérez l'élément HTML que vous souhaitez modifier
             let elementToPrint = document.getElementById('imprimer_moi');
+
+            // Créez un nouveau document HTML avec l'en-tête et le contenu
+            let newDoc = document.implementation.createHTMLDocument('');
+            let header = newDoc.createElement('div');
+            header.innerHTML = `
+  <div style="font-family: sans-serif; text-align: center; width: 100%; font-size: 17px; font-weight: bold; margin-bottom: 20px; display: flex; justify-content: space-between; ">
+    <div>
+        <h1 style="text-align: center; font-size: 15px; font-weight: bold;">REPUBLIQUE DU CAMEROUN</h1>
+        <p style="font-size: 12px; color: rgba(0, 0, 0, 0.7);">Paix-Travail-Patrie</p>
+        <h1 style="text-align: center; font-size: 15px; font-weight: bold;">MINISTERE DE LA SANTE PUBLIQUE</h1>
+    </div>
+    <div>
+        <h1 style="text-align: center; font-size: 15px; font-weight: bold;">REPUBLIC OF CAMEROON</h1>
+        <p style="font-size: 12px; color: rgba(0, 0, 0, 0.7);">Peace-Work-Fatherland</p>
+        <h1 style="text-align: center; font-size: 15px; font-weight: bold;">MINISTRY OF PUBLIC HEALTH</h1>
+    </div>
+  </div>
+`;
+            newDoc.body.appendChild(header);
             // Ou vous pouvez cacher des éléments que vous ne souhaitez pas inclure dans le PDF
             let elementsToHide = elementToPrint.querySelectorAll('.hide-in-pdf');
             elementsToHide.forEach(element => {
@@ -277,24 +227,60 @@ export default {
             });
             let titre = elementToPrint.querySelectorAll('.title');
             titre.forEach(element => {
-                element.style.backgroundColor = 'rgb(0, 122, 94)';
+                element.style.fontSize = '20px';
+                element.style.padding = '5px 0';
                 element.style.color = 'white';
+                element.style.backgroundColor = 'rgb(0, 122, 94)';
+                element.style.textAlign = 'center';
+
+            });
+            let attr = elementToPrint.querySelectorAll('.attr');
+            attr.forEach(element => {
+                element.style.fontSize = '17px';
                 element.style.padding = '5px';
+            });
+            let tabH = elementToPrint.querySelectorAll('.tabH');
+            tabH.forEach(element => {
+                element.style.backgroundColor = 'rgba(0, 0, 0, 0.3)';
+            });
+            let formation1 = elementToPrint.querySelectorAll('.formation1');
+            formation1.forEach(element => {
+                element.style.marginTop = '45px';
+            });
+            let affectation1 = elementToPrint.querySelectorAll('.affectation1');
+            affectation1.forEach(element => {
+                element.style.marginTop = '45px';
             });
             let tet = elementToPrint.querySelectorAll('.tete');
             tet.forEach(element => {
-                element.style.color = 'rgb(0, 122, 94)';
+                element.style.color = 'rgba(0, 0, 0, 1)';
                 element.style.textAlign = 'center';
             });
 
+            newDoc.body.appendChild(elementToPrint.cloneNode(true));
+
+            let footer = newDoc.createElement('div');
+  footer.setAttribute('style', ' left: 0; margin-top: 30%; border-top: 2px solid rgba(0, 0, 0, 0.6); right: 0; font-family: sans-serif; text-align: center; width: 100%; margin-bottom: 15px;');
+  footer.innerHTML = `
+    <p style="font-size: 18px; font-weight: bold;">OBSDRHMINSANTE</p>
+  `;
+  newDoc.body.appendChild(footer);
             // Maintenant, générez le PDF
-            html2pdf(elementToPrint, {
-                margin: 10,
-                filename: 'nouveau',
+            html2pdf(newDoc.body, {
+                margin: 15,
+                filename: 'Fiche du personnel',
                 image: {
                     type: 'jpeg',
                     quality: 2
                 },
+                html2canvas: {
+                    scale: 2
+                },
+                jsPDF: {
+                    unit: 'mm',
+                    format: 'a4',
+                    orientation: 'portrait'
+                }
             });
         },
         loadPersonnelDetails() {
@@ -338,7 +324,7 @@ export default {
         },
         loadFormation() {
             const matricule = this.$route.params.matricule;
-            axios.get(`http://localhost:3000/mise_stage/${matricule}`)
+            axios.get(`http://localhost:3000/approbation_stage/${matricule}`)
                 .then(response => {
                     this.miseStages = response.data;
                     console.log(this.miseStages);
@@ -411,17 +397,30 @@ export default {
     display: flex;
 }
 
+thead {
+    border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
 .container h1 {
     background-color: rgb(0, 122, 94);
     padding: 10px 0;
     color: white;
     text-align: center;
+
 }
 
 .personnel-details {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.call1,
+.call2 {
+    width: 40%;
     display: grid;
     grid-template-columns: repeat(1, 1fr);
-    gap: 20px;
+    gap: 10px;
 }
 
 .detail {
@@ -451,6 +450,26 @@ export default {
 
 .list_detail label {
     font-weight: bold;
+}
+
+.attr {
+    font-size: 20px;
+    font-weight: bold;
+    width: 25%;
+}
+
+table {
+    border-collapse: collapse;
+    margin-top: 30px;
+}
+
+table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+}
+
+table tr:last-child td {
+    border-bottom: none;
 }
 
 .affectation,

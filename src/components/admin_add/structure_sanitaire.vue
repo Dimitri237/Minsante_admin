@@ -19,7 +19,6 @@
         <div class="inp-field">
           <label for="nom_auteur">Nom de la structure :</label>
           <input type="text" id="libelle" v-model="libelle" required><br>
-
         </div>
         <div class="inp-field">
           <label for="">Type:</label><br>
@@ -31,9 +30,21 @@
         <div class="inp-field">
           <label for="">Localisation:</label><br>
           <select name="" id="" v-model="id_adress">
-            <option v-for="structure in structures" :value="structure.id" :key="structure.id">
-              {{ structure.libelle }}</option>
+            <option v-for="ville in villes" :value="ville.id" :key="ville.id">
+              {{ ville.libelle }}</option>
           </select>
+        </div>
+        <div class="inp-field">
+          <label for="">Region:</label><br>
+          <select name="" id="" v-model="region">
+            <option v-for="region in regions" :value="region.libelle" :key="region.id">
+              {{ region.libelle }}</option>
+          </select>
+        </div>
+        <div class="inp-field">
+          <label for="nom_auteur">District :</label>
+          <input type="text" id="district" v-model="district" required><br>
+
         </div>
         <button class="sub_butt" type="submit">Créer la structure</button>
       </form>
@@ -71,6 +82,7 @@ export default {
     this.getStructure();
     this.getTypefs();
     this.getAdress();
+    this.getRegion();
   },
   methods: {
     hideModal() {
@@ -91,11 +103,17 @@ export default {
         const response = await axios.post('http://localhost:3000/formation_sanitaire', {
           libelle: this.libelle,
           id_type: this.id_type,
-          id_adress: this.id_adress
+          id_adress: this.id_adress,
+          region: this.region,
+          district: this.district,
         });
         this.success = true;
         this.successMessage = response.data.message;
         this.libelle = '';
+        this.id_type = '';
+        this.id_adress = '';
+        this.region = '';
+        this.district = '';
       } catch (error) {
         this.error = true;
         this.errorMessage = error.response.data.message;
@@ -104,7 +122,7 @@ export default {
     async getAdress() {
       try {
         const response = await axios.get('http://localhost:3000/adress'); // Appeler l'API GET
-        this.structures = response.data;
+        this.villes = response.data;
       } catch (error) {
         console.error('Erreur lors de la récupération des adress :', error);
       }
@@ -115,6 +133,14 @@ export default {
         this.type_fs = response.data;
       } catch (error) {
         console.error('Erreur lors de la récupération des type_fs :', error);
+      }
+    },
+    async getRegion() {
+      try {
+        const response = await axios.get('http://localhost:3000/region'); // Appeler l'API GET
+        this.regions = response.data;
+      } catch (error) {
+        console.error('Erreur lors de la récupération des regions :', error);
       }
     },
     async getStructure() {

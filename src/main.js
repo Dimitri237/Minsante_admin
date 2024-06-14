@@ -14,6 +14,7 @@ import structures from './components/admin_add/adress_page.vue';
 import typeForm from './components/admin_add/type_fs.vue';
 import type_acte from './components/admin_add/type_acte.vue';
 import type_user from './components/admin_add/type_user.vue';
+import approbation_stage from './components/admin_add/approbation_page.vue';
 import serviceFonction from './components/admin_add/service_fonction.vue';
 import processusPage from './components/processusPage.vue';
 import affectationPage from './components/admin_add/affectation_page.vue';
@@ -36,6 +37,7 @@ const routes = [
   { path: '/', component: LoadingPage },
   { path: '/auth', component: AuthentificationPage },
   { path: '/side_bar', component: side_bar },
+  { path: '/approbation_stage', component: approbation_stage },
   { path: '/imprimerDetail/:matricule', component: imprimerDetail },
   { path: '/PersonnelDetails/:matricule', component: PersonnelDetails },
   { path: '/personnelPage', component: personnelPage },

@@ -3,7 +3,7 @@
 
         <button style="border: none; width: 100%; height: 150px; background-color: #007A5E; color: white;" type="button"
             class="btn custom-modal-btn" data-bs-toggle="modal" data-bs-target="#don" @click="showModal2">
-            Ajouter une affecctation <i style="color: white;" class="fa fa-plus"></i>
+            Ajouter une mise en stage <i style="color: white;" class="fa fa-plus"></i>
         </button>
     </div>
     <div v-if="modalVisible2" class="modals2">
@@ -15,7 +15,7 @@
             <div style="width: 100%; padding: 10px;">
                 <h2 style="margin: 0; color: #007A5E; padding: 0;">Ajouter une affecctation</h2>
             </div>
-            <form @submit.prevent="createAffectation">
+            <form @submit.prevent="createApprobation">
                 <div class="inp-field">
                     <label for="">Matricule :</label>
                     <input type="text" id="id_perso" v-model="id_perso" required><br>
@@ -39,29 +39,23 @@
                     </select>
                 </div>
                 <div class="inp-field">
-                    <label for="nom_concerne">Ancienne structure :</label>
-                    <select name="" id="id_fsactuel" v-model="id_fsactuel">
+                    <label for="">Du :</label>
+                    <input type="date" id="debut_stage" v-model="debut_stage" required><br>
+                </div>
+                <div class="inp-field">
+                    <label for="">Au :</label>
+                    <input type="date" id="fin_stage" v-model="fin_stage" required><br>
+                </div>
+                <div class="inp-field">
+                    <label for="nom_concerne">structure de formation :</label>
+                    <select name="" id="id_fsnouvelle" v-model="lieu_stage">
                         <option v-for="formation_sanitair in formation_sanitaire" :value="formation_sanitair.libelle"
                             :key="formation_sanitair.libelle">
                             {{ formation_sanitair.libelle }}
                         </option>
                     </select>
                 </div>
-
-                <div class="inp-field">
-                    <label for="nom_concerne">Nouvelle structure :</label>
-                    <select name="" id="id_fsnouvelle" v-model="id_fsnouvelle">
-                        <option v-for="formation_sanitair in formation_sanitaire" :value="formation_sanitair.libelle"
-                            :key="formation_sanitair.libelle">
-                            {{ formation_sanitair.libelle }}
-                        </option>
-                    </select>
-                </div>
-                <div class="inp-field">
-                    <label for="">Poste :</label>
-                    <input type="text" id="poste" v-model="poste" required><br>
-                </div>
-                <button class="sub_butt" type="submit">Créer l'affectation</button>
+                <button class="sub_butt" type="submit">Enregistrer</button>
             </form>
             <div v-if="success">
                 <p>{{ successMessage }}</p>
@@ -104,7 +98,7 @@ export default {
     mounted() {
         this.getActes();
         this.getStructure();
-        this.getAffectation();
+        // this.getAffectation();
     },
     watch: {
         selectedActeData(newValue) {
@@ -138,38 +132,38 @@ export default {
         showModal2() {
             this.modalVisible2 = true;
         },
-        async createAffectation() {
+        async createApprobation() {
             try {
-                const response = await axios.post('http://localhost:3000/lieu_service', {
+                const response = await axios.post('http://localhost:3000/approbation_stage', {
                     id_perso: this.id_perso,
-                    poste: this.poste,
                     id_acte: this.selectedActeNumber,
                     date_signatureacte: this.selectedActeSignatureDate,
                     categorie_acte: this.selectedActeCategorie,
-                    id_fsactuel: this.id_fsactuel,
-                    id_fsnouvelle: this.id_fsnouvelle,
+                    debut_stage: this.debut_stage,
+                    fin_stage: this.fin_stage,
+                    lieu_stage: this.lieu_stage,
                 });
                 this.success = true;
                 this.successMessage = response.data.message;
                 this.id_perso = '';
                 this.id_acte = '';
-                this.id_fsactuel = '';
-                this.id_fsnouvelle = '';
-                this.poste = '';
+                this.debut_stage = '';
+                this.fin_stage = '';
+                this.lieu_stage = '';
             } catch (error) {
                 this.error = true;
                 this.errorMessage = error.response.data.message;
             }
         },
-        async getAffectation() {
-            try {
-                const response = await axios.get('http://localhost:3000/lieu_service'); // Appeler l'API GET
-                this.lieu_service = response.data;
-                console.log(response.data);
-            } catch (error) {
-                console.error('Erreur lors de la récupération des lieu_service :', error);
-            }
-        },
+        // async getAffectation() {
+        //     try {
+        //         const response = await axios.get('http://localhost:3000/lieu_service'); // Appeler l'API GET
+        //         this.lieu_service = response.data;
+        //         console.log(response.data);
+        //     } catch (error) {
+        //         console.error('Erreur lors de la récupération des lieu_service :', error);
+        //     }
+        // },
         async getStructure() {
             try {
                 const response = await axios.get('http://localhost:3000/formation_sanitaire'); // Appeler l'API GET

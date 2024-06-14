@@ -46,9 +46,12 @@
             <p>{{ selectedActe.create_at }}</p>
             <div class="text">
                 <h1>Acte n° {{ selectedActe.numero }}</h1>
+                <h1>Signé par le {{ selectedActe.signataire }}</h1>
+                <h2>le {{ selectedActe.signature_date }}</h2>
+
                 <p>{{ selectedActe.type }}</p>
                 <h3>{{ selectedActe.titre }}</h3>
-                <p>{{ selectedActe.desscription }}</p>
+                <p>{{ selectedActe.description }}</p>
             </div>
             <div class="actions">
                 <button class="action">Modiffier</button>
@@ -76,6 +79,15 @@
 
                 </div>
                 <div class="inp-field">
+                    <label for="nom_concerne">categorie d'acte :</label>
+                    <select name="" id="" v-model="categorie">
+                        <option v-for="categorie_acte in categorie_actes" :value="categorie_acte.libelle" :key="categorie_acte.libelle">
+                            {{ categorie_acte.libelle }}
+                        </option>
+                    </select>
+
+                </div>
+                <div class="inp-field">
                     <label for="">DECISION N° :</label>
                     <input type="text" id="numero" v-model="numero" required><br>
                 </div>
@@ -86,6 +98,14 @@
                 <div class="inp-field">
                     <label for="descript">Description :</label>
                     <textarea id="descript" v-model="description" required></textarea><br>
+                </div>
+                <div class="inp-field">
+                    <label for="">Date de signature :</label>
+                    <input type="date" id="signature_date" v-model="signature_date" required><br>
+                </div>
+                <div class="inp-field">
+                    <label for="">Signataire :</label>
+                    <input type="text" id="signataire" v-model="signataire" required><br>
                 </div>
                 <div class="inp-field">
                     <label for="pdf">Fichier PDF :</label>
@@ -114,13 +134,15 @@ export default {
             region: '',
             actes: [],
             create_at: '',
-            type_actes: []
+            type_actes: [],
+            categorie_actes: []
 
         };
     },
     mounted() {
         this.getActes();
         this.getTypeActes();
+        this.getCategorieActes();
     },
     methods: {
         hideModal() {
@@ -187,7 +209,9 @@ export default {
             formData.append('titre', this.titre);
             formData.append('description', this.description);
             formData.append('numero', this.numero);
-            formData.append('region', this.region);
+            formData.append('signataire', this.signataire);
+            formData.append('signature_date', this.signature_date);
+            formData.append('categorie', this.categorie);
             formData.append('pdf', this.$refs.pdfInput.files[0]); // Utilisez la référence $refs pour obtenir le fichier sélectionné
 
             try {
@@ -198,13 +222,14 @@ export default {
                 });
                 console.log(response.data);
                 // Réinitialiser les valeurs des champs du formulaire après la création réussie
-                this.nom_concerne = '';
                 this.poste = '';
                 this.titre = '';
                 this.descript = '';
                 this.numero = '';
-                this.region = '';
                 this.type_acte = '';
+                this.categorie = '';
+                this.signature_date = '';
+                this.signataire = '';
             } catch (error) {
                 console.error(error);
             }
@@ -223,6 +248,15 @@ export default {
                 const response = await axios.get('http://localhost:3000/type_actes'); // Appeler l'API GET
                 this.type_actes = response.data;
                 console.log(this.type_actes);
+            } catch (error) {
+                console.error('Erreur lors de la récupération des type_actes :', error);
+            }
+        },
+        async getCategorieActes() {
+            try {
+                const response = await axios.get('http://localhost:3000/categorie_acte'); // Appeler l'API GET
+                this.categorie_actes = response.data;
+                console.log(this.categorie_actes);
             } catch (error) {
                 console.error('Erreur lors de la récupération des type_actes :', error);
             }

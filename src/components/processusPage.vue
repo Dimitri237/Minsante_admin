@@ -24,6 +24,9 @@
         <div class="proces_list">
             <typeForm/>
         </div>
+        <div class="proces_list">
+            <approbation_stage/>
+        </div>
         </div>
     </div>
 </template>
@@ -33,6 +36,7 @@ import affectationPage from './admin_add/affectation_page.vue';
 import serviceFonction from './admin_add/service_fonction.vue';
 import structureSanitaire from './admin_add/structure_sanitaire.vue';
 import type_acte from './admin_add/type_acte.vue';
+import approbation_stage from './admin_add/approbation_page.vue';
 import type_user from './admin_add/type_user.vue';
 import typeForm from './admin_add/type_fs.vue';
 
@@ -47,6 +51,7 @@ import typeForm from './admin_add/type_fs.vue';
             typeForm,
             type_user,
             serviceFonction,
+            approbation_stage
         },
     }
 </script>
