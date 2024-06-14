@@ -72,8 +72,12 @@
                     <input type="text" id="pays_naissance" v-model="pays_naissance" required><br>
                 </div>
                 <div class="inp-field">
-                    <label for="nom_auteur">Sexe :</label>
-                    <input type="text" id="sexe" v-model="sexe" required><br>
+                    <label for="nom_auteur" >Sexe :</label>
+                    <select name="sexe" id="sexe" v-model="sexe" class="deroulant sexe" required>
+                        <option value="f">F</option>
+                        <option value="m">M</option>
+                    </select>
+                    
                 </div>
                 <div class="inp-field">
                     <label for="nom_auteur">Profession :</label>
@@ -88,16 +92,28 @@
                     <input type="text" id="pays_formation" v-model="pays_formation" required><br>
                 </div>
                 <div class="inp-field">
-                    <label for="nom_auteur">Duréede la spécialisation :</label>
+                    <label for="nom_auteur">Durée de la spécialisation :</label>
                     <input type="text" id="durée_spécialisation" v-model="durée_spécialisation" required><br>
                 </div>
                 <div class="inp-field">
                     <label for="nom_auteur">Lieu de service :</label>
-                    <input type="text" id="lieu_service" v-model="lieu_service" required><br>
+                    <!-- <input type="text" id="lieu_service" v-model="lieu_service" required><br> -->
+
+                    <select name="lieu_service" id="lieu_service" v-model="lieu_service" class="deroulant lieu">
+                        <option  v-for=" structure in formation_sanitaire" :value="structure.libelle" :key="structure.id">{{ structure.libelle }}</option>
+                    </select>
+
+                    <!-- <input type="text" id="lieu_service" v-model="lieu_service" required><br> -->
                 </div>
                 <button class="sub_butt" type="submit">Enregistrer l'employe</button>
             </form>
 
+        </div>
+    </div>
+    <div v-if="ShowPopup1" class="popup modals">
+        <div class="popup-content">
+            <h2 style="color: #007A5E; width: 500px; height: 100px; margin: 15% auto;">Employe enregistré avec success <br><button class="btnOk" @click="gotoPersonnelPage()">Ok</button></h2>
+            
         </div>
     </div>
     <div v-if="modalVisible2" class="modals">
@@ -186,9 +202,11 @@ export default {
             modalVisible1: false,
             modalVisible2: false,
             modalVisible3: false,
+            ShowPopup1: false,
             showDetails: false,
             loggedIn: false,
             personnels: [],
+            formation_sanitaire: [],
             loading: false,
             lieuService: [],
             selectedPersonnel: {},
@@ -199,6 +217,7 @@ export default {
     },
     async mounted() {
         this.getPersonnel();
+        this.getStructure();
     },
     methods: {
         async fetchLieuService(id_perso) {
@@ -246,11 +265,23 @@ export default {
                     lieu_service: this.lieu_service
                 });
                 this.success = true;
+                this.hideModal();
+                this.showSuccessMessage();
                 this.successMessage = response.data.message;
             } catch (error) {
                 this.error = true;
                 this.errorMessage = error.response.data.message;
             }
+        },
+        showSuccessMessage(){
+
+            this.ShowPopup1 = true;
+        },
+        deleteSuccessMessage(){
+            this.ShowPopup1 = false;
+        },
+        gotoPersonnelPage(){
+            this.deleteSuccessMessage();
         },
         async getPersonnel() {
             try {
@@ -258,6 +289,15 @@ export default {
                 this.personnels = response.data;
             } catch (error) {
                 console.error('Erreur lors de la récupération des personnel :', error);
+            }
+        },
+        async getStructure() {
+            try {
+                const response = await axios.get('http://localhost:3000/formation_sanitaire'); // Appeler l'API GET
+                this.formation_sanitaire = response.data;
+                console.log(this.formation_sanitaire);
+            } catch (error) {
+                console.error('Erreur lors de la récupération des structures :', error);
             }
         },
         hideModal() {
@@ -295,6 +335,7 @@ export default {
         showModal1() {
             this.modalVisible1 = true;
         },
+        
         uploadFile() {
             const formData = new FormData();
             formData.append('excelFile', this.$refs.fileInput.files[0]);
@@ -375,6 +416,24 @@ table tr:last-child td {
 
 .detail_perso {
     width: 100%;
+}
+.popup-content{
+    border-radius: 10px;
+    background-color: white;
+    width: 500px;
+    margin: 15% auto;
+    text-align: center;
+}
+
+.btnOk{
+    color: white;
+    background-color: #007A5E;
+    width: 90px;
+    height: 30px;
+    border: none;
+    text-align: center;
+    align-items: center;
+    
 }
 
 .modals {
@@ -912,7 +971,6 @@ select {
     appearance: none;
     outline: 0;
     box-shadow: none;
-    border: 0 !important;
     background: #007A5E;
     width: 50% !;
     background-image: none;
@@ -923,6 +981,29 @@ select {
     font-size: 1em;
     font-family: 'Open Sans', sans-serif;
 }
+.deroulant{
+    background-color: transparent;
+    color:black;
+    font-size: large;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    border: 1px solid black;
+}
+.sexe{
+    align-items: left;
+    margin: auto;
+    padding-right: 47%;
+    width: 50%;
+    /* height: 20px; */
+
+}
+.lieu{
+    width: 70%;
+    margin: auto;
+    /* height: 35px; */
+    padding-right: 47%;
+}
+
 
 select::-ms-expand {
     display: none;
