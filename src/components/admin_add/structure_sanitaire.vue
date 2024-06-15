@@ -139,6 +139,7 @@ export default {
       try {
         const response = await axios.get('http://localhost:3000/region'); // Appeler l'API GET
         this.regions = response.data;
+        console.log( {toutou: this.regions});
       } catch (error) {
         console.error('Erreur lors de la récupération des regions :', error);
       }
