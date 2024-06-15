@@ -44,13 +44,13 @@
         </table>
     </div>
     <div v-if="modalVisible1" class="modals">
-        <div class="details animate__animated animate__fadeInDown">
+        <div class="details animate__animated animate__fadeInDown formEm">
             <div class="close" @click="hideModal">
                 <i class="fa fa-window-close"></i>
             </div>
             <h1 style="color: #007A5E; text-align: center">Ajouter un employe <span style="color: black;">{{
                 selectedPersonnel.matricule }}</span></h1>
-            <form @submit.prevent="createEmploye">
+            <form @submit.prevent="createEmploye" >
                 <div class="inp-field">
                     <label for="nom_auteur">matricule :</label>
                     <input type="text" id="matricule" v-model="matricule" required><br>
@@ -67,11 +67,10 @@
                     <label for="nom_auteur">Lieu de naissance :</label>
                     <input type="text" id="lieu_naissance" v-model="lieu_naissance" required><br>
                 </div>
-                <div class="inp-field">
+                <div class="inp-field sexe_pays" >
                     <label for="nom_auteur">Pays de naissance :</label>
-                    <input type="text" id="pays_naissance" v-model="pays_naissance" required><br>
-                </div>
-                <div class="inp-field">
+                    <input type="text" id="pays_naissance" v-model="pays_naissance" class="pays_naissance" required><br>
+                
                     <label for="nom_auteur" >Sexe :</label>
                     <select name="sexe" id="sexe" v-model="sexe" class="deroulant sexe" required>
                         <option value="f">F</option>
@@ -497,12 +496,14 @@ body {
     margin: 0;
     background-color: rgba(0, 0, 0, 0.05);
     font-family: Monda;
+    
 }
 
 .personnel_list {
     width: 95%;
     margin: auto;
     margin-top: 30px;
+    
 }
 
 .personnel_list .tete {
@@ -888,6 +889,9 @@ form {
     width: 100%;
     padding: 10px;
 }
+/* .formEm{
+    height: 50%!important;
+} */
 
 form .inp-field {
     width: 100%;
@@ -992,11 +996,29 @@ select {
 .sexe{
     align-items: left;
     margin: auto;
-    padding-right: 47%;
+    margin-left: -30%;
+    padding-right: 15%;
+    padding-left: 0%;
     width: 50%;
     /* height: 20px; */
 
 }
+.pays_naissance{
+    width: 150px!important;
+    margin-left: 9%;
+    /* margin-right: -10%; */
+    padding-right: 0;
+    padding-left: 0;
+}
+.sexe_pays {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+
+
+
 .lieu{
     width: 70%;
     margin: auto;
