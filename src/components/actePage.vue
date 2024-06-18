@@ -70,7 +70,7 @@
             </div>
             <form @submit.prevent="createActe">
                 <div class="inp-field">
-                    <label for="nom_concerne">Type d'acte :</label>
+                    <label for="nom_concerne">Categorie d'acte :</label>
                     <select name="" id="" v-model="type">
                         <option v-for="type_acte in type_actes" :value="type_acte.libelle" :key="type_acte.libelle">
                             {{ type_acte.libelle }}
@@ -79,7 +79,7 @@
 
                 </div>
                 <div class="inp-field">
-                    <label for="nom_concerne">categorie d'acte :</label>
+                    <label for="nom_concerne"> Type d'acte :</label>
                     <select name="" id="" v-model="categorie">
                         <option v-for="categorie_acte in categorie_actes" :value="categorie_acte.libelle" :key="categorie_acte.libelle">
                             {{ categorie_acte.libelle }}
@@ -115,6 +115,33 @@
             </form>
         </div>
     </div>
+    
+            <div v-if="success" class="modals2">
+                <div class="popup-content">
+                    <div class="close" @click="hideModal">
+                        <i class="fa fa-window-close"></i>
+                     </div>
+                <div>
+                    <p class="successMes">{{ successMessage }}</p>
+                    
+                </div>
+                
+            </div>
+        
+            <div v-if="error" class="modals2">
+                <div class="popup-content">
+                    <div class="close" @click="hideModal">
+                        <i class="fa fa-window-close"></i>
+                    </div>
+                    <div>
+                         <p class="errorMes">{{ errorMessage }}</p>
+                    </div>
+                </div>
+            </div>
+        
+    </div>
+
+    
 </template>
 
 <script>
@@ -127,6 +154,10 @@ export default {
             modalVisible2: false,
             loading: false,
             loading2: false,
+            success: false,
+            error: false,
+            successMessage: '',
+            errorMessage: '',
             titre: '',
             description: '',
             numero: '',
@@ -148,6 +179,8 @@ export default {
         hideModal() {
             this.modalVisible = false;
             this.modalVisible2 = false;
+            this.success = false;
+            this.error = false;
         },
 
         showModal(acte) {
@@ -220,6 +253,9 @@ export default {
                         'Content-Type': 'multipart/form-data'
                     }
                 });
+                this.hideModal();
+                this.success = true;
+                this.successMessage = response.data.message;
                 console.log(response.data);
                 // Réinitialiser les valeurs des champs du formulaire après la création réussie
                 this.poste = '';
@@ -232,6 +268,9 @@ export default {
                 this.signataire = '';
             } catch (error) {
                 console.error(error);
+                this.hideModal();
+                this.error = true;
+                this.errorMessage = error.response.data.message;
             }
         },
         async getActes() {
@@ -285,6 +324,31 @@ export default {
     height: 100vh;
     /* 
     margin: 0 13%; */
+}
+.popup-content {
+    border-radius: 10px;
+    background-color: white;
+    width: 500px;
+    margin: 15% auto;
+    padding-top: 0px;
+    padding-bottom: 12px;
+    text-align: center;
+}
+
+.successMes{
+    font-size: 25px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #007A5E;
+    font-weight: bold;
+}
+.errorMes{
+    font-size: 25px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: red;
+    font-weight: bold;
+}
+.popup-content i{
+    margin-right: 9px;
 }
 
 form {

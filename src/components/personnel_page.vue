@@ -154,7 +154,7 @@
                 </div>
                 <div class="list_detail">
                     <label>spécialisation:</label>
-                    <h3>{{ selectedPersonnel.spécialisation }}</h3>
+                    <h3>{{ selectedPersonnel.specialisation }}</h3>
                 </div>
                 <!-- <div class="lieu-service-section">
                     <h2 style="color: #007A5E;">Parcours</h2>
@@ -266,9 +266,9 @@ export default {
                     pays_naissance: this.pays_naissance,
                     sexe: this.sexe,
                     profession: this.profession,
-                    spécialisation: this.spécialisation,
+                    specialisation: this.specialisation,
                     pays_formation: this.pays_formation,
-                    durée_spécialisation: this.durée_spécialisation,
+                    duree_specialisation: this.duree_specialisation,
                     lieu_service: this.lieu_service
                 });
                 this.success = true;

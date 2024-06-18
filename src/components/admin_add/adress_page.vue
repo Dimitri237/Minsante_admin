@@ -3,7 +3,7 @@
 
     <button style="border: none; width: 100%; height: 150px; background-color: #007A5E; color: white;" type="button"
       class="btn custom-modal-btn" data-bs-toggle="modal" data-bs-target="#don" @click="showModal2">
-      Ajouter une adress <i style="color: white;" class="fa fa-plus"></i>
+      Ajouter une adresse <i style="color: white;" class="fa fa-plus"></i>
     </button>
   </div>
   <div v-if="modalVisible2" class="modals2">
@@ -13,7 +13,7 @@
         <i class="fa fa-window-close"></i>
       </div>
       <div style="width: 100%; padding: 10px;">
-        <h2 style="margin: 0; color: #007A5E; padding: 0;">Créer une nouvelle adress</h2>
+        <h2 style="margin: 0; color: #007A5E; padding: 0;">Créer une nouvelle adresse</h2>
       </div>
       <form @submit.prevent="createAdress">
         <div class="inp-field">
@@ -21,18 +21,36 @@
           <input type="text" id="libelle" v-model="libelle" required><br>
 
         </div>
-        <button class="sub_butt" type="submit">Créer l'adress</button>
+        <button class="sub_butt" type="submit">Créer l'adresse</button>
       </form>
-      <div v-if="success">
-        <p>{{ successMessage }}</p>
-      </div>
-      <div v-if="error">
-        <p>{{ errorMessage }}</p>
-      </div>
     </div>
   </div>
+  <div v-if="success" class="modals2">
+    <div class="popup-content">
+      <div class="close" @click="hideModal">
+        <i class="fa fa-window-close"></i>
+      </div>
+      <div>
+        <p class="successMes">{{ successMessage }}</p>
+      </div>
+    </div>
+
+    <div v-if="error" class="modals2">
+      <div class="popup-content">
+        <div class="close" @click="hideModal">
+          <i class="fa fa-window-close"></i>
+        </div>
+        <div>
+          <p class="errorMes">{{ errorMessage }}</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
 
 </template>
+
 
 <script>
 import axios from 'axios';
@@ -58,6 +76,8 @@ export default {
     hideModal() {
       this.modalVisible = false;
       this.modalVisible2 = false;
+      this.success = false;
+      this.error = false;
     },
 
     showModal(realisation) {
@@ -73,10 +93,12 @@ export default {
         const response = await axios.post('http://localhost:3000/adress', {
           libelle: this.libelle
         });
+        this.hideModal();
         this.success = true;
         this.successMessage = response.data.message;
         this.libelle = '';
       } catch (error) {
+        this.hideModal();
         this.error = true;
         this.errorMessage = error.response.data.message;
       }
@@ -88,7 +110,7 @@ export default {
         this.structures = response.data;
         console.log(response.data);
       } catch (error) {
-        console.error('Erreur lors de la récupération des adress :', error);
+        console.error('Erreur lors de la récupération des adresses :', error);
       }
     },
   }
@@ -110,10 +132,39 @@ export default {
 .modals2 {
   background-color: rgba(0, 0, 0, 0.5);
   position: absolute;
-  width: 100%;
+  width: 86.95%;
   top: 0%;
-  left: 0%;
   height: 100vh;
+  /* 
+    margin: 0 13%; */
+}
+
+.popup-content {
+  border-radius: 10px;
+  background-color: white;
+  width: 500px;
+  margin: 15% auto;
+  padding-top: 0px;
+  padding-bottom: 12px;
+  text-align: center;
+}
+
+.successMes {
+  font-size: 25px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #007A5E;
+  font-weight: bold;
+}
+
+.errorMes {
+  font-size: 25px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: red;
+  font-weight: bold;
+}
+
+.popup-content i {
+  margin-right: 9px;
 }
 
 form {
