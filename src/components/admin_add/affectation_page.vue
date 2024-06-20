@@ -3,7 +3,7 @@
 
         <button style="border: none; width: 100%; height: 150px; background-color: #007A5E; color: white;" type="button"
             class="btn custom-modal-btn" data-bs-toggle="modal" data-bs-target="#don" @click="showModal2">
-            Ajouter une affecctation <i style="color: white;" class="fa fa-plus"></i>
+            Ajouter une affectation <i style="color: white;" class="fa fa-plus"></i>
         </button>
     </div>
     <div v-if="modalVisible2" class="modals2">
@@ -13,7 +13,7 @@
                 <i class="fa fa-window-close"></i>
             </div>
             <div style="width: 100%; padding: 10px;">
-                <h2 style="margin: 0; color: #007A5E; padding: 0;">Ajouter une affecctation</h2>
+                <h2 style="margin: 0; color: #007A5E; padding: 0;">Ajouter une affectation</h2>
             </div>
             <form @submit.prevent="createAffectation">
                 <div class="inp-field">
@@ -285,14 +285,16 @@ form .inp-field label {
 }
 
 form .inp-field input,
-form .inp-field textarea {
+form .inp-field textarea,
+form .inp-field select {
   width: 94%;
   font-size: large;
   border: 1px solid rgba(0, 0, 0, 0.5);
   border-radius: 5px;
 }
 
-form .inp-field input {
+form .inp-field input,
+form .inp-field select {
   height: 25px;
 }
 
@@ -395,7 +397,7 @@ ul {
 }
 
 /*drop*/
-select {
+/* select {
   -webkit-appearance: none;
   -moz-appearance: none;
   -ms-appearance: none;
@@ -412,7 +414,7 @@ select {
   cursor: pointer;
   font-size: 1em;
   font-family: 'Open Sans', sans-serif;
-}
+} */
 
 select::-ms-expand {
   display: none;

@@ -141,6 +141,35 @@ export default {
   height: 100vh;
 }
 
+.popup-content {
+    border-radius: 10px;
+    background-color: white;
+    width: 500px;
+    margin: 15% auto;
+    padding-top: 0px;
+    padding-bottom: 12px;
+    text-align: center;
+}
+
+.successMes {
+    font-size: 25px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #007A5E;
+    font-weight: bold;
+}
+
+.errorMes {
+    font-size: 25px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: red;
+    font-weight: bold;
+}
+
+.popup-content i {
+    margin-right: 9px;
+}
+
+
 form {
   width: 100%;
   padding: 10px;
