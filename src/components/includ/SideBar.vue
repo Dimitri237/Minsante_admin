@@ -16,37 +16,9 @@
                     </router-link>
                 </li>
                 <li>
-                    <router-link to="/acceuilPage2" class="butt" style="display: flex;text-decoration: none;">
-                        <i class="fas fa-bullhorn"></i>
-                        <h3> Offres</h3>
-
-                    </router-link>
-                </li>
-                <li>
                     <router-link to="/acceuilPage3" class="butt" style="display: flex;text-decoration: none;">
                         <i class="fas fa-file-alt"></i>
                         <h3>Actes</h3>
-
-                    </router-link>
-                </li>
-                <li>
-                    <router-link to="/acceuilPage4" class="butt" style="display: flex;text-decoration: none;">
-                        <i class="fas fa-star"></i>
-                        <h3>Realisation</h3>
-
-                    </router-link>
-                </li>
-                <li>
-                    <router-link to="/acceuilPage5" class="butt" style="display: flex;text-decoration: none;">
-                        <i class="fas fa-envelope"></i>
-                        <h3>Requetes</h3>
-
-                    </router-link>
-                </li>
-                <li>
-                    <router-link to="/acceuilPage6" class="butt" style="display: flex;text-decoration: none;">
-                        <i class="fas fa-chart-pie"></i>
-                        <h3>Processus</h3>
 
                     </router-link>
                 </li>
@@ -58,9 +30,53 @@
                     </router-link>
                 </li>
                 <li>
+                    <router-link to="/acceuilPage2" class="butt" style="display: flex;text-decoration: none;">
+                        <i class="fas fa-bullhorn"></i>
+                        <h3> Offres</h3>
+
+                    </router-link>
+                </li>
+                <li>
+                    <router-link to="/acceuilPage5" class="butt" style="display: flex;text-decoration: none;">
+                        <i class="fas fa-envelope"></i>
+                        <h3>Requetes</h3>
+
+                    </router-link>
+                </li>
+                <li>
+                    <router-link to="/acceuilPage4" class="butt" style="display: flex;text-decoration: none;">
+                        <i class="fas fa-star"></i>
+                        <h3>Realisation</h3>
+
+                    </router-link>
+                </li>
+                
+                <!-- <li>
+                    <router-link to="/acceuilPage6" class="butt" style="display: flex;text-decoration: none;">
+                        <i class="fas fa-chart-pie"></i>
+                        <h3>Processus</h3>
+
+                    </router-link>
+                </li> -->
+                
+                <li>
                     <router-link to="/acceuilPage1" class="butt" style="display: flex;text-decoration: none;">
                         <i class="fa fa-user"></i>
                         <h3>Profil</h3>
+
+                    </router-link>
+                </li>
+                <li>
+                    <router-link to="/acceuilPage1" class="butt" style="display: flex;text-decoration: none;">
+                        <i class="fa fa-cog"></i>
+                        <h3>Parametres</h3>
+
+                    </router-link>
+                </li>
+                <li>
+                    <router-link to="/acceuilPage1" class="butt" style="display: flex;text-decoration: none;">
+                        <i class="fa fa-info"></i>
+                        <h3>Confidentialité</h3>
 
                     </router-link>
                 </li>
@@ -75,9 +91,10 @@
 
 .side_barre {
     width: 15%;
-    background-color: #007A5E;
+    background-color: #0B9777;
     box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
     height: 100vh;
+    position: fixed;
 
 }
 
@@ -93,6 +110,7 @@
     text-align: left;
     margin: 0 10px;
     font-family: Monda;
+   
 }
 
 

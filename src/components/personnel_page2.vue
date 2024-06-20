@@ -21,7 +21,7 @@
                     <label for="" class="attr">Nom & Prenom</label>
                     <label for="" class="attr">Matricule</label>
                     <label for="" class="attr">Profession</label>
-                    <label for="" class="attr">Lieu de service</label>
+                    <label for="" class="attr">Services</label>
                     <label for="" class="attr">Actions</label>
                 </div>
                 <router-link class="objets" v-for="employee in employees" :key="employee.matricule"
@@ -45,12 +45,12 @@
         <div class="tete">
             <a class="titre1" href="">Liste du personnel</a>
             <div style="width: 20%; display: flex; justify-content: space-between;">
-                <button style="border: none; color: #007A5E; font-size: 18px;" type="button"
+                <button style="border: none; color: #0B9777; font-size: 18px;" type="button"
                     class="btn custom-modal-btn" data-bs-toggle="modal" data-bs-target="#don" @click="showModal1">
                     Ajouter
                     <i style="font-size: 18px;" class="fa fa-plus" aria-hidden="true"></i>
                 </button>
-                <button style="border: none; color: #007A5E; font-size: 18px;" type="button"
+                <button style="border: none; color: #0B9777; font-size: 18px;" type="button"
                     class="btn custom-modal-btn" data-bs-toggle="modal" data-bs-target="#don" @click="showModal3">
                     Importer
                     <i style="font-size: 18px;" class="fas fa-file-import" aria-hidden="true"></i>
@@ -64,7 +64,7 @@
                     <th><label for="" class="attr">Nom & Prenom</label></th>
                     <th><label for="" class="attr">Matricule</label></th>
                     <th><label for="" class="attr">Profession</label></th>
-                    <th><label for="" class="attr">Lieu de service</label></th>
+                    <th><label for="" class="attr">Services</label></th>
                     <th><label for="" class="attr">Actions</label></th>
                 </tr>
             </thead>
@@ -90,7 +90,7 @@
             <div class="close" @click="hideModal">
                 <i class="fa fa-window-close"></i>
             </div>
-            <h1 style="color: #007A5E; text-align: center">Ajouter un employe <span style="color: black;">{{
+            <h1 style="color: #0B9777; text-align: center">Ajouter un employe <span style="color: black;">{{
                 selectedPersonnel.matricule }}</span></h1>
             <form @submit.prevent="createEmploye">
                 <div class="inp-field">
@@ -151,6 +151,7 @@
                     </select>
 
                 </div>
+                <button class="res_butt" type="reset">Annuler</button>
                 <button class="sub_butt" type="submit">Enregistrer l'employe</button>
             </form>
 
@@ -391,6 +392,13 @@ table {
 table td {
     border: 1px solid #ccc;
     padding: 8px;
+    text-align: left;
+}
+
+table th{
+    background-color: #0B9777;
+    padding: 10px;
+    color: white;
 }
 
 table tr:last-child td {
@@ -510,7 +518,7 @@ body {
 }
 
 .personnel_list .tete {
-    border: 1px solid #007A5E;
+    border: 1px solid #0B9777;
     width: 96%;
     display: flex;
     justify-content: space-between;
@@ -525,7 +533,7 @@ body {
 .personnel_list .titre1 {
     font-size: 25px;
     font-weight: bold;
-    color: #007A5E;
+    color: #0B9777;
     text-decoration: none;
 }
 
@@ -921,12 +929,27 @@ form .inp-field input {
     font-size: large;
     font-weight: bold;
     color: white;
-    width: 50%;
-    background-color: #007A5E;
+    width: 48%;
+    background-color: #0B9777;
     border: none;
     border-radius: 5px;
     padding: 10px 0;
+    right: 0%;
+    
 }
+
+.res_butt {
+    font-size: large;
+    font-weight: bold;
+    color: white;
+    width: 38%;
+    background-color: #ff0000;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 0;
+    margin-right: 129px;
+}
+
 
 .profil {
     display: flex;

@@ -19,16 +19,6 @@
                         </button>
                     </li>
                     <li>
-                        <button class="butt" :class="{ selected: currentPage === 'offres' }"
-                            style="display: flex;text-decoration: none;" @click="showPage('offres')">
-                            <i :style="{ color: currentPage === 'offres' ? '#202020c9' : 'white' }"
-                            class="fas fa-bullhorn"></i>
-                            <h3 :style="{ color: currentPage === 'offres' ? '#202020c9' : 'white' }">
-                                Offres</h3>
-
-                        </button>
-                    </li>
-                    <li>
                         <button class="butt" :class="{ selected: currentPage === 'Actes' }"
                             style="display: flex;text-decoration: none;" @click="showPage('Actes')">
                             <i :style="{ color: currentPage === 'Actes' ? '#202020c9' : 'white' }"
@@ -37,13 +27,24 @@
 
                         </button>
                     </li>
+
                     <li>
-                        <button class="butt" :class="{ selected: currentPage === 'realisation' }"
-                            style="display: flex;text-decoration: none;" @click="showPage('realisation')">
-                            <i :style="{ color: currentPage === 'realisation' ? '#202020c9' : 'white' }"
-                                class="fas fa-star"></i>
-                            <h3 :style="{ color: currentPage === 'realisation' ? '#202020c9' : 'white' }">Affectation
-                            </h3>
+                        <button class="butt" :class="{ selected: currentPage === 'personnel' }"
+                            style="display: flex;text-decoration: none;" @click="showPage('personnel')">
+                            <i :style="{ color: currentPage === 'personnel' ? '#202020c9' : 'white' }"
+                                class="fa fa-users"></i>
+                            <h3 :style="{ color: currentPage === 'personnel' ? '#202020c9' : 'white' }">Personnels</h3>
+
+                        </button>
+                    </li>
+
+                    <li>
+                        <button class="butt" :class="{ selected: currentPage === 'offres' }"
+                            style="display: flex;text-decoration: none;" @click="showPage('offres')">
+                            <i :style="{ color: currentPage === 'offres' ? '#202020c9' : 'white' }"
+                            class="fas fa-bullhorn"></i>
+                            <h3 :style="{ color: currentPage === 'offres' ? '#202020c9' : 'white' }">
+                                Offres</h3>
 
                         </button>
                     </li>
@@ -56,7 +57,19 @@
 
                         </button>
                     </li>
+                   
                     <li>
+                        <button class="butt" :class="{ selected: currentPage === 'realisation' }"
+                            style="display: flex;text-decoration: none;" @click="showPage('realisation')">
+                            <i :style="{ color: currentPage === 'realisation' ? '#202020c9' : 'white' }"
+                                class="fas fa-star"></i>
+                            <h3 :style="{ color: currentPage === 'realisation' ? '#202020c9' : 'white' }">Affectation
+                            </h3>
+
+                        </button>
+                    </li>
+                    
+                    <!-- <li>
                         <button class="butt" :class="{ selected: currentPage === 'process' }"
                             style="display: flex;text-decoration: none;" @click="showPage('process')">
                             <i :style="{ color: currentPage === 'process' ? '#202020c9' : 'white' }"
@@ -64,16 +77,8 @@
                             <h3 :style="{ color: currentPage === 'process' ? '#202020c9' : 'white' }">Processus</h3>
 
                         </button>
-                    </li>
-                    <li>
-                        <button class="butt" :class="{ selected: currentPage === 'personnel' }"
-                            style="display: flex;text-decoration: none;" @click="showPage('personnel')">
-                            <i :style="{ color: currentPage === 'personnel' ? '#202020c9' : 'white' }"
-                                class="fa fa-users"></i>
-                            <h3 :style="{ color: currentPage === 'personnel' ? '#202020c9' : 'white' }">Personnels</h3>
-
-                        </button>
-                    </li>
+                    </li> -->
+                    
                     <li>
                         <button class="butt" :class="{ selected: currentPage === 'profil' }"
                             style="display: flex;text-decoration: none;" @click="showPage('profil')">
@@ -83,6 +88,25 @@
 
                         </button>
                     </li>
+                    <li>
+                        <button class="butt" :class="{ selected: currentPage === 'profil' }"
+                            style="display: flex;text-decoration: none;" @click="showPage('profil')">
+                            <i :style="{ color: currentPage === 'profil' ? '#202020c9' : 'white' }"
+                                class="fa fa-cog"></i>
+                            <h3 :style="{ color: currentPage === 'profil' ? '#202020c9' : 'white' }">Parametres</h3>
+
+                        </button>
+                    </li>
+                    <li>
+                        <button class="butt" :class="{ selected: currentPage === 'profil' }"
+                            style="display: flex;text-decoration: none;" @click="showPage('profil')">
+                            <i :style="{ color: currentPage === 'profil' ? '#202020c9' : 'white' }"
+                                class="fa fa-info"></i>
+                            <h3 :style="{ color: currentPage === 'profil' ? '#202020c9' : 'white' }">Confidentialité</h3>
+
+                        </button>
+                    </li>
+
                 </ul>
             </nav>
         </div>
@@ -468,7 +492,7 @@ body {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
     text-align: center;
-    background-color: rgb(0, 122, 94);
+    background-color: #0B9777;
     color: white;
 }
 .contex h1{
@@ -507,7 +531,7 @@ label {
 
 .side_barre {
     width: 15%;
-    background-color: #007A5E;
+    background-color: #0B9777;
     box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
     height: 100vh;
 
@@ -708,7 +732,7 @@ li:hover {
 
 .selected {
     border: 1px solid white;
-    background-color: #0B9777;
+    background-color: #007A5E;
     border-radius: 10px;
     font-weight: bold !important;
     transition: all 0.3s;
@@ -751,7 +775,7 @@ li:hover {
     width: 30%;
     height: 30px;
     border: none;
-    background-color: #007A5E;
+    background-color: #0B9777;
     color: white;
     font-size: 18px;
 }

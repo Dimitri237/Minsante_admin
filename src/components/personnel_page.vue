@@ -3,12 +3,12 @@
         <div class="tete">
             <a class="titre1" href="">Liste du personnel</a>
             <div style="width: 20%; display: flex; justify-content: space-between;">
-                <button style="border: none; color: #007A5E; font-size: 18px;" type="button"
+                <button style="border: none; color: #0B9777; font-size: 18px;" type="button"
                     class="btn custom-modal-btn" data-bs-toggle="modal" data-bs-target="#don" @click="showModal1">
                     Ajouter
                     <i style="font-size: 18px;" class="fa fa-plus" aria-hidden="true"></i>
                 </button>
-                <button style="border: none; color: #007A5E; font-size: 18px;" type="button"
+                <button style="border: none; color: #0B9777; font-size: 18px;" type="button"
                     class="btn custom-modal-btn" data-bs-toggle="modal" data-bs-target="#don" @click="showModal3">
                     Importer
                     <i style="font-size: 18px;" class="fas fa-file-import" aria-hidden="true"></i>
@@ -22,7 +22,7 @@
                     <th><label for="" class="attr">Nom & Prenom</label></th>
                     <th><label for="" class="attr">Matricule</label></th>
                     <th><label for="" class="attr">Profession</label></th>
-                    <th><label for="" class="attr">Lieu de service</label></th>
+                    <th><label for="" class="attr">Services</label></th>
                     <th><label for="" class="attr">Actions</label></th>
                 </tr>
             </thead>
@@ -48,7 +48,7 @@
             <div class="close" @click="hideModal">
                 <i class="fa fa-window-close"></i>
             </div>
-            <h1 style="color: #007A5E; text-align: center">Ajouter un employe <span style="color: black;">{{
+            <h1 style="color: #0B9777; text-align: center">Ajouter un employe <span style="color: black;">{{
                 selectedPersonnel.matricule }}</span></h1>
             <form @submit.prevent="createEmploye">
                 <div class="inp-field">
@@ -110,7 +110,8 @@
 
                     <!-- <input type="text" id="lieu_service" v-model="lieu_service" required><br> -->
                 </div>
-                <button class="sub_butt" type="submit">Enregistrer l'employe</button>
+                <button class="res_butt" type="reset">Annuler</button>
+                <button class="sub_butt" type="submit">Enregistrer l'employé</button>
             </form>
 
         </div>
@@ -379,12 +380,17 @@ table {
 table td {
     border: 1px solid #ccc;
     padding: 8px;
+    text-align: left;
 }
 
 table tr:last-child td {
     border-bottom: none;
 }
-
+table th{
+    background-color: #0B9777;
+    padding: 10px;
+    color: white;
+}
 .detailler {
     width: 100%;
     background-color: transparent;
@@ -398,7 +404,7 @@ table tr:last-child td {
     color: white;
     font-weight: bold;
     margin: auto;
-    background-color: #007A5E;
+    background-color: #0B9777;
     border-radius: 5px;
     width: 100%;
     padding: 10px 20px;
@@ -535,7 +541,7 @@ body {
 .personnel_list .titre1 {
     font-size: 25px;
     font-weight: bold;
-    color: #007A5E;
+    color: #0B9777;
     text-decoration: none;
 }
 
@@ -924,11 +930,25 @@ form .inp-field input {
     font-size: large;
     font-weight: bold;
     color: white;
-    width: 50%;
-    background-color: #007A5E;
+    width: 48%;
+    background-color: #0B9777;
     border: none;
     border-radius: 5px;
     padding: 10px 0;
+    right: 0%;
+    
+}
+
+.res_butt {
+    font-size: large;
+    font-weight: bold;
+    color: white;
+    width: 38%;
+    background-color: #ff0000;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 0;
+    margin-right: 129px;
 }
 
 .profil {

@@ -19,49 +19,11 @@
                         </button>
                     </li>
                     <li>
-                        <button class="butt" :class="{ selected: currentPage === 'offres' }"
-                            style="display: flex;text-decoration: none;" @click="showPage('offres')">
-                            <i :style="{ color: currentPage === 'offres' ? '#202020c9' : 'white' }"
-                            class="fas fa-bullhorn"></i>
-                            <h3 :style="{ color: currentPage === 'offres' ? '#202020c9' : 'white' }">
-                                Offres</h3>
-
-                        </button>
-                    </li>
-                    <li>
                         <button class="butt" :class="{ selected: currentPage === 'Actes' }"
                             style="display: flex;text-decoration: none;" @click="showPage('Actes')">
                             <i :style="{ color: currentPage === 'Actes' ? '#202020c9' : 'white' }"
                                 class="fas fa-file-alt"></i>
                             <h3 :style="{ color: currentPage === 'Actes' ? '#202020c9' : 'white' }">Actes</h3>
-
-                        </button>
-                    </li>
-                    <li>
-                        <button class="butt" :class="{ selected: currentPage === 'realisation' }"
-                            style="display: flex;text-decoration: none;" @click="showPage('realisation')">
-                            <i :style="{ color: currentPage === 'realisation' ? '#202020c9' : 'white' }"
-                                class="fas fa-star"></i>
-                            <h3 :style="{ color: currentPage === 'realisation' ? '#202020c9' : 'white' }">Realisation
-                            </h3>
-
-                        </button>
-                    </li>
-                    <li>
-                        <button class="butt" :class="{ selected: currentPage === 'requetes' }"
-                            style="display: flex;text-decoration: none;" @click="showPage('requetes')">
-                            <i :style="{ color: currentPage === 'requetes' ? '#202020c9' : 'white' }"
-                                class="fas fa-envelope"></i>
-                            <h3 :style="{ color: currentPage === 'requetes' ? '#202020c9' : 'white' }">Requetes</h3>
-
-                        </button>
-                    </li>
-                    <li>
-                        <button class="butt" :class="{ selected: currentPage === 'process' }"
-                            style="display: flex;text-decoration: none;" @click="showPage('process')">
-                            <i :style="{ color: currentPage === 'process' ? '#202020c9' : 'white' }"
-                                class="fas fa-chart-pie"></i>
-                            <h3 :style="{ color: currentPage === 'process' ? '#202020c9' : 'white' }">Processus</h3>
 
                         </button>
                     </li>
@@ -75,6 +37,48 @@
                         </button>
                     </li>
                     <li>
+                        <button class="butt" :class="{ selected: currentPage === 'offres' }"
+                            style="display: flex;text-decoration: none;" @click="showPage('offres')">
+                            <i :style="{ color: currentPage === 'offres' ? '#202020c9' : 'white' }"
+                            class="fas fa-bullhorn"></i>
+                            <h3 :style="{ color: currentPage === 'offres' ? '#202020c9' : 'white' }">
+                                Offres</h3>
+
+                        </button>
+                    </li>
+
+                    <li>
+                        <button class="butt" :class="{ selected: currentPage === 'requetes' }"
+                            style="display: flex;text-decoration: none;" @click="showPage('requetes')">
+                            <i :style="{ color: currentPage === 'requetes' ? '#202020c9' : 'white' }"
+                                class="fas fa-envelope"></i>
+                            <h3 :style="{ color: currentPage === 'requetes' ? '#202020c9' : 'white' }">Requetes</h3>
+
+                        </button>
+                    </li>
+                   
+                    <li>
+                        <button class="butt" :class="{ selected: currentPage === 'realisation' }"
+                            style="display: flex;text-decoration: none;" @click="showPage('realisation')">
+                            <i :style="{ color: currentPage === 'realisation' ? '#202020c9' : 'white' }"
+                                class="fas fa-star"></i>
+                            <h3 :style="{ color: currentPage === 'realisation' ? '#202020c9' : 'white' }">Affectation
+                            </h3>
+
+                        </button>
+                    </li>
+                   
+                    <!-- <li>
+                        <button class="butt" :class="{ selected: currentPage === 'process' }"
+                            style="display: flex;text-decoration: none;" @click="showPage('process')">
+                            <i :style="{ color: currentPage === 'process' ? '#202020c9' : 'white' }"
+                                class="fas fa-chart-pie"></i>
+                            <h3 :style="{ color: currentPage === 'process' ? '#202020c9' : 'white' }">Processus</h3>
+
+                        </button>
+                    </li> -->
+                    
+                    <li>
                         <button class="butt" :class="{ selected: currentPage === 'profil' }"
                             style="display: flex;text-decoration: none;" @click="showPage('profil')">
                             <i :style="{ color: currentPage === 'profil' ? '#202020c9' : 'white' }"
@@ -83,6 +87,25 @@
 
                         </button>
                     </li>
+                    <li>
+                        <button class="butt" :class="{ selected: currentPage === 'profil' }"
+                            style="display: flex;text-decoration: none;" @click="showPage('profil')">
+                            <i :style="{ color: currentPage === 'profil' ? '#202020c9' : 'white' }"
+                                class="fa fa-cog"></i>
+                            <h3 :style="{ color: currentPage === 'profil' ? '#202020c9' : 'white' }">Parametres</h3>
+
+                        </button>
+                    </li>
+                    <li>
+                        <button class="butt" :class="{ selected: currentPage === 'profil' }"
+                            style="display: flex;text-decoration: none;" @click="showPage('profil')">
+                            <i :style="{ color: currentPage === 'profil' ? '#202020c9' : 'white' }"
+                                class="fa fa-info"></i>
+                            <h3 :style="{ color: currentPage === 'profil' ? '#202020c9' : 'white' }">Confidentialité</h3>
+
+                        </button>
+                    </li>
+
                 </ul>
             </nav>
         </div>
@@ -542,7 +565,7 @@ body {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
     text-align: center;
-    background-color: rgb(0, 122, 94);
+    background-color: #0B9777;
     color: white;
 }
 .contex h1{
@@ -782,7 +805,7 @@ li:hover {
 
 .selected {
     border: 1px solid white;
-    background-color: #0B9777;
+    background-color: #007A5E;
     border-radius: 10px;
     font-weight: bold !important;
     transition: all 0.3s;
