@@ -42,7 +42,7 @@
                             style="display: flex;text-decoration: none;" @click="showPage('realisation')">
                             <i :style="{ color: currentPage === 'realisation' ? '#202020c9' : 'white' }"
                                 class="fas fa-star"></i>
-                            <h3 :style="{ color: currentPage === 'realisation' ? '#202020c9' : 'white' }">Realisation
+                            <h3 :style="{ color: currentPage === 'realisation' ? '#202020c9' : 'white' }">Affectation
                             </h3>
 
                         </button>
