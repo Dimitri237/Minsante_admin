@@ -1,11 +1,15 @@
 <template>
-  <div class="all" style="height: 150px; background-color: red; width: 100%;">
+  <div class="all " style="display: flex; justify-content: space-between; width: 100%; padding: 5px!important;">
 
-    <button style="border: none; width: 100%; height: 150px; background-color: #007A5E; color: white;" type="button"
+<div style="width: 100%;">
+  <div class="bout" style="justify-content: end; display: flex;">
+    <button style="border: none; padding: 10px 10px; background-color: #007A5E; color: white;" type="button"
       class="btn custom-modal-btn" data-bs-toggle="modal" data-bs-target="#don" @click="showModal2">
       Ajouter une adresse <i style="color: white;" class="fa fa-plus"></i>
     </button>
   </div>
+</div>
+</div>
   <div v-if="modalVisible2" class="modals2">
     <div class="details2 animate__animated animate__fadeInDown">
 
@@ -135,36 +139,6 @@ export default {
   width: 86.95%;
   top: 0%;
   height: 100vh;
-  /* 
-    margin: 0 13%; */
-}
-
-.popup-content {
-  border-radius: 10px;
-  background-color: white;
-  width: 500px;
-  margin: 15% auto;
-  padding-top: 0px;
-  padding-bottom: 12px;
-  text-align: center;
-}
-
-.successMes {
-  font-size: 25px;
-  font-family: Arial, Helvetica, sans-serif;
-  color: #007A5E;
-  font-weight: bold;
-}
-
-.errorMes {
-  font-size: 25px;
-  font-family: Arial, Helvetica, sans-serif;
-  color: red;
-  font-weight: bold;
-}
-
-.popup-content i {
-  margin-right: 9px;
 }
 
 form {
@@ -333,11 +307,11 @@ select::-ms-expand {
 .in_select,
 .bout {
   width: 20%;
-  margin-top: -50px;
+  margin-top: 55px;
   height: 50px;
 }
 
-button {
+.bout button {
   width: 100%;
   font-size: 20px;
 }
