@@ -56,17 +56,18 @@ import typeForm from './admin_add/type_fs.vue';
     }
 </script>
 <style scoped>
-    /* .processus{
+    .processus{
         display: block;
     }
     .process{
         display: flex;
         justify-content: space-between;
-        margin-top: 30px
+        margin-top: 30px;
+        
     }
     .process .proces_list{
         width: 20%;
         height: 30vh;
-        background-color: yellow
-    } */
+        background-color: yellow;
+    }
 </style>
