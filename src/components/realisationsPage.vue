@@ -1,100 +1,52 @@
 <template>
-  <div class="all " style="display: flex; justify-content: space-between; width: 100%; padding: 5px!important;">
-
-      <div style="width: 100%;">
-          <div class="select">
-              <select name="format" id="format">
-                  <option selected disabled>Choisir une region</option>
-                  <option value="pdf">center</option>
-                  <option value="txt">Littoral</option>
-                  <option value="epub">Nord</option>
-                  <option value="fb2">Sud-ouest</option>
-                  <option value="mobi">Ouest</option>
-              </select>
-          </div>
-          <div v-if="loading2" class="loading-indicator">
-              <!-- Indicateur de chargement, vous pouvez personnaliser cet élément -->
-          </div>
-          <div class="in_select" v-else v-for="realisation in realisations" :key="realisation.id">
-              <ul>
-                  <li>
-                      <div>
-                          <h2 style="margin: 0%;">{{ realisation.nom_auteur }}</h2>
-                          <p style="margin: 0%;">{{ realisation.titre }}</p>
-                      </div>
-                      <button style="border: none; background-color: #007A5E;" type="button"
-                          class="btn custom-modal-btn" data-bs-toggle="modal" data-bs-target="#don"
-                          @click="showModal(realisation)">
-                          <a href=""></a>
-                          <i style="padding: 30px; background-color: #007A5E;" class="fa fa-plus"></i>
-                      </button>
-                  </li>
-              </ul>
-          </div>
-          <div class="bout" style="justify-content: end; display: flex;">
-              <button style="border: none; padding: 10px 10px; background-color: #007A5E; color: white;" type="button"
-                  class="btn custom-modal-btn" data-bs-toggle="modal" data-bs-target="#don" @click="showModal2">
-                  Ajouter une realisation <i style="color: white;" class="fa fa-plus"></i>
-              </button>
-          </div>
+  <div style="width: 100%;">
+      <div class="select">
+      </div>
+      <div class="in_select">
+          <ul>
+              <li v-for="affectate in affectation" :key="affectate.id">
+                  <div>
+                    <h2>personnel N: {{ affectate.id_perso }}</h2>
+                  </div>
+                  <i @click="showModal2(affectate)" style="padding: 30px; background-color: #007A5E;" class="fa fa-plus"></i>
+              </li>
+          </ul>
       </div>
   </div>
-  <div v-if="modalVisible" class="modals">
+  <div v-if="modalVisible2" class="modals">
       <div class="details animate__animated animate__fadeInDown">
           <div class="close" @click="hideModal">
               <i class="fa fa-window-close"></i>
           </div>
-          <p>{{ selectedRealisation.create_at }}</p>
-          <div class="text">
-              <h1>{{ selectedRealisation.nom_auteur }}</h1>
-              <h3>{{ selectedRealisation.poste }}</h3>
-              <h3>{{ selectedRealisation.titre }}</h3>
-              <p>{{ selectedRealisation.region }}</p>
-              <p>{{ selectedRealisation.descript }}</p>
+          <h1 style="color: #007A5E; text-align: center">Fiche d'affectation <span
+                  style="color: black;">{{ selectedAffectate.id_perso }}</span></h1>
+          <div class="text detail_perso">
+              <h2 style="color: #007A5E;">Informations</h2>
+              <div class="list_detail">
+                  <label>portant de la {{ selectedAffectate.categorie_acte }} N:</label>
+                  <h3>{{ selectedAffectate.id_acte }}</h3>
+              </div>
+              <div class="list_detail">
+                  <label>Signe le:</label>
+                  <h3>{{formatDate( selectedAffectate.date_signatureacte )}}</h3>
+              </div>
+              <div class="list_detail">
+                  <label>le personnel portant le matricule N:</label>
+                  <h3>{{ selectedAffectate.id_perso }}</h3>
+              </div>
+              <div class="list_detail">
+                  <label>Est affecté de:</label>
+                  <h3>{{ selectedAffectate.id_fsactuel }}</h3>
+              </div>
+              <div class="list_detail">
+                  <label>pour:</label>
+                  <h3>{{ selectedAffectate.id_fsnouvelle }}</h3>
+              </div>
+              <div class="list_detail">
+                  <label>Occupant le poste de:</label>
+                  <h3>{{ selectedAffectate.poste }}</h3>
+              </div>
           </div>
-          <div class="actions">
-              <button class="action">Modiffier</button>
-              <button class="action" @click="deleteRealisation">Supprimer</button>
-          </div>
-      </div>
-  </div>
-  <div v-if="modalVisible2" class="modals2">
-      <div class="details2 animate__animated animate__fadeInDown">
-
-          <div class="close" @click="hideModal">
-              <i class="fa fa-window-close"></i>
-          </div>
-          <div style="width: 100%; padding: 10px;">
-              <h2 style="margin: 0; color: #007A5E; padding: 0;">Ajouter une realisation</h2>
-          </div>
-          <form @submit.prevent="createRealisation">
-              <div class="inp-field">
-                  <label for="nom_auteur">Nom du concerné :</label>
-                  <input type="text" id="nom_auteur" v-model="nom_auteur" required><br>
-
-              </div>
-              <div class="inp-field">
-                  <label for="poste">Poste :</label>
-                  <input type="text" id="poste" v-model="poste" required><br>
-              </div>
-              <div class="inp-field">
-                  <label for="">Titre :</label>
-                  <input type="text" id="titre" v-model="titre" required><br>
-              </div>
-              <div class="inp-field">
-                  <label for="descript">Description :</label>
-                  <textarea id="descript" v-model="descript" required></textarea><br>
-              </div>
-              <div class="inp-field">
-                  <label for="region">Région :</label>
-                  <input type="text" id="region" v-model="region" required><br>
-              </div>
-              <div class="inp-field">
-                  <label for="pdf">Fichier PDF :</label>
-                  <input type="file" id="pdf" ref="pdfInput" required>
-              </div>
-              <button class="sub_butt" type="submit">Créer la realisation</button>
-          </form>
       </div>
   </div>
 </template>
@@ -103,284 +55,122 @@
 import axios from 'axios';
 export default {
 
+  components: {
+  },
   data() {
       return {
-          modalVisible: false,
+          affectation: [],
           modalVisible2: false,
-          loading: false,
-          loading2: false,
-          nom_auteur: '',
-          poste: '',
-          titre: '',
-          descript: '',
-          region: '',
-          realisations: [],
-          create_at: ''
       };
   },
   mounted() {
-      this.getRealisations();
+      this.getAffectation()
   },
   methods: {
+    formatDate(dateString) {
+            const date = new Date(dateString);
+            return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+        },
       hideModal() {
           this.modalVisible = false;
           this.modalVisible2 = false;
+          this.modalVisible3 = false;
       },
-
-      showModal(realisation) {
-          this.selectedRealisation = realisation;
+      showModal() {
           this.modalVisible = true;
       },
-      showModal2() {
+      showModal3() {
+          this.modalVisible3 = true;
+      },
+      async showModal2(affectate) {
+          this.selectedAffectate = affectate;
+          try {
+              await axios.get(`http://localhost:3000/lieu_service/` + affectate.id_perso).then(
+                  res => {
+                      this.selectedTransfert = res.data;
+                      console.log({bonjour: this.selectedAffectate});
+
+                  }
+              )
+          } catch (error) {
+              console.error(error);
+              throw error;
+          }
           this.modalVisible2 = true;
       },
-
-      async deleteRealisation() {
-          try {
-              const response = await axios.delete(`http://localhost:3000/realisations/${this.selectedRealisation.id}`);
-              console.log(response.data);
-              // Supprimer la realisation de la liste realisations
-              this.realisations = this.realisations.filter(realisation => realisation.id !== this.selectedRealisation.id);
-              // Masquer le modal
-              this.modalVisible = false;
-          } catch (error) {
-              console.error(error);
-          }
+      toggleDetails() {
+          this.showDetails = !this.showDetails;
       },
-      async createRealisation() {
-          const formData = new FormData();
-          formData.append('nom_auteur', this.nom_auteur);
-          formData.append('poste', this.poste);
-          formData.append('titre', this.titre);
-          formData.append('descript', this.descript);
-          formData.append('region', this.region);
-          formData.append('pdf', this.$refs.pdfInput.files[0]); // Utilisez la référence $refs pour obtenir le fichier sélectionné
-
+      async getAffectation() {
           try {
-              const response = await axios.post('http://localhost:3000/realisations', formData, {
-                  headers: {
-                      'Content-Type': 'multipart/form-data'
-                  }
-              });
-              console.log(response.data);
-              // Réinitialiser les valeurs des champs du formulaire après la création réussie
-              this.nom_auteur = '';
-              this.poste = '';
-              this.titre = '';
-              this.descript = '';
-              this.region = '';
+              const response = await axios.get('http://localhost:3000/lieu_service'); // Appeler l'API GET
+              this.affectation = response.data;
+              console.log({ bonjour: this.affectation });
           } catch (error) {
-              console.error(error);
-          }
-      },
-      async getRealisations() {
-          try {
-              const response = await axios.get('http://localhost:3000/realisations'); // Appeler l'API GET
-              this.realisations = response.data;
-          } catch (error) {
-              console.error('Erreur lors de la récupération des realisations :', error);
+              console.error('Erreur lors de la récupération des affectations :', error);
           }
       },
   }
 };
 </script>
 <style scoped>
-@import url(https://fonts.googleapis.com/css2?family=Monda:wght@100;200;300;400;500;600;700&display=swap);
+  
+.in_select {
+  width: 55%;
+  margin: auto;
+  margin-top: 50px;
+}
+.close i {
+  color: rgba(255, 0, 0, 0.945);
+  font-size: 25px;
+}
+.close {
+  text-align: end;
+}
+.details {
+  background-color: white;
+  width: 40%;
+  margin: auto;
+  margin-top: 15px;
+  padding: 25px 25px;
+  border-radius: 5px;
+}
+.in_select ul {
+  width: 100%;
+}
+.detail_perso h3 {
+  width: 67% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.list_detail label {
+  width: 45% !important;
+  text-align: right;
+  padding-right: 10px;
+}
+
+.list_detail {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5%;
+}
+
+.detail_perso {
+  width: 100%;
+}
 
 .modals {
   background-color: rgba(0, 0, 0, 0.5);
   position: absolute;
   width: 100%;
   top: 0%;
+  left: 0%;
   height: 100vh;
   /* 
   margin: 0 13%; */
 }
-
-.modals2 {
-  background-color: rgba(0, 0, 0, 0.5);
-  position: absolute;
-  width: 86.95%;
-  top: 0%;
-  height: 100vh;
-  /* 
-  margin: 0 13%; */
-}
-
-form {
-  width: 100%;
-  padding: 10px;
-}
-
-form .inp-field {
-  width: 100%;
-  margin-bottom: 20px;
-}
-
-form .inp-field label {
-  width: 100% !important;
-  font-size: large;
-  font-weight: 600;
-  margin-bottom: 7px;
-}
-
-form .inp-field input,
-form .inp-field textarea {
-  width: 94%;
-  font-size: large;
-  border: 1px solid rgba(0, 0, 0, 0.5);
-  border-radius: 5px;
-}
-
-form .inp-field input {
-  height: 25px;
-}
-
-.sub_butt {
-  font-size: large;
-  font-weight: bold;
-  color: white;
-  width: 50%;
-  background-color: #007A5E;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 0;
-}
-
-.close {
-  text-align: end;
-}
-
-.close i {
-  color: rgba(255, 0, 0, 0.945);
-  font-size: 25px;
-  margin-top: 8px;
-}
-
-.details {
-  background-color: white;
-  width: 40%;
-  margin: 10% 23%;
-  padding: 25px 25px;
-  border-radius: 5px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-
-}
-
-.details2 {
-  background-color: white;
-  width: 30%;
-  margin: 7% 33%;
-  padding: 25px 25px;
-  border-radius: 5px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-}
-
-.actions {
-  width: 50%;
-  margin: auto;
-  justify-content: space-between;
-  display: flex;
-}
-
-.actions .action {
-  width: 47%;
-  font-size: large;
-  font-weight: 700;
-  padding: 10px 0;
-  border: none;
-  color: white;
-  border-radius: 5px;
-}
-
-.action:nth-child(1) {
-  background-color: #007A5E;
-}
-
-.action:nth-child(2) {
-  background-color: rgba(255, 0, 0, 0.815);
-}
-
-/*nav barre*/
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-.loading-indicator {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100px;
-  margin-top: 150px;
-}
-
-.loading-indicator::after {
-  content: "";
-  display: inline-block;
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  border: 3px solid #202020;
-  border-top-color: #007A5E;
-  border-bottom-color: #007A5E;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  to {
-      transform: rotate(360deg);
-  }
-}
-
-/*drop*/
-select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  -ms-appearance: none;
-  appearance: none;
-  outline: 0;
-  box-shadow: none;
-  border: 0 !important;
-  background: #007A5E;
-  width: 50% !;
-  background-image: none;
-  flex: 1;
-  padding: 0 .5em;
-  color: #fff;
-  cursor: pointer;
-  font-size: 1em;
-  font-family: 'Open Sans', sans-serif;
-}
-
-select::-ms-expand {
-  display: none;
-}
-
-.select {
-  position: relative;
-  display: flex;
-  width: 55%;
-  margin: auto;
-  height: 3em;
-  line-height: 3;
-  background: #5c6664;
-  overflow: hidden;
-  border-radius: .25em;
-}
-
-.in_select,
-.bout {
-  width: 55%;
-  margin: auto;
-  margin-top: 50px;
-}
-
-.in_select ul {
-  width: 100%;
-}
-
 .in_select ul li {
   width: 98%;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
@@ -397,19 +187,4 @@ select::-ms-expand {
   color: white;
 }
 
-.select::after {
-  content: '\25BC';
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 0 1em;
-  background: #2b2e2e;
-  cursor: pointer;
-  pointer-events: none;
-  transition: .25s all ease;
-}
-
-.select:hover::after {
-  color: #23b499;
-}
 </style>

@@ -10,6 +10,7 @@ import modifierUser from './components/modifierUser.vue';
 import actePage from './components/actePage.vue';
 import PasswordReset from './components/ForgotPassword.vue';
 import realisationsPage from './components/realisationsPage.vue';
+import requetePage from './components/RequetesPage.vue';
 import structures from './components/admin_add/adress_page.vue';
 import typeForm from './components/admin_add/type_fs.vue';
 import type_acte from './components/admin_add/type_acte.vue';
@@ -20,6 +21,7 @@ import processusPage from './components/processusPage.vue';
 import affectationPage from './components/admin_add/affectation_page.vue';
 import structureSanitaire from './components/admin_add/structure_sanitaire.vue';
 import PersonnelDetails from './components/detail_personnel.vue';
+import ProfilePage from './components/profil_page.vue';
 import personnelPage from './components/personnel_page.vue';
 import personnelPage2 from './components/personnel_page2.vue';
 import side_bar from './components/includ/SideBar.vue';
@@ -36,6 +38,8 @@ const routes = [
   { path: '/CreateAccount', component: CreateAccount },
   { path: '/', component: LoadingPage },
   { path: '/auth', component: AuthentificationPage },
+  { path: '/requetePage', component: requetePage },
+  { path: '/ProfilePage', component: ProfilePage },
   { path: '/side_bar', component: side_bar },
   { path: '/approbation_stage', component: approbation_stage },
   { path: '/imprimerDetail/:matricule', component: imprimerDetail },

@@ -140,89 +140,11 @@
             </div>
 
             <div class="page" v-if="currentPage === 'profil'">
-                <div>
-                    <div class="profil">
-                        <div class="name">
-                            <h1 style="color: #202020;"><span>{{ currentUser ? currentUser.name : '' }}</span>
-                            </h1>
-                            <p style="font-size: 15px; margin-top: -10px;">{{ currentUser ? currentUser.contact : '' }}
-                            </p>
-                        </div>
-                    </div>
-                    <div class="pList">
-                        <ul class="list">
-                            <li>
-                                <img style="width: 30px; margin: auto 0px;" src="" alt="">
-                                <router-link style="text-decoration: none;"
-                                    :to="{ name: 'modifierUser', params: { userId: getUserIdFromLocalStorage() } }"><span>Parametres</span></router-link>
-                            </li>
-                            <li>
-                                <img style="width: 30px;  margin: auto 0px;" src="" alt="">
-                                <span @click="logout">Deconnexion</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+                <ProfilePage />
             </div>
 
             <div class="page" v-if="currentPage === 'requetes'">
-                <div style="width: 100%;">
-                    <div class="select">
-                        <select name="format" id="format">
-                            <option selected disabled>Choisir une region</option>
-                            <option value="pdf">center</option>
-                            <option value="txt">Littoral</option>
-                            <option value="epub">Nord</option>
-                            <option value="fb2">Sud-ouest</option>
-                            <option value="mobi">Ouest</option>
-                        </select>
-                    </div>
-                    <div class="in_select">
-                        <ul>
-                            <li>
-                                <div>
-                                    <h2>ATAMENANG MEFOUET Kanithia</h2>
-                                </div>
-                                <button style="border: none; background-color: #007A5E;" type="button"
-                                    class="btn custom-modal-btn" data-bs-toggle="modal" data-bs-target="#don"
-                                    @click="showModal">
-                                    <a href=""></a>
-                                    <i style="padding: 30px; background-color: #007A5E;" class="fa fa-plus"></i>
-                                </button>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div v-if="modalVisible" class="modals">
-                <div class="details animate__animated animate__fadeInDown">
-                    <div class="close" @click="hideModal">
-                        <i class="fa fa-window-close"></i>
-                    </div>
-                    <div class="text">
-                        <h1>TSAFFO KUETE Dimitri</h1>
-                        <h3>Medecin pediatre</h3>
-                        <h3>Hopital de district de bertoua</h3>
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consectetur, facilis aliquid.
-                            Voluptas
-                            dolore
-                            possimus tenetur in cum a eos. Magni fugiat quae molestias commodi dolor quidem minus quam
-                            facere
-                            soluta.
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aliquid deleniti sapiente autem
-                            maxime,
-                            iste
-                            enim, labore ipsa perspiciatis iure, dignissimos explicabo distinctio sit exercitationem in
-                            dolorum
-                            quod
-                            consectetur debitis itaque!</p>
-                    </div>
-                    <div class="actions">
-                        <button class="action">Modiffier</button>
-                        <button class="action">Supprimer</button>
-                    </div>
-                </div>
+                <requetePage />
             </div>
         </div>
     </div>
@@ -235,6 +157,8 @@ import processusPage from './processusPage.vue';
 import offrePage from './offrePage.vue';
 import personnelPage from './personnel_page.vue';
 import personnelPage2 from './personnel_page2.vue';
+import ProfilePage from './profil_page.vue';
+import requetePage from './RequetesPage.vue';
 import axios from 'axios';
 
 
@@ -243,6 +167,8 @@ export default {
     components: {
         realisationsPage,
         actePage,
+        requetePage,
+        ProfilePage,
         offrePage,
         personnelPage,
         personnelPage2,
