@@ -68,6 +68,6 @@ import typeForm from './admin_add/type_fs.vue';
     .process .proces_list{
         width: 20%;
         height: 30vh;
-        background-color: yellow;
+    
     }
 </style>

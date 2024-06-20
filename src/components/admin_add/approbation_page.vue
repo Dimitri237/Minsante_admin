@@ -1,10 +1,12 @@
 <template>
-    <div class="all" style="height: 150px; background-color: red; width: 100%;">
+    <div class="all " style="height: 150px; background-color: red; width: 100%;">
 
-        <button style="border: none; width: 100%; height: 150px; background-color: #007A5E; color: white;" type="button"
-            class="btn custom-modal-btn" data-bs-toggle="modal" data-bs-target="#don" @click="showModal2">
-            Ajouter une mise en stage <i style="color: white;" class="fa fa-plus"></i>
-        </button>
+        <div class="btn" style="border: none; width: 100%; height: 150px; background-color: #007A5E; color: white;">
+            <button style="border: none; padding: 10px 10px; background-color: #007A5E; color: white;" type="button"
+                class="btn custom-modal-btn" data-bs-toggle="modal" data-bs-target="#don" @click="showModal2">
+                Ajouter une mise en stage <i style="color: white;" class="fa fa-plus"></i>
+            </button>
+        </div>
     </div>
     <div v-if="modalVisible2" class="modals2">
         <div class="details2 animate__animated animate__fadeInDown">
@@ -58,29 +60,29 @@
                 <button class="sub_butt" type="submit">Enregistrer</button>
             </form>
         </div>
-  </div>
-  <div v-if="success" class="modals2">
-    <div class="popup-content">
-      <div class="close" @click="hideModal">
-        <i class="fa fa-window-close"></i>
-      </div>
-      <div>
-        <p class="successMes">{{ successMessage }}</p>
-      </div>
     </div>
+    <div v-if="success" class="modals2">
+        <div class="popup-content">
+            <div class="close" @click="hideModal">
+                <i class="fa fa-window-close"></i>
+            </div>
+            <div>
+                <p class="successMes">{{ successMessage }}</p>
+            </div>
+        </div>
 
-    <div v-if="error" class="modals2">
-      <div class="popup-content">
-        <div class="close" @click="hideModal">
-          <i class="fa fa-window-close"></i>
+        <div v-if="error" class="modals2">
+            <div class="popup-content">
+                <div class="close" @click="hideModal">
+                    <i class="fa fa-window-close"></i>
+                </div>
+                <div>
+                    <p class="errorMes">{{ errorMessage }}</p>
+                </div>
+            </div>
         </div>
-        <div>
-          <p class="errorMes">{{ errorMessage }}</p>
-        </div>
-      </div>
+
     </div>
-
-  </div>
 
 
 </template>
@@ -232,31 +234,31 @@ export default {
 }
 
 .popup-content {
-  border-radius: 10px;
-  background-color: white;
-  width: 500px;
-  margin: 15% auto;
-  padding-top: 0px;
-  padding-bottom: 12px;
-  text-align: center;
+    border-radius: 10px;
+    background-color: white;
+    width: 500px;
+    margin: 15% auto;
+    padding-top: 0px;
+    padding-bottom: 12px;
+    text-align: center;
 }
 
 .successMes {
-  font-size: 25px;
-  font-family: Arial, Helvetica, sans-serif;
-  color: #007A5E;
-  font-weight: bold;
+    font-size: 25px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #007A5E;
+    font-weight: bold;
 }
 
 .errorMes {
-  font-size: 25px;
-  font-family: Arial, Helvetica, sans-serif;
-  color: red;
-  font-weight: bold;
+    font-size: 25px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: red;
+    font-weight: bold;
 }
 
 .popup-content i {
-  margin-right: 9px;
+    margin-right: 9px;
 }
 
 form {
@@ -432,9 +434,10 @@ select::-ms-expand {
     height: 50px;
 }
 
-button {
+.btn{
     width: 100%;
     font-size: 20px;
+    margin: 15% auto;
 }
 
 .in_select ul {

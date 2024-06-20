@@ -1,10 +1,12 @@
 <template>
     <div class="all" style="height: 150px; background-color: red; width: 100%;">
 
-        <button style="border: none; width: 100%; height: 150px; background-color: #007A5E; color: white; " type="button"
+        <div class="btn" style="border: none; width: 100%; height: 150px; background-color: #007A5E; color: white;">
+        <button style="border: none; padding: 10px 10px; background-color: #007A5E; color: white;" type="button"
             class="btn custom-modal-btn" data-bs-toggle="modal" data-bs-target="#don" @click="showModal2">
             Ajouter une affectation <i style="color: white;" class="fa fa-plus"></i>
         </button>
+    </div>
     </div>
     <div v-if="modalVisible2" class="modals2">
         <div class="details2 animate__animated animate__fadeInDown">
@@ -229,12 +231,13 @@ export default {
 }
 
 .modals2 {
-  background-color: rgba(0, 0, 0, 0.5);
-  position: absolute;
-  width: 86.95%;
-  top: 0%;
-  height: 100vh;
-  /* 
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    width: 100%;
+    top: 0%;
+    left: 0%;
+    height: 100vh;
+    /* 
     margin: 0 13%; */
 }
 
@@ -444,10 +447,13 @@ select::-ms-expand {
   font-size: 20px;
 }
 
-button {
+.btn {
   width: 100%;
   font-size: 20px;
+  margin: 15% auto;
+  
 }
+
 
 .in_select ul {
   width: 100%;
