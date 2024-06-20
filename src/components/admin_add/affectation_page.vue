@@ -63,14 +63,34 @@
                 </div>
                 <button class="sub_butt" type="submit">Créer l'affectation</button>
             </form>
-            <div v-if="success">
-                <p>{{ successMessage }}</p>
-            </div>
-            <div v-if="error">
-                <p>{{ errorMessage }}</p>
-            </div>
         </div>
     </div>
+    <div v-if="success" class="modals2">
+        <div class="popup-content">
+            <div class="close" @click="hideModal">
+                <i class="fa fa-window-close"></i>
+            </div>
+            <div>
+                <p class="successMes">{{ successMessage }}</p>
+
+            </div>
+
+        </div>
+
+        <div v-if="error" class="modals2">
+            <div class="popup-content">
+                <div class="close" @click="hideModal">
+                    <i class="fa fa-window-close"></i>
+                </div>
+                <div>
+                    <p class="errorMes">{{ errorMessage }}</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
 </template>
 
 <script>
@@ -126,6 +146,8 @@ export default {
         hideModal() {
             this.modalVisible = false;
             this.modalVisible2 = false;
+            this.success = false;
+            this.error = false;
         },
         formatDate(dateString) {
             const date = new Date(dateString);
@@ -149,6 +171,7 @@ export default {
                     id_fsactuel: this.id_fsactuel,
                     id_fsnouvelle: this.id_fsnouvelle,
                 });
+                this.hideModal();
                 this.success = true;
                 this.successMessage = response.data.message;
                 this.id_perso = '';
@@ -157,6 +180,7 @@ export default {
                 this.id_fsnouvelle = '';
                 this.poste = '';
             } catch (error) {
+                this.hideModal();
                 this.error = true;
                 this.errorMessage = error.response.data.message;
             }
@@ -213,6 +237,35 @@ export default {
   /* 
     margin: 0 13%; */
 }
+
+.popup-content {
+    border-radius: 10px;
+    background-color: white;
+    width: 500px;
+    margin: 15% auto;
+    padding-top: 0px;
+    padding-bottom: 12px;
+    text-align: center;
+}
+
+.successMes {
+    font-size: 25px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #007A5E;
+    font-weight: bold;
+}
+
+.errorMes {
+    font-size: 25px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: red;
+    font-weight: bold;
+}
+
+.popup-content i {
+    margin-right: 9px;
+}
+
 
 form {
   width: 100%;

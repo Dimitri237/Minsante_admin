@@ -52,16 +52,16 @@
                     </div>
                 </div>
                 <div class="affectation1">
-                    <h1 class="title">Mouvements</h1>
+                    <h1 class="title">Etats de service</h1>
                     <table style="width: 100%; text-align: center;">
                         <thead class="tabH">
                             <tr>
                                 <th></th>
-                                <th><label for="" class="attr">Acte N</label></th>
-                                <th><label for="" class="attr">Signé le</label></th>
-                                <th><label for="" class="attr">Categorie</label></th>
-                                <th><label for="" class="attr">Lieu de service</label></th>
-                                <th><label for="" class="attr">Poste</label></th>
+                                <th><label for="" class="attr">Numéro Acte</label></th>
+                                <th><label for="" class="attr">Date Signature</label></th>
+                                <th><label for="" class="attr">Type Acte</label></th>
+                                <th><label for="" class="attr">Structure</label></th>
+                                <th><label for="" class="attr">Fonction</label></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -82,12 +82,10 @@
                         <thead class="tabH">
                             <tr>
                                 <th></th>
-                                <th><label for="" class="attr">Acte N</label></th>
-                                <th><label for="" class="attr">Signé le</label></th>
+                                <th><label for="" class="attr">Numéro Acte</label></th>
+                                <th><label for="" class="attr">Date Signature</label></th>
                                 <th><label for="" class="attr">Structure</label></th>
-                                <th><label for="" class="attr">Debut</label></th>
-                                <th><label for="" class="attr">Fin</label></th>
-
+                                <th><label for="" class="attr">Fonction</label></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -96,8 +94,10 @@
                                 <td>{{ miseStage.id_acte }}</td>
                                 <td>{{ formatDate(miseStage.date_signatureacte) }}</td>
                                 <td>{{ miseStage.lieu_stage }}</td>
-                                <td>{{ formatDate(miseStage.debut_stage) }}</td>
-                                <td>{{ formatDate(miseStage.fin_stage) }}</td>
+                                <td>{{ miseStage.poste }}</td>
+                                
+
+
                             </tr>
                         </tbody>
                     </table>
@@ -117,13 +117,23 @@
             <form @submit.prevent="createAffectation">
                 <div class="inp-field">
                     <label for="">Matricule :</label>
-                    <input type="text" id="id_perso" v-model="id_perso" disabled required><br>
+                    <input type="text" id="id_perso" v-model="id_perso" required><br>
                 </div>
                 <div class="inp-field">
                     <label for="nom_concerne">Choisir l'acte :</label>
-                    <select name="" id="id_acte" v-model="id_acte">
+                    <select name="" id="id_acte" v-model="selectedActeNumber" @change="updateSelectedActe">
                         <option v-for="acte in actes" :value="acte.numero" :key="acte.numero">
                             {{ acte.titre }}
+                        </option>
+                    </select>
+                    <select style="display: none;" name="" id="id_acte" v-model="selectedActeSignatureDate">
+                        <option v-for="acte in actes" :value="acte.signature_date" :key="acte.numero">
+                            {{ acte.numero }}
+                        </option>
+                    </select>
+                    <select style="display: none;" name="" id="id_acte" v-model="selectedActeCategorie">
+                        <option v-for="acte in actes" :value="acte.categorie" :key="acte.numero">
+                            {{ formatDate(acte.signature_date) }}
                         </option>
                     </select>
                 </div>
@@ -145,7 +155,10 @@
                             {{ formation_sanitair.libelle }}
                         </option>
                     </select>
-
+                </div>
+                <div class="inp-field">
+                    <label for="">Poste :</label>
+                    <input type="text" id="poste" v-model="poste" required><br>
                 </div>
                 <button class="sub_butt" type="submit">Créer l'affectation</button>
             </form>
@@ -166,7 +179,7 @@ export default {
     data() {
         return {
             personnel: null,
-            lieuService: null,
+            lieuService: [],
             miseStages: null,
             modalVisible: false,
             modalVisible2: false,
@@ -229,8 +242,8 @@ export default {
             titre.forEach(element => {
                 element.style.fontSize = '20px';
                 element.style.padding = '5px 0';
-                element.style.color = 'white';
-                element.style.backgroundColor = 'rgb(0, 122, 94)';
+                element.style.color = 'black';
+                // element.style.backgroundColor = '';
                 element.style.textAlign = 'center';
 
             });
@@ -293,21 +306,36 @@ export default {
                     console.error('Erreur lors du chargement des informations du personnel :', error);
                 });
         },
+        updateSelectedActe() {
+            const selectedActe = this.actes.find(acte => acte.numero === this.selectedActeNumber);
+            this.selectedActeSignatureDate = selectedActe.signature_date;
+            this.selectedActeCategorie = selectedActe.categorie;
+        },
+        envoyerDonnees(donnees) {
+            // Ici, vous devez ajouter la logique pour envoyer les données
+            console.log('Envoi des données :', donnees);
+        },
         async createAffectation() {
             try {
                 const response = await axios.post('http://localhost:3000/lieu_service', {
                     id_perso: this.id_perso,
-                    id_acte: this.id_acte,
+                    poste: this.poste,
+                    id_acte: this.selectedActeNumber,
+                    date_signatureacte: this.selectedActeSignatureDate,
+                    categorie_acte: this.selectedActeCategorie,
                     id_fsactuel: this.id_fsactuel,
                     id_fsnouvelle: this.id_fsnouvelle,
                 });
+                this.modalVisible2 = false;
                 this.success = true;
                 this.successMessage = response.data.message;
                 this.id_perso = '';
                 this.id_acte = '';
                 this.id_fsactuel = '';
                 this.id_fsnouvelle = '';
+                this.poste = '';
             } catch (error) {
+                this.modalVisible2 = false;
                 this.error = true;
                 this.errorMessage = error.response.data.message;
             }
@@ -317,6 +345,7 @@ export default {
             axios.get(`http://localhost:3000/lieu_service/${matricule}`)
                 .then(response => {
                     this.lieuService = response.data;
+                    console.log({bonjour:this.lieuService});
                 })
                 .catch(error => {
                     console.error('Erreur lors du chargement des informations du lieu de service :', error);
@@ -513,6 +542,16 @@ table tr:last-child td {
     /* 
     margin: 0 13%; */
 }
+.popup-content{
+    border-radius: 10px;
+    background-color: white;
+    width: 500px;
+    margin: 15% auto;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: center;
+
+}
 
 .details2 {
     background-color: white;
@@ -575,4 +614,5 @@ form .inp-field select {
     border-radius: 5px;
     padding: 10px 0;
 }
+
 </style>

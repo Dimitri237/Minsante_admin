@@ -44,7 +44,7 @@
         </table>
     </div>
     <div v-if="modalVisible1" class="modals">
-        <div class="details animate__animated animate__fadeInDown">
+        <div class="details animate__animated animate__fadeInDown formEm">
             <div class="close" @click="hideModal">
                 <i class="fa fa-window-close"></i>
             </div>
@@ -68,16 +68,20 @@
                     <input type="text" id="lieu_naissance" v-model="lieu_naissance" required><br>
                 </div>
                 <div class="inp-field">
-                    <label for="nom_auteur">Pays de naissance :</label>
-                    <input type="text" id="pays_naissance" v-model="pays_naissance" required><br>
-                </div>
-                <div class="inp-field">
-                    <label for="nom_auteur" >Sexe :</label>
-                    <select name="sexe" id="sexe" v-model="sexe" class="deroulant sexe" required>
-                        <option value="f">F</option>
-                        <option value="m">M</option>
-                    </select>
-                    
+                    <div style="width: 48%;">
+                        <label for="nom_auteur">Pays de naissance :</label>
+                        <input type="text" id="pays_naissance" v-model="pays_naissance" class="pays_naissance"
+                            required>
+                    </div>
+
+                    <div style="width: 48%; display: flex;">
+                        <label for="nom_auteur">Sexe :</label>
+                        <select  style=" width: 90%; border-radius: 5px; height: 28px;" name="sexe" v-model="sexe" required>
+                            <option value="f">F</option>
+                            <option value="m">M</option>
+                        </select>
+                    </div>
+
                 </div>
                 <div class="inp-field">
                     <label for="nom_auteur">Profession :</label>
@@ -99,8 +103,9 @@
                     <label for="nom_auteur">Lieu de service :</label>
                     <!-- <input type="text" id="lieu_service" v-model="lieu_service" required><br> -->
 
-                    <select name="lieu_service" id="lieu_service" v-model="lieu_service" class="deroulant lieu">
-                        <option  v-for=" structure in formation_sanitaire" :value="structure.libelle" :key="structure.id">{{ structure.libelle }}</option>
+                    <select  style=" width: 94%; border-radius: 5px; height: 28px;" name="lieu_service" id="lieu_service" v-model="lieu_service" class="">
+                        <option  v-for=" structure in formation_sanitaire" :value="structure.libelle"
+                            :key="structure.id">{{ structure.libelle }}</option>
                     </select>
 
                     <!-- <input type="text" id="lieu_service" v-model="lieu_service" required><br> -->
@@ -112,8 +117,10 @@
     </div>
     <div v-if="ShowPopup1" class="popup modals">
         <div class="popup-content">
-            <h2 style="color: #007A5E; width: 500px; height: 100px; margin: 15% auto;">Employe enregistré avec success <br><button class="btnOk" @click="gotoPersonnelPage()">Ok</button></h2>
-            
+            <h2 style="color: #007A5E; width: 500px; height: 100px; margin: 15% auto;">Employe enregistré avec success
+                <br><button class="btnOk" @click="gotoPersonnelPage()">Ok</button>
+            </h2>
+
         </div>
     </div>
     <div v-if="modalVisible2" class="modals">
@@ -147,7 +154,7 @@
                 </div>
                 <div class="list_detail">
                     <label>spécialisation:</label>
-                    <h3>{{ selectedPersonnel.spécialisation }}</h3>
+                    <h3>{{ selectedPersonnel.specialisation }}</h3>
                 </div>
                 <!-- <div class="lieu-service-section">
                     <h2 style="color: #007A5E;">Parcours</h2>
@@ -259,9 +266,9 @@ export default {
                     pays_naissance: this.pays_naissance,
                     sexe: this.sexe,
                     profession: this.profession,
-                    spécialisation: this.spécialisation,
+                    specialisation: this.specialisation,
                     pays_formation: this.pays_formation,
-                    durée_spécialisation: this.durée_spécialisation,
+                    duree_specialisation: this.duree_specialisation,
                     lieu_service: this.lieu_service
                 });
                 this.success = true;
@@ -273,14 +280,14 @@ export default {
                 this.errorMessage = error.response.data.message;
             }
         },
-        showSuccessMessage(){
+        showSuccessMessage() {
 
             this.ShowPopup1 = true;
         },
-        deleteSuccessMessage(){
+        deleteSuccessMessage() {
             this.ShowPopup1 = false;
         },
-        gotoPersonnelPage(){
+        gotoPersonnelPage() {
             this.deleteSuccessMessage();
         },
         async getPersonnel() {
@@ -335,7 +342,7 @@ export default {
         showModal1() {
             this.modalVisible1 = true;
         },
-        
+
         uploadFile() {
             const formData = new FormData();
             formData.append('excelFile', this.$refs.fileInput.files[0]);
@@ -363,6 +370,7 @@ export default {
 </script>
 <style scoped>
 @import url(https://fonts.googleapis.com/css2?family=Monda:wght@100;200;300;400;500;600;700&display=swap);
+
 table {
     border-collapse: collapse;
     margin-top: 30px;
@@ -376,6 +384,7 @@ table td {
 table tr:last-child td {
     border-bottom: none;
 }
+
 .detailler {
     width: 100%;
     background-color: transparent;
@@ -417,15 +426,18 @@ table tr:last-child td {
 .detail_perso {
     width: 100%;
 }
-.popup-content{
+
+.popup-content {
     border-radius: 10px;
     background-color: white;
     width: 500px;
     margin: 15% auto;
+    padding-top: 5px;
+    padding-bottom: 5px;
     text-align: center;
 }
 
-.btnOk{
+.btnOk {
     color: white;
     background-color: #007A5E;
     width: 90px;
@@ -433,7 +445,7 @@ table tr:last-child td {
     border: none;
     text-align: center;
     align-items: center;
-    
+
 }
 
 .modals {
@@ -497,12 +509,14 @@ body {
     margin: 0;
     background-color: rgba(0, 0, 0, 0.05);
     font-family: Monda;
+
 }
 
 .personnel_list {
     width: 95%;
     margin: auto;
     margin-top: 30px;
+
 }
 
 .personnel_list .tete {
@@ -535,8 +549,6 @@ body {
 
 .personnel_list .option {
     font-size: 19px;
-    color: #007A5E;
-    text-decoration: none;
 }
 
 .intitule {
@@ -827,15 +839,6 @@ li:hover {
     height: 100px;
 }
 
-.selected {
-    border: 1px solid white;
-    background-color: #0B9777;
-    border-radius: 10px;
-    font-weight: bold !important;
-    transition: all 0.3s;
-    /* Ajoutez ici vos styles personnalisés pour le bouton sélectionné */
-}
-
 .cont {
     width: 100%;
 }
@@ -889,6 +892,10 @@ form {
     padding: 10px;
 }
 
+/* .formEm{
+    height: 50%!important;
+} */
+
 form .inp-field {
     width: 100%;
     margin-bottom: 20px;
@@ -902,7 +909,7 @@ form .inp-field label {
 }
 
 form .inp-field input,
-form .inp-field textarea {
+form .inp-field textarea{
     width: 94%;
     font-size: large;
     border: 1px solid rgba(0, 0, 0, 0.5);
@@ -957,109 +964,5 @@ form .inp-field input {
     font-size: 18px;
     margin: auto 10px;
     color: #202020b7 !important;
-}
-
-.list li img {
-    height: 30px !important;
-}
-
-/*drop*/
-select {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    -ms-appearance: none;
-    appearance: none;
-    outline: 0;
-    box-shadow: none;
-    background: #007A5E;
-    width: 50% !;
-    background-image: none;
-    flex: 1;
-    padding: 0 .5em;
-    color: #fff;
-    cursor: pointer;
-    font-size: 1em;
-    font-family: 'Open Sans', sans-serif;
-}
-.deroulant{
-    background-color: transparent;
-    color:black;
-    font-size: large;
-    border: 1px solid rgba(0, 0, 0, 0.5);
-    border-radius: 5px;
-    border: 1px solid black;
-}
-.sexe{
-    align-items: left;
-    margin: auto;
-    padding-right: 47%;
-    width: 50%;
-    /* height: 20px; */
-
-}
-.lieu{
-    width: 70%;
-    margin: auto;
-    /* height: 35px; */
-    padding-right: 47%;
-}
-
-
-select::-ms-expand {
-    display: none;
-}
-
-.select {
-    position: relative;
-    display: flex;
-    width: 55%;
-    margin: auto;
-    height: 3em;
-    line-height: 3;
-    background: #5c6664;
-    overflow: hidden;
-    border-radius: .25em;
-}
-
-.in_select {
-    width: 55%;
-    margin: auto;
-    margin-top: 50px;
-}
-
-.in_select ul {
-    width: 100%;
-}
-
-.in_select ul li {
-    width: 98%;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    margin-top: 25px;
-    padding-left: 2%;
-    display: flex;
-    justify-content: space-between;
-}
-
-.in_select ul button {
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-    color: white;
-}
-
-.select::after {
-    content: '\25BC';
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 0 1em;
-    background: #2b2e2e;
-    cursor: pointer;
-    pointer-events: none;
-    transition: .25s all ease;
-}
-
-.select:hover::after {
-    color: #23b499;
 }
 </style>

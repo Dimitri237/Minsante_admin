@@ -32,7 +32,7 @@
                     <label for="" class="attr">{{ employee.lieu_service }}</label>
                     <div style="width: 5%; display: flex; justify-content: space-between;" class="action">
                         <button style="border: none; color: #007A5E;" type="button" class="btn custom-modal-btn"
-                            data-bs-toggle="modal" data-bs-target="#don" @click="showModal2(personnel)">
+                            data-bs-toggle="modal" data-bs-target="#don" @click="showModal2(employee)">
                             <i style="font-size: 18px;" class="fa fa-eye" aria-hidden="true"></i>
                         </button>
                     </div>
@@ -110,12 +110,20 @@
                     <input type="text" id="lieu_naissance" v-model="lieu_naissance" required><br>
                 </div>
                 <div class="inp-field">
-                    <label for="nom_auteur">Pays de naissance :</label>
-                    <input type="text" id="pays_naissance" v-model="pays_naissance" required><br>
-                </div>
-                <div class="inp-field">
-                    <label for="nom_auteur">Sexe :</label>
-                    <input type="text" id="sexe" v-model="sexe" required><br>
+                    <div style="width: 48%;">
+                        <label for="nom_auteur">Pays de naissance :</label>
+                        <input type="text" id="pays_naissance" v-model="pays_naissance" class="pays_naissance"
+                            required>
+                    </div>
+
+                    <div style="width: 48%; display: flex;">
+                        <label for="nom_auteur">Sexe :</label>
+                        <select  style=" width: 90%; border-radius: 5px; height: 28px;" name="sexe" v-model="sexe" required>
+                            <option value="f">F</option>
+                            <option value="m">M</option>
+                        </select>
+                    </div>
+
                 </div>
                 <div class="inp-field">
                     <label for="nom_auteur">Profession :</label>
@@ -123,19 +131,25 @@
                 </div>
                 <div class="inp-field">
                     <label for="nom_auteur">Spécialisation :</label>
-                    <input type="text" id="spécialisation" v-model="spécialisation" required><br>
+                    <input type="text" id="spécialisation" v-model="specialisation" required><br>
                 </div>
                 <div class="inp-field">
                     <label for="nom_auteur">Pays de formation:</label>
                     <input type="text" id="pays_formation" v-model="pays_formation" required><br>
                 </div>
                 <div class="inp-field">
-                    <label for="nom_auteur">Duréede la spécialisation :</label>
-                    <input type="text" id="durée_spécialisation" v-model="durée_spécialisation" required><br>
+                    <label for="nom_auteur">Durée de la spécialisation :</label>
+                    <input type="text" id="durée_spécialisation" v-model="duree_specialisation" required><br>
                 </div>
                 <div class="inp-field">
                     <label for="nom_auteur">Lieu de service :</label>
-                    <input type="text" id="lieu_service" v-model="lieu_service" required><br>
+                    <!-- <input type="text" id="lieu_service" v-model="lieu_service" required><br> -->
+
+                    <select  style=" width: 94%; border-radius: 5px; height: 28px;" name="lieu_service" id="lieu_service" v-model="lieu_service" class="">
+                        <option  v-for=" structure in formation_sanitaire" :value="structure.libelle"
+                            :key="structure.id">{{ structure.libelle }}</option>
+                    </select>
+
                 </div>
                 <button class="sub_butt" type="submit">Enregistrer l'employe</button>
             </form>
@@ -173,7 +187,7 @@
                 </div>
                 <div class="list_detail">
                     <label>spécialisation:</label>
-                    <h3>{{ selectedPersonnel.spécialisation }}</h3>
+                    <h3>{{ selectedPersonnel.specialisation }}</h3>
                 </div>
                 <button class="detailler" @click="storeMatricule()"><router-link class="s_detailler"
                         :to="'/PersonnelDetails/' + selectedPersonnel.matricule">Plus de details</router-link></button>
@@ -210,6 +224,7 @@ export default {
             showDetails: false,
             loggedIn: false,
             personnels: [],
+            formation_sanitaire: [],
             loading: false,
             lieuService: [],
             selectedPersonnel: {},
@@ -220,6 +235,7 @@ export default {
     },
     async mounted() {
         this.getPersonnel();
+        this.getStructure();
     },
     methods: {
         storeMatricule() {
@@ -266,9 +282,9 @@ export default {
                     pays_naissance: this.pays_naissance,
                     sexe: this.sexe,
                     profession: this.profession,
-                    spécialisation: this.spécialisation,
+                    specialisation: this.specialisation,
                     pays_formation: this.pays_formation,
-                    durée_spécialisation: this.durée_spécialisation,
+                    duree_specialisation: this.duree_specialisation,
                     lieu_service: this.lieu_service
                 });
                 this.success = true;
@@ -284,6 +300,15 @@ export default {
                 this.personnels = response.data;
             } catch (error) {
                 console.error('Erreur lors de la récupération des personnel :', error);
+            }
+        },
+        async getStructure() {
+            try {
+                const response = await axios.get('http://localhost:3000/formation_sanitaire'); // Appeler l'API GET
+                this.formation_sanitaire = response.data;
+                console.log(this.formation_sanitaire);
+            } catch (error) {
+                console.error('Erreur lors de la récupération des structures :', error);
             }
         },
         hideModal() {
@@ -806,14 +831,14 @@ li:hover {
     height: 100px;
 }
 
-.selected {
+/*.selected {
     border: 1px solid white;
     background-color: #0B9777;
     border-radius: 10px;
     font-weight: bold !important;
     transition: all 0.3s;
-    /* Ajoutez ici vos styles personnalisés pour le bouton sélectionné */
-}
+    /* Ajoutez ici vos styles personnalisés pour le bouton sélectionné 
+}*/
 
 .cont {
     width: 100%;
@@ -943,7 +968,7 @@ form .inp-field input {
 }
 
 /*drop*/
-select {
+/* select {
     -webkit-appearance: none;
     -moz-appearance: none;
     -ms-appearance: none;
@@ -960,13 +985,13 @@ select {
     cursor: pointer;
     font-size: 1em;
     font-family: 'Open Sans', sans-serif;
-}
+} */
 
 select::-ms-expand {
     display: none;
 }
 
-.select {
+/* .select {
     position: relative;
     display: flex;
     width: 15%;
@@ -975,9 +1000,9 @@ select::-ms-expand {
     background: #5c6664;
     overflow: hidden;
     border-radius: .25em;
-}
+} */
 
-.in_select {
+/* .in_select {
     width: 55%;
     margin: auto;
     margin-top: 50px;
@@ -1017,7 +1042,7 @@ select::-ms-expand {
 
 .select:hover::after {
     color: #23b499;
-}
+} */
 
 .heaths {
     width: 95%;
