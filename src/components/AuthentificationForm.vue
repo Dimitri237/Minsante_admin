@@ -41,6 +41,7 @@ export default {
 
   methods: {
     async login() {
+      
       try {
         const response = await axios.post('http://localhost:3000/login', this.loginForm);
         const token = response.data && response.data.token; // Vérification de l'existence de response.data
@@ -53,7 +54,7 @@ export default {
           this.$router.push("acceuilPage")
         } else {
           throw new Error('Invalid response');
-        }
+        }0
       } catch (error) {
         console.error(error.response && error.response.data);
         alert('Login failed');

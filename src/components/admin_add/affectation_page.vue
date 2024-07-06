@@ -1,8 +1,8 @@
 <template>
-    <div class="all" style="height: 150px; background-color: red; width: 100%;">
+    <div class="all" style="width: 90%; margin: auto; margin-bottom: 15px;">
 
-        <div class="btn" style="border: none; width: 100%; height: 150px; background-color: #007A5E; color: white;">
-        <button style="border: none; padding: 10px 10px; background-color: #007A5E; color: white;" type="button"
+        <div style="border: none; width: 30%; background-color: transparent; color: white;">
+        <button style="border: none; padding: 10px 10px; background-color: #0B9777; color: white;" type="button"
             class="btn custom-modal-btn" data-bs-toggle="modal" data-bs-target="#don" @click="showModal2">
             Ajouter une affectation <i style="color: white;" class="fa fa-plus"></i>
         </button>
@@ -448,9 +448,8 @@ select::-ms-expand {
 }
 
 .btn {
-  width: 100%;
   font-size: 20px;
-  margin: 15% auto;
+  margin: auto;
   
 }
 

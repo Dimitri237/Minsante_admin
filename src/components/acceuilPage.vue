@@ -79,7 +79,7 @@
                         </button>
                     </li> -->
                     
-                    <li>
+                    <!-- <li>
                         <button class="butt" :class="{ selected: currentPage === 'profil' }"
                             style="display: flex;text-decoration: none;" @click="showPage('profil')">
                             <i :style="{ color: currentPage === 'profil' ? '#202020c9' : 'white' }"
@@ -87,22 +87,22 @@
                             <h3 :style="{ color: currentPage === 'profil' ? '#202020c9' : 'white' }">Profil</h3>
 
                         </button>
-                    </li>
+                    </li> -->
                     <li>
-                        <button class="butt" :class="{ selected: currentPage === 'profil' }"
-                            style="display: flex;text-decoration: none;" @click="showPage('profil')">
-                            <i :style="{ color: currentPage === 'profil' ? '#202020c9' : 'white' }"
+                        <button class="butt" :class="{ selected: currentPage === 'parametre' }"
+                            style="display: flex;text-decoration: none;" @click="showPage('parametre')">
+                            <i :style="{ color: currentPage === 'parametre' ? '#202020c9' : 'white' }"
                                 class="fa fa-cog"></i>
-                            <h3 :style="{ color: currentPage === 'profil' ? '#202020c9' : 'white' }">Parametres</h3>
+                            <h3 :style="{ color: currentPage === 'parametre' ? '#202020c9' : 'white' }">Parametres</h3>
 
                         </button>
                     </li>
                     <li>
-                        <button class="butt" :class="{ selected: currentPage === 'profil' }"
-                            style="display: flex;text-decoration: none;" @click="showPage('profil')">
-                            <i :style="{ color: currentPage === 'profil' ? '#202020c9' : 'white' }"
+                        <button class="butt" :class="{ selected: currentPage === 'confid' }"
+                            style="display: flex;text-decoration: none;" @click="showPage('confid')">
+                            <i :style="{ color: currentPage === 'confid' ? '#202020c9' : 'white' }"
                                 class="fa fa-info"></i>
-                            <h3 :style="{ color: currentPage === 'profil' ? '#202020c9' : 'white' }">Confidentialité</h3>
+                            <h3 :style="{ color: currentPage === 'confid' ? '#202020c9' : 'white' }">Confidentialité</h3>
 
                         </button>
                     </li>
@@ -202,7 +202,7 @@ export default {
         return {
             modalVisible: false,
             showDetails: false,
-            currentPage: 'home',
+            currentPage: 'realisation',
             selectedButton: 'button4',
             loggedIn: false,
             personnelCount: '',

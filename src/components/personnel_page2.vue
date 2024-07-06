@@ -1,17 +1,8 @@
 <template>
     <div class="heaths">
-        <!-- <div class="select">
-            <select class="select2" name="format" id="format">
-                <option selected disabled>Filtrer par</option>
-                <option v-for="type_acte in type_actes" :value="type_acte.id" v-bind:key="type_acte.id">
-                    {{ type_acte.libelle }}
-                </option>
-            </select>
-        </div> -->
         <form class="seach" @submit.prevent="searchPersonnel">
             <input type="text" v-model="searchTerm" placeholder="Rechercher un employé..." />
             <button type="submit"><i class="fa fa-search"></i></button>
-            <!-- <button @click="searchPersonnel">Rechercher</button> -->
         </form>
     </div>
     <div class="results-container">

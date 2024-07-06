@@ -60,24 +60,16 @@ const routes = [
   { path: '/acceuilPage2', component: acceuilPage2 },
   { path: '/acceuilPage3', component: acceuilPage3 },
   { path: '/acceuilPage4', component: acceuilPage4 },
-  { path: '/acceuilPage5', component: acceuilPage5},
+  { path: '/acceuilPage5', component: acceuilPage5 },
   { path: '/acceuilPage6', component: acceuilPage6 },
   { path: '/acceuilPage7', component: acceuilPage7 },
-  {
-    path: '/modifier-user/:userId?',
-    name: 'modifierUser',
-    component: modifierUser
-  },
-  {
-    path: '/password-reset',
-    name: 'password-reset',
-    component: PasswordReset,
-  },
+  { path: '/modifier-user/:userId?', component: modifierUser },
+  { path: '/password-reset', component: PasswordReset, },
   { path: '/actePage', component: actePage },
 ];
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory(), 
   routes
 });
 

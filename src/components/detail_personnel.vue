@@ -1,7 +1,8 @@
 <template>
     <div class="container">
         <side_bar />
-        <div ref="detailsContainer" class="total">
+        <div class="total2">
+            <section ref="detailsContainer" class="total">
             <div class="heaths">
                 <div></div>
                 <div style=" width: 50%; display: flex; justify-content: space-between;">
@@ -103,6 +104,7 @@
                     </table>
                 </div>
             </div>
+        </section>
         </div>
     </div>
     <div v-if="modalVisible2" class="modals2">
@@ -413,10 +415,10 @@ export default {
 <style scoped>
 @import url(https://fonts.googleapis.com/css2?family=Monda:wght@100;200;300;400;500;600;700&display=swap);
 
-.total {
+.total2 {
     display: block;
     width: 70%;
-    margin: 0 auto;
+    margin-left: 22.5%;
 }
 
 .container {

@@ -35,7 +35,7 @@
                     <td>{{ personnel.lieu_service }}</td>
                     <td>
                         <button style="border: none; color: #007A5E;" type="button" class="btn custom-modal-btn"
-                            data-bs-toggle="modal" data-bs-target="#don" @click="showModal2(personnel)">
+                            data-bs-toggle="modal" data-bs-target="#don" @click="showModal2(personnel)">4
                             <i style="font-size: 18px;" class="fa fa-eye" aria-hidden="true"></i>
                         </button>
                     </td>
