@@ -111,7 +111,10 @@
                     <label for="pdf">Fichier PDF :</label>
                     <input type="file" id="pdf" ref="pdfInput" required>
                 </div>
-                <button class="sub_butt" type="submit">Créer l'acte</button>
+                <div style="width: 95%; display: flex; justify-content: space-between;">
+                        <button class="sub_butt" type="submit">Créer l'acte</button>
+                        <button class="sub_butt" style="background-color: red;" @click="hideModal">Annuler</button>
+                    </div>
             </form>
         </div>
     </div>

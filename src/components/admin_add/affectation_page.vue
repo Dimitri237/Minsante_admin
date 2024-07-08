@@ -2,11 +2,11 @@
     <div class="all" style="width: 90%; margin: auto; margin-bottom: 15px;">
 
         <div style="border: none; width: 30%; background-color: transparent; color: white;">
-        <button style="border: none; padding: 10px 10px; background-color: #0B9777; color: white;" type="button"
-            class="btn custom-modal-btn" data-bs-toggle="modal" data-bs-target="#don" @click="showModal2">
-            Ajouter une affectation <i style="color: white;" class="fa fa-plus"></i>
-        </button>
-    </div>
+            <button style="border: none; padding: 10px 10px; background-color: #0B9777; color: white;" type="button"
+                class="btn custom-modal-btn" data-bs-toggle="modal" data-bs-target="#don" @click="showModal2">
+                Ajouter une affectation <i style="color: white;" class="fa fa-plus"></i>
+            </button>
+        </div>
     </div>
     <div v-if="modalVisible2" class="modals2">
         <div class="details2 animate__animated animate__fadeInDown">
@@ -63,7 +63,10 @@
                     <label for="">Poste :</label>
                     <input type="text" id="poste" v-model="poste" required><br>
                 </div>
-                <button class="sub_butt" type="submit">Créer l'affectation</button>
+                <div style="width: 95%; display: flex; justify-content: space-between;">
+                    <button class="sub_butt" type="submit">Créer l'affectation</button>
+                    <button class="sub_butt" style="background-color: red;" @click="hideModal">Annuler</button>
+                </div>
             </form>
         </div>
     </div>
@@ -221,12 +224,12 @@ export default {
 @import url(https://fonts.googleapis.com/css2?family=Monda:wght@100;200;300;400;500;600;700&display=swap);
 
 .modals {
-  background-color: rgba(0, 0, 0, 0.5);
-  position: absolute;
-  width: 100%;
-  top: 0%;
-  height: 100vh;
-  /* 
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    width: 100%;
+    top: 0%;
+    height: 100vh;
+    /* 
     margin: 0 13%; */
 }
 
@@ -271,132 +274,132 @@ export default {
 
 
 form {
-  width: 100%;
-  padding: 10px;
+    width: 100%;
+    padding: 10px;
 }
 
 form .inp-field {
-  width: 100%;
-  margin-bottom: 20px;
+    width: 100%;
+    margin-bottom: 20px;
 }
 
 form .inp-field label {
-  width: 100% !important;
-  font-size: large;
-  font-weight: 600;
-  margin-bottom: 7px;
+    width: 100% !important;
+    font-size: large;
+    font-weight: 600;
+    margin-bottom: 7px;
 }
 
 form .inp-field input,
 form .inp-field textarea,
 form .inp-field select {
-  width: 94%;
-  font-size: large;
-  border: 1px solid rgba(0, 0, 0, 0.5);
-  border-radius: 5px;
+    width: 94%;
+    font-size: large;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
 }
 
 form .inp-field input,
 form .inp-field select {
-  height: 25px;
+    height: 25px;
 }
 
 .sub_butt {
-  font-size: large;
-  font-weight: bold;
-  color: white;
-  width: 50%;
-  background-color: #007A5E;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 0;
+    font-size: large;
+    font-weight: bold;
+    color: white;
+    width: 47%;
+    background-color: #007A5E;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 0;
 }
 
 .close {
-  text-align: end;
+    text-align: end;
 }
 
 .close i {
-  color: rgba(255, 0, 0, 0.945);
-  font-size: 25px;
-  margin-top: 8px;
+    color: rgba(255, 0, 0, 0.945);
+    font-size: 25px;
+    margin-top: 8px;
 }
 
 .details {
-  background-color: white;
-  width: 40%;
-  margin: 10% 23%;
-  padding: 25px 25px;
-  border-radius: 5px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    background-color: white;
+    width: 40%;
+    margin: 10% 23%;
+    padding: 25px 25px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
 
 }
 
 .details2 {
-  background-color: white;
-  width: 30%;
-  margin: 7% 33%;
-  padding: 25px 25px;
-  border-radius: 5px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    background-color: white;
+    width: 30%;
+    margin: 7% 33%;
+    padding: 25px 25px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
 }
 
 .actions {
-  width: 50%;
-  margin: auto;
-  justify-content: space-between;
-  display: flex;
+    width: 50%;
+    margin: auto;
+    justify-content: space-between;
+    display: flex;
 }
 
 .actions .action {
-  width: 47%;
-  font-size: large;
-  font-weight: 700;
-  padding: 10px 0;
-  border: none;
-  color: white;
-  border-radius: 5px;
+    width: 47%;
+    font-size: large;
+    font-weight: 700;
+    padding: 10px 0;
+    border: none;
+    color: white;
+    border-radius: 5px;
 }
 
 .action:nth-child(1) {
-  background-color: #007A5E;
+    background-color: #007A5E;
 }
 
 .action:nth-child(2) {
-  background-color: rgba(255, 0, 0, 0.815);
+    background-color: rgba(255, 0, 0, 0.815);
 }
 
 /*nav barre*/
 ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
 }
 
 .loading-indicator {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100px;
-  margin-top: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    margin-top: 150px;
 }
 
 .loading-indicator::after {
-  content: "";
-  display: inline-block;
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  border: 3px solid #202020;
-  border-top-color: #007A5E;
-  border-bottom-color: #007A5E;
-  animation: spin 1s linear infinite;
+    content: "";
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid #202020;
+    border-top-color: #007A5E;
+    border-bottom-color: #007A5E;
+    animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 /*drop*/
@@ -420,73 +423,73 @@ ul {
 } */
 
 select::-ms-expand {
-  display: none;
+    display: none;
 }
 
 .select {
-  position: relative;
-  display: flex;
-  width: 55%;
-  margin: auto;
-  height: 3em;
-  line-height: 3;
-  background: #5c6664;
-  overflow: hidden;
-  border-radius: .25em;
+    position: relative;
+    display: flex;
+    width: 55%;
+    margin: auto;
+    height: 3em;
+    line-height: 3;
+    background: #5c6664;
+    overflow: hidden;
+    border-radius: .25em;
 }
 
 .in_select,
 .bout {
-  width: 20%;
-  margin-top: 55px;
-  height: 50px;
+    width: 20%;
+    margin-top: 55px;
+    height: 50px;
 }
 
 .bout button {
-  width: 100%;
-  font-size: 20px;
+    width: 100%;
+    font-size: 20px;
 }
 
 .btn {
-  font-size: 20px;
-  margin: auto;
-  
+    font-size: 20px;
+    margin: auto;
+
 }
 
 
 .in_select ul {
-  width: 100%;
+    width: 100%;
 }
 
 .in_select ul li {
-  width: 98%;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
-  margin-top: 25px;
-  padding-left: 2%;
-  display: flex;
-  justify-content: space-between;
+    width: 98%;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    margin-top: 25px;
+    padding-left: 2%;
+    display: flex;
+    justify-content: space-between;
 }
 
 .in_select ul button {
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-  color: white;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    color: white;
 }
 
 .select::after {
-  content: '\25BC';
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 0 1em;
-  background: #2b2e2e;
-  cursor: pointer;
-  pointer-events: none;
-  transition: .25s all ease;
+    content: '\25BC';
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0 1em;
+    background: #2b2e2e;
+    cursor: pointer;
+    pointer-events: none;
+    transition: .25s all ease;
 }
 
 .select:hover::after {
-  color: #23b499;
+    color: #23b499;
 }
 </style>

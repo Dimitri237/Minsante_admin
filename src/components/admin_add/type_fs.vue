@@ -23,7 +23,10 @@
           <input type="text" id="libelle" v-model="libelle" required><br>
 
         </div>
-        <button class="sub_butt" type="submit">Créer le type</button>
+        <div style="width: 95%; display: flex; justify-content: space-between;">
+          <button class="sub_butt" type="submit">Créer le type</button>
+          <button class="sub_butt" style="background-color: red;" @click="hideModal">Annuler</button>
+        </div>
       </form>
     </div>
   </div>

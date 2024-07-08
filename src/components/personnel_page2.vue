@@ -103,13 +103,13 @@
                 <div class="inp-field">
                     <div style="width: 48%;">
                         <label for="nom_auteur">Pays de naissance :</label>
-                        <input type="text" id="pays_naissance" v-model="pays_naissance" class="pays_naissance"
-                            required>
+                        <input type="text" id="pays_naissance" v-model="pays_naissance" class="pays_naissance" required>
                     </div>
 
                     <div style="width: 48%; display: flex;">
                         <label for="nom_auteur">Sexe :</label>
-                        <select  style=" width: 90%; border-radius: 5px; height: 28px;" name="sexe" v-model="sexe" required>
+                        <select style=" width: 90%; border-radius: 5px; height: 28px;" name="sexe" v-model="sexe"
+                            required>
                             <option value="f">F</option>
                             <option value="m">M</option>
                         </select>
@@ -136,14 +136,17 @@
                     <label for="nom_auteur">Lieu de service :</label>
                     <!-- <input type="text" id="lieu_service" v-model="lieu_service" required><br> -->
 
-                    <select  style=" width: 94%; border-radius: 5px; height: 28px;" name="lieu_service" id="lieu_service" v-model="lieu_service" class="">
-                        <option  v-for=" structure in formation_sanitaire" :value="structure.libelle"
+                    <select style=" width: 94%; border-radius: 5px; height: 28px;" name="lieu_service" id="lieu_service"
+                        v-model="lieu_service" class="">
+                        <option v-for=" structure in formation_sanitaire" :value="structure.libelle"
                             :key="structure.id">{{ structure.libelle }}</option>
                     </select>
 
                 </div>
-                <button class="res_butt" type="reset">Annuler</button>
-                <button class="sub_butt" type="submit">Enregistrer l'employe</button>
+                <div style="width: 95%; display: flex; justify-content: space-between;">
+                    <button class="sub_butt" type="submit">Enregistrer l'employé</button>
+                    <button class="sub_butt" style="background-color: red;" @click="hideModal">Annuler</button>
+                </div>
             </form>
 
         </div>
@@ -233,7 +236,7 @@ export default {
         storeMatricule() {
             this.matricule = this.selectedPersonnel.matricule;
             localStorage.setItem('matricule', this.matricule);
-            console.log({'le matricule': this.matricule});
+            console.log({ 'le matricule': this.matricule });
         },
         async fetchLieuService(id_perso) {
             try {
@@ -386,7 +389,7 @@ table td {
     text-align: left;
 }
 
-table th{
+table th {
     background-color: #0B9777;
     padding: 10px;
     color: white;
@@ -926,7 +929,7 @@ form .inp-field input {
     border-radius: 5px;
     padding: 10px 0;
     right: 0%;
-    
+
 }
 
 .res_butt {

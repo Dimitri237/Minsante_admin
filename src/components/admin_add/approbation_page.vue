@@ -57,7 +57,10 @@
                         </option>
                     </select>
                 </div>
-                <button class="sub_butt" type="submit">Enregistrer</button>
+                <div style="width: 95%; display: flex; justify-content: space-between;">
+                    <button class="sub_butt" type="submit">Enregistrer</button>
+                    <button class="sub_butt" style="background-color: red;" @click="hideModal">Annuler</button>
+                </div>
             </form>
         </div>
     </div>

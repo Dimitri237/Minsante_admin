@@ -48,7 +48,10 @@
           <input type="text" id="district" v-model="district" required><br>
 
         </div>
-        <button class="sub_butt" type="submit">Créer la structure</button>
+        <div style="width: 95%; display: flex; justify-content: space-between;">
+          <button class="sub_butt" type="submit">Créer la structure</button>
+          <button class="sub_butt" style="background-color: red;" @click="hideModal">Annuler</button>
+        </div>
       </form>
     </div>
   </div>

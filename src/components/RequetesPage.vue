@@ -10,7 +10,7 @@
             <button type="submit"><i class="fa fa-search"></i></button>
         </form>
     </div>
-    
+
     <div style="width: 100%;" v-if="service_call">
         <div class="select">
         </div>
@@ -33,7 +33,7 @@
                     <td>{{ service.nom_prenom }}</td>
                     <td>{{ formatDate(service.date_naissance) }}</td>
                     <td>{{ service.sex }}</td>
-                    <td style="color: rgba(0, 0, 0, 0.3);">{{ service.status }}</td>
+                    <td :style="{ color: service.status === 'Approuvé' ? '#007A5E' : 'rgba(0, 0, 0, 0.3)' }">{{ service.status }}</td>
                     <td>
                         <button style="border: none; color: #007A5E;" type="button" class="btn custom-modal-btn"
                             data-bs-toggle="modal" data-bs-target="#don" @click="showModal3(service)">
@@ -142,7 +142,7 @@
                 </div>
                 <div class="list_detail">
                     <label>Status:</label>
-                    <h3>{{ selectedService.status }}</h3>
+                    <h3 :style="{ color: selectedService.status === 'Approuvé' ? '#007A5E' : 'rgba(0, 0, 0, 0.3)' }"> {{ selectedService.status }} </h3>
                 </div>
                 <div class="list_detail">
                     <label>Contact:</label>
@@ -183,11 +183,11 @@ export default {
             const date = new Date(dateString);
             return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
         },
-        showFormation(){
+        showFormation() {
             this.formation_call = true;
             this.service_call = false;
         },
-        showPriseservice(){
+        showPriseservice() {
             this.service_call = true;
             this.formation_call = false;
         },
@@ -222,9 +222,9 @@ export default {
                         this.selectedPriseservice = res.data;
 
                     }
-                    
+
                 )
-                console.log( this.selectedService);
+                console.log(this.selectedService);
             } catch (error) {
                 console.error(error);
                 throw error;
@@ -251,6 +251,35 @@ export default {
                 console.error('Erreur lors de la récupération des priseService_repriseService :', error);
             }
         },
+        ApprouverPrise() {
+            const payload = {
+                id_perso: this.selectedService.id_perso
+            };
+
+            fetch('http://localhost:3000/update-status/' + this.selectedService.id_perso, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            })
+                .then(response => {
+                    if (response.ok) {
+                        // Mettre à jour la valeur du statut dans votre composant
+                        this.selectedService.status = 'Approuvé';
+                        console.log('Statut mis à jour avec succès');
+                    } else {
+                        console.error('Erreur lors de la mise à jour du statut');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data);
+                })
+                .catch(error => {
+                    console.error('Erreur lors de la mise à jour du statut:', error);
+                });
+        }
     }
 };
 </script>
@@ -261,7 +290,8 @@ export default {
     margin: auto;
     margin-bottom: 15px;
 }
-.detailler{
+
+.detailler {
     margin: auto;
     font-size: 20px;
     font-weight: bold;
@@ -272,7 +302,8 @@ export default {
     background-color: #0B9777;
     color: white;
 }
-.heathse .btns{
+
+.heathse .btns {
     width: 20%;
     padding: 10px 0;
     border: none;
@@ -281,6 +312,7 @@ export default {
     color: white;
     font-size: 20px;
 }
+
 .heathse {
     display: flex;
     justify-content: space-between;
