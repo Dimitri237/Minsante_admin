@@ -95,7 +95,7 @@ export default {
 
     async createAdress() {
       try {
-        const response = await axios.post('http://localhost:3000/adress', {
+        const response = await axios.post('http://192.168.100.116:3000/adress', {
           libelle: this.libelle
         });
         this.hideModal();
@@ -111,7 +111,7 @@ export default {
 
     async getAdress() {
       try {
-        const response = await axios.get('http://localhost:3000/adress'); // Appeler l'API GET
+        const response = await axios.get('http://192.168.100.116:3000/adress'); // Appeler l'API GET
         this.structures = response.data;
         console.log(response.data);
       } catch (error) {

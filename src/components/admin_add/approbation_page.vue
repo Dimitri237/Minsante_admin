@@ -159,7 +159,7 @@ export default {
         },
         async createApprobation() {
             try {
-                const response = await axios.post('http://localhost:3000/approbation_stage', {
+                const response = await axios.post('http://192.168.100.116:3000/approbation_stage', {
                     id_perso: this.id_perso,
                     id_acte: this.selectedActeNumber,
                     date_signatureacte: this.selectedActeSignatureDate,
@@ -184,7 +184,7 @@ export default {
         },
         // async getAffectation() {
         //     try {
-        //         const response = await axios.get('http://localhost:3000/lieu_service'); // Appeler l'API GET
+        //         const response = await axios.get('http://192.168.100.116:3000/lieu_service'); // Appeler l'API GET
         //         this.lieu_service = response.data;
         //         console.log(response.data);
         //     } catch (error) {
@@ -193,7 +193,7 @@ export default {
         // },
         async getStructure() {
             try {
-                const response = await axios.get('http://localhost:3000/formation_sanitaire'); // Appeler l'API GET
+                const response = await axios.get('http://192.168.100.116:3000/formation_sanitaire'); // Appeler l'API GET
                 this.formation_sanitaire = response.data;
                 console.log(response.data);
             } catch (error) {
@@ -202,7 +202,7 @@ export default {
         },
         async getActes() {
             try {
-                const response = await axios.get('http://localhost:3000/actes');
+                const response = await axios.get('http://192.168.100.116:3000/actes');
                 const actes = response.data; // Utilisez response.data pour obtenir les données de la réponse
                 this.actes = actes;
             } catch (error) {

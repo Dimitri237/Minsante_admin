@@ -98,7 +98,7 @@ export default {
         formData.append('type_u', this.type_u);
         formData.append('password', this.password);
 
-        await axios.post('http://localhost:3000/signup', formData);
+        await axios.post('http://192.168.100.116:3000/signup', formData);
         this.successMessage = 'Inscription réussie !';
         this.resetForm();
       } catch (error) {

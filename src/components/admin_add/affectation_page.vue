@@ -1,13 +1,9 @@
 <template>
-    <div class="all" style="width: 90%; margin: auto; margin-bottom: 15px;">
 
-        <div style="border: none; width: 30%; background-color: transparent; color: white;">
-            <button style="border: none; padding: 10px 10px; background-color: #0B9777; color: white;" type="button"
-                class="btn custom-modal-btn" data-bs-toggle="modal" data-bs-target="#don" @click="showModal2">
-                Ajouter une affectation <i style="color: white;" class="fa fa-plus"></i>
-            </button>
-        </div>
-    </div>
+    <button style="border: none; color: #0B9777; font-weight: bold; font-size: 20px;" type="button" class="btn custom-modal-btn" data-bs-toggle="modal"
+        data-bs-target="#don" @click="showModal2">
+        Ajouter une affectation <i class="fa fa-plus"></i>
+    </button>
     <div v-if="modalVisible2" class="modals2">
         <div class="details2 animate__animated animate__fadeInDown">
 
@@ -167,7 +163,7 @@ export default {
         },
         async createAffectation() {
             try {
-                const response = await axios.post('http://localhost:3000/lieu_service', {
+                const response = await axios.post('http://192.168.100.116:3000/lieu_service', {
                     id_perso: this.id_perso,
                     poste: this.poste,
                     id_acte: this.selectedActeNumber,
@@ -192,7 +188,7 @@ export default {
         },
         async getAffectation() {
             try {
-                const response = await axios.get('http://localhost:3000/lieu_service'); // Appeler l'API GET
+                const response = await axios.get('http://192.168.100.116:3000/lieu_service'); // Appeler l'API GET
                 this.lieu_service = response.data;
                 console.log(response.data);
             } catch (error) {
@@ -201,7 +197,7 @@ export default {
         },
         async getStructure() {
             try {
-                const response = await axios.get('http://localhost:3000/formation_sanitaire'); // Appeler l'API GET
+                const response = await axios.get('http://192.168.100.116:3000/formation_sanitaire'); // Appeler l'API GET
                 this.formation_sanitaire = response.data;
                 console.log(response.data);
             } catch (error) {
@@ -210,7 +206,7 @@ export default {
         },
         async getActes() {
             try {
-                const response = await axios.get('http://localhost:3000/actes');
+                const response = await axios.get('http://192.168.100.116:3000/actes');
                 const actes = response.data; // Utilisez response.data pour obtenir les données de la réponse
                 this.actes = actes;
             } catch (error) {
@@ -452,7 +448,6 @@ select::-ms-expand {
 
 .btn {
     font-size: 20px;
-    margin: auto;
 
 }
 

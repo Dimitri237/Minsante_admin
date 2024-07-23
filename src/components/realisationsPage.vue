@@ -1,8 +1,17 @@
 <template>
+  <div class="heaths">
+    <form class="seach" @submit.prevent="searchPersonnel">
+      <input type="text" v-model="searchTerm" placeholder="Rechercher un employé..." />
+      <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
+  </div>
+  <div class="heathse">
+    <a class="titre1" href="">Liste des affectations</a>
+    <div class="btns">
+      <affectationPage />
+    </div>
+  </div>
   <div style="width: 100%;">
-    <div class="proces_list">
-            <affectationPage/>
-        </div>
     <table>
       <thead>
         <tr>
@@ -107,7 +116,7 @@ export default {
     async showModal2(affectate) {
       this.selectedAffectate = affectate;
       try {
-        await axios.get(`http://localhost:3000/lieu_service/` + affectate.id_perso).then(
+        await axios.get(`http://192.168.100.116:3000/lieu_service/` + affectate.id_perso).then(
           res => {
             this.selectedTransfert = res.data;
             console.log({ bonjour: this.selectedAffectate });
@@ -125,7 +134,7 @@ export default {
     },
     async getAffectation() {
       try {
-        const response = await axios.get('http://localhost:3000/lieu_service'); // Appeler l'API GET
+        const response = await axios.get('http://192.168.100.116:3000/lieu_service'); // Appeler l'API GET
         this.affectation = response.data;
         console.log({ bonjour: this.affectation });
       } catch (error) {
@@ -136,22 +145,90 @@ export default {
 };
 </script>
 <style scoped>
+.heaths {
+  width: 95%;
+  background-color: rgba(0, 0, 0, 0.05);
+  margin: auto;
+  margin-bottom: 15px;
+}
+
+.titre1 {
+  font-size: 25px;
+  font-weight: bold;
+  color: #0B9777;
+  text-decoration: none;
+}
+
+.heathse .btns {
+  width: 20%;
+  border: none;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.heathse {
+  display: flex;
+  justify-content: space-between;
+  width: 95%;
+  margin: auto;
+  margin-bottom: 15px;
+  padding: 10px 0;
+  border: 1px solid #0B9777;
+  border-radius: 5px;
+}
+
+.heaths .seach {
+  width: 30%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.seach input {
+  height: 40px;
+  width: 85%;
+  margin: 0;
+  border: none;
+  background-color: white;
+  outline: none;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.03);
+}
+
+.seach button {
+  margin: 0;
+  width: 15%;
+  text-align: right;
+  padding: 5px 15px;
+  background-color: #007A5E;
+  border: none;
+  text-align: center;
+}
+
+.seach i {
+  font-size: 2rem;
+  color: white;
+
+
+}
+
 table {
   border-collapse: collapse;
   margin-top: 30px;
-  width: 90%;
+  width: 95%;
   margin: auto;
 }
+
 table td {
   border: 1px solid #ccc;
   padding: 8px;
   text-align: left;
 }
+
 table th {
   background-color: #0B9777;
   padding: 10px;
   color: white;
 }
+
 table tr:last-child td {
   border-bottom: none;
 }

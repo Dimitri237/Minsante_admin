@@ -93,7 +93,7 @@ export default {
 
     async createTypeuse() {
       try {
-        const response = await axios.post('http://localhost:3000/type_user', {
+        const response = await axios.post('http://192.168.100.116:3000/type_user', {
           libelle: this.libelle
         });
         this.hideModal();
@@ -109,7 +109,7 @@ export default {
 
     async getTypeuse() {
       try {
-        const response = await axios.get('http://localhost:3000/type_user'); // Appeler l'API GET
+        const response = await axios.get('http://192.168.100.116:3000/type_user'); // Appeler l'API GET
         this.type_user = response.data;
         console.log(response.data);
       } catch (error) {

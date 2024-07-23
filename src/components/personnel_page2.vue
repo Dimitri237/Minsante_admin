@@ -35,7 +35,7 @@
     <div class="personnel_list">
         <div class="tete">
             <a class="titre1" href="">Liste du personnel</a>
-            <div style="width: 20%; display: flex; justify-content: space-between;">
+            <div style="width: 30%; display: flex; justify-content: space-between;">
                 <button style="border: none; color: #0B9777; font-size: 18px;" type="button"
                     class="btn custom-modal-btn" data-bs-toggle="modal" data-bs-target="#don" @click="showModal1">
                     Ajouter
@@ -45,6 +45,11 @@
                     class="btn custom-modal-btn" data-bs-toggle="modal" data-bs-target="#don" @click="showModal3">
                     Importer
                     <i style="font-size: 18px;" class="fas fa-file-import" aria-hidden="true"></i>
+                </button>
+                <button style="border: none; color: #0B9777; font-size: 18px;" type="button"
+                    class="btn custom-modal-btn" data-bs-toggle="modal" data-bs-target="#don" @click="exporterEnExcel">
+                    Exporter
+                    <i style="font-size: 18px;" class="fas fa-file-export" aria-hidden="true"></i>
                 </button>
             </div>
         </div>
@@ -205,7 +210,7 @@
 
 <script>
 import axios from 'axios';
-
+import * as XLSX from 'xlsx'
 export default {
     components: {},
     data() {
@@ -240,7 +245,7 @@ export default {
         },
         async fetchLieuService(id_perso) {
             try {
-                await axios.get(`http://localhost:3000/lieu_service/${id_perso}`).then(
+                await axios.get(`http://192.168.100.116:3000/lieu_service/${id_perso}`).then(
                     res => {
                         console.log('résultat', res.data);
                     }
@@ -253,7 +258,7 @@ export default {
         },
         async fetchFormation(id_perso) {
             try {
-                await axios.get(`http://localhost:3000/mise_stage/${id_perso}`).then(
+                await axios.get(`http://192.168.100.116:3000/mise_stage/${id_perso}`).then(
                     res => {
                         console.log('résultat', res.data);
                     }
@@ -269,7 +274,7 @@ export default {
         },
         async createEmploye() {
             try {
-                const response = await axios.post('http://localhost:3000/personnel', {
+                const response = await axios.post('http://192.168.100.116:3000/personnel', {
                     matricule: this.matricule,
                     nom_prenom: this.nom_prenom,
                     date_naissance: this.date_naissance,
@@ -291,7 +296,7 @@ export default {
         },
         async getPersonnel() {
             try {
-                const response = await axios.get('http://localhost:3000/personnel');
+                const response = await axios.get('http://192.168.100.116:3000/personnel');
                 this.personnels = response.data;
             } catch (error) {
                 console.error('Erreur lors de la récupération des personnel :', error);
@@ -299,7 +304,7 @@ export default {
         },
         async getStructure() {
             try {
-                const response = await axios.get('http://localhost:3000/formation_sanitaire'); // Appeler l'API GET
+                const response = await axios.get('http://192.168.100.116:3000/formation_sanitaire'); // Appeler l'API GET
                 this.formation_sanitaire = response.data;
                 console.log(this.formation_sanitaire);
             } catch (error) {
@@ -314,13 +319,13 @@ export default {
         async showModal2(personnel) {
             this.selectedPersonnel = personnel;
             try {
-                await axios.get(`http://localhost:3000/mise_stage/` + personnel.matricule).then(
+                await axios.get(`http://192.168.100.116:3000/mise_stage/` + personnel.matricule).then(
                     res => {
                         this.selectedFormations = res.data;
 
                     }
                 )
-                await axios.get(`http://localhost:3000/lieu_service/` + personnel.matricule).then(
+                await axios.get(`http://192.168.100.116:3000/lieu_service/` + personnel.matricule).then(
                     res => {
                         this.selectedAffectations = res.data;
 
@@ -335,7 +340,7 @@ export default {
         },
         async searchPersonnel() {
             try {
-                const response = await fetch(`http://localhost:3000/personnel-search?q=${encodeURIComponent(this.searchTerm)}`)
+                const response = await fetch(`http://192.168.100.116:3000/personnel-search?q=${encodeURIComponent(this.searchTerm)}`)
                 const data = await response.json()
                 this.employees = data;
                 this.message = data.length === 0 ? 'Aucun résultat trouvé.' : ''
@@ -354,7 +359,7 @@ export default {
             const formData = new FormData();
             formData.append('excelFile', this.$refs.fileInput.files[0]);
 
-            fetch('http://localhost:3000/import', {
+            fetch('http://192.168.100.116:3000/import', {
                 method: 'POST',
                 body: formData,
             })
@@ -371,6 +376,21 @@ export default {
                 .catch((error) => {
                     this.message = error.message;
                 });
+        },
+        async exporterEnExcel() {
+            try {
+                // Créer un classeur Excel
+                const workbook = XLSX.utils.book_new()
+
+                // Créer une feuille de calcul
+                const worksheet = XLSX.utils.json_to_sheet(this.personnels)
+                XLSX.utils.book_append_sheet(workbook, worksheet, 'Personnel')
+
+                // Générer le fichier Excel
+                XLSX.writeFile(workbook, 'personnels.xlsx')
+            } catch (erreur) {
+                console.error('Erreur lors de l\'export en Excel :', erreur)
+            }
         },
     },
 };

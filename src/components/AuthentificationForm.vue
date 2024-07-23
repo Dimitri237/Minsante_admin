@@ -1,5 +1,7 @@
 <template>
-  <div class="container monda-font ">
+  <button @click="AfficherForm">afficher</button>
+  <button @click="masquerForm">Masquer</button>
+  <div v-if="test" class="container monda-font ">
     <nav>
       <img src="" alt="" />
     </nav>
@@ -30,8 +32,16 @@ import axios from 'axios';
 export default {
   data() {
     return {
+      test: false,
+      noms: [
+        { nom: "Randy"},
+        {nom: "Dimitri"},
+        {nom: "Durelle"},
+        {nom: "Patrick"},
+        {nom: "Ange"}
+      ],
       loginForm: {
-        username: '',
+        username: '', 
         password: ''
       },
       loggedIn: false,
@@ -40,26 +50,32 @@ export default {
   },
 
   methods: {
+    AfficherForm (){
+      this.test=true;
+    },
+    masquerForm (){
+      this.test=false;
+    },
     async login() {
-      
       try {
-        const response = await axios.post('http://localhost:3000/login', this.loginForm);
-        const token = response.data && response.data.token; // Vérification de l'existence de response.data
+        const response = await axios.post('http://192.168.100.116:3000/login', this.loginForm);
+        const { token } = response.data;
+
         if (token) {
           localStorage.setItem('token', token);
           localStorage.setItem('username', this.loginForm.username);
           console.log(this.loginForm.username);
           this.loggedIn = true;
           this.username = this.loginForm.username;
-          this.$router.push("acceuilPage")
+          this.$router.push("acceuilPage");
         } else {
-          throw new Error('Invalid response');
-        }0
+          throw new Error('Réponse invalide');
+        }
       } catch (error) {
-        console.error(error.response && error.response.data);
-        alert('Login failed');
+        console.error(error.response?.data || error.message);
+        alert('Échec de la connexion');
       }
-    },
+    }
   },
 };
 </script>

@@ -1,40 +1,59 @@
 <template>
+    <div class="heaths">
+        <form class="seach" @submit.prevent="searchPersonnel">
+            <input type="text" v-model="searchTerm" placeholder="Rechercher un employé..." />
+            <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+    </div>
+    <div class="heathse"> 
+        <a class="titre1" href="">Liste des actes</a>
+        <div class="btns">
+                <button class="titre1" style="border: none; color: #007A5E;" type="button" data-bs-toggle="modal" data-bs-target="#don" @click="showModal2">
+                    Ajouter un acte <i  class="fa fa-plus"></i>
+                </button>
+        </div>
+    </div>
     <div class="all " style="display: flex; justify-content: space-between; width: 100%; padding: 5px!important;">
 
         <div style="width: 100%;">
-            <div class="select">
+            <!--  <div class="select">
                 <select class="select2" name="format" id="format">
                     <option selected disabled>Choisir un type</option>
                     <option v-for="type_acte in type_actes" :value="type_acte.id" v-bind:key="type_acte.id">
                         {{ type_acte.libelle }}
                     </option>
                 </select>
-            </div>
-            <div v-if="loading2" class="loading-indicator">
-                <!-- Indicateur de chargement, vous pouvez personnaliser cet élément -->
-            </div>
-            <div class="in_select" v-else v-for="acte in actes" :key="acte.id">
-                <ul>
-                    <li>
-                        <div>
-                            <h2 style="margin: 0%;">Acte N° {{ acte.numero }}</h2>
-                            <p style="margin: 0%;">{{ acte.titre }}</p>
-                            <a :href="getPdfDownloadUrl(acte.pdf_data)" download>Télécharger PDF</a>
-                            <!-- <iframe :src="getPdfDataUrl(acte.pdf_data)" style="width: 100%; height: 500px;"></iframe> -->
-                        </div>
-                        <button style="border: none; background-color: #007A5E;" type="button"
-                            class="btn custom-modal-btn" data-bs-toggle="modal" data-bs-target="#don"
-                            @click="showModal(acte)">
-                            <i style="padding: 30px; background-color: #007A5E;" class="fa fa-plus"></i>
-                        </button>
-                    </li>
-                </ul>
-            </div>
-            <div class="bout" style="justify-content: end; display: flex;">
-                <button style="border: none; padding: 10px 10px; background-color: #007A5E; color: white;" type="button"
-                    class="btn custom-modal-btn" data-bs-toggle="modal" data-bs-target="#don" @click="showModal2">
-                    Ajouter un acte <i style="color: white;" class="fa fa-plus"></i>
-                </button>
+            </div> -->
+            <div style="width: 100%;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th><label for="" class="attr">Numéro acte</label></th>
+                            <th><label for="" class="attr">Categorie Acte</label></th>
+                            <th><label for="" class="attr">Type acte</label></th>
+                            <th><label for="" class="attr">signe le</label></th>
+                            <th><label for="" class="attr">signataire</label></th>
+                            <th><label for="" class="attr">Actions</label></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="table-row" v-for="(acte, index) in actes" :key="acte.id">
+                            <td>{{ index + 1 }}</td>
+                            <td>{{ acte.numero }}</td>
+                            <td>{{ acte.categorie }}</td>
+                            <td>{{ acte.type }}</td>
+                            <td>{{ acte.signature_date }}</td>
+                            <td>{{ acte.signataire }}</td>
+                            <td>
+                                <button style="border: none; color: #007A5E;" type="button" class="btn custom-modal-btn"
+                                    data-bs-toggle="modal" data-bs-target="#don" @click="showModal(acte)">
+                                    <i style="font-size: 18px;" class="fa fa-eye" aria-hidden="true"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -81,7 +100,8 @@
                 <div class="inp-field">
                     <label for="nom_concerne"> Type d'acte :</label>
                     <select name="" id="" v-model="categorie">
-                        <option v-for="categorie_acte in categorie_actes" :value="categorie_acte.libelle" :key="categorie_acte.libelle">
+                        <option v-for="categorie_acte in categorie_actes" :value="categorie_acte.libelle"
+                            :key="categorie_acte.libelle">
                             {{ categorie_acte.libelle }}
                         </option>
                     </select>
@@ -112,39 +132,39 @@
                     <input type="file" id="pdf" ref="pdfInput" required>
                 </div>
                 <div style="width: 95%; display: flex; justify-content: space-between;">
-                        <button class="sub_butt" type="submit">Créer l'acte</button>
-                        <button class="sub_butt" style="background-color: red;" @click="hideModal">Annuler</button>
-                    </div>
+                    <button class="sub_butt" type="submit">Créer l'acte</button>
+                    <button class="sub_butt" style="background-color: red;" @click="hideModal">Annuler</button>
+                </div>
             </form>
         </div>
     </div>
-    
-            <div v-if="success" class="modals2">
-                <div class="popup-content">
-                    <div class="close" @click="hideModal">
-                        <i class="fa fa-window-close"></i>
-                     </div>
+
+    <div v-if="success" class="modals2">
+        <div class="popup-content">
+            <div class="close" @click="hideModal">
+                <i class="fa fa-window-close"></i>
+            </div>
+            <div>
+                <p class="successMes">{{ successMessage }}</p>
+
+            </div>
+
+        </div>
+
+        <div v-if="error" class="modals2">
+            <div class="popup-content">
+                <div class="close" @click="hideModal">
+                    <i class="fa fa-window-close"></i>
+                </div>
                 <div>
-                    <p class="successMes">{{ successMessage }}</p>
-                    
-                </div>
-                
-            </div>
-        
-            <div v-if="error" class="modals2">
-                <div class="popup-content">
-                    <div class="close" @click="hideModal">
-                        <i class="fa fa-window-close"></i>
-                    </div>
-                    <div>
-                         <p class="errorMes">{{ errorMessage }}</p>
-                    </div>
+                    <p class="errorMes">{{ errorMessage }}</p>
                 </div>
             </div>
-        
+        </div>
+
     </div>
 
-    
+
 </template>
 
 <script>
@@ -224,7 +244,7 @@ export default {
         },
         async deleteActe() {
             try {
-                const response = await axios.delete(`http://localhost:3000/actes/${this.selectedActe.id}`);
+                const response = await axios.delete(`http://192.168.100.116:3000/actes/${this.selectedActe.id}`);
                 console.log(response.data);
                 // Supprimer l'acte de la liste actes
                 this.actes = this.actes.filter(acte => acte.id !== this.selectedActe.id);
@@ -251,7 +271,7 @@ export default {
             formData.append('pdf', this.$refs.pdfInput.files[0]); // Utilisez la référence $refs pour obtenir le fichier sélectionné
 
             try {
-                const response = await axios.post('http://localhost:3000/actes', formData, {
+                const response = await axios.post('http://192.168.100.116:3000/actes', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
@@ -278,7 +298,7 @@ export default {
         },
         async getActes() {
             try {
-                const response = await axios.get('http://localhost:3000/actes');
+                const response = await axios.get('http://192.168.100.116:3000/actes');
                 const actes = response.data; // Utilisez response.data pour obtenir les données de la réponse
                 this.actes = actes;
             } catch (error) {
@@ -287,7 +307,7 @@ export default {
         },
         async getTypeActes() {
             try {
-                const response = await axios.get('http://localhost:3000/type_actes'); // Appeler l'API GET
+                const response = await axios.get('http://192.168.100.116:3000/type_actes'); // Appeler l'API GET
                 this.type_actes = response.data;
                 console.log(this.type_actes);
             } catch (error) {
@@ -296,7 +316,7 @@ export default {
         },
         async getCategorieActes() {
             try {
-                const response = await axios.get('http://localhost:3000/categorie_acte'); // Appeler l'API GET
+                const response = await axios.get('http://192.168.100.116:3000/categorie_acte'); // Appeler l'API GET
                 this.categorie_actes = response.data;
                 console.log(this.categorie_actes);
             } catch (error) {
@@ -308,6 +328,94 @@ export default {
 </script>
 <style scoped>
 @import url(https://fonts.googleapis.com/css2?family=Monda:wght@100;200;300;400;500;600;700&display=swap);
+
+.heaths {
+    width: 95%;
+    background-color: rgba(0, 0, 0, 0.05);
+    margin: auto;
+    margin-bottom: 15px;
+}
+
+.titre1 {
+    font-size: 25px;
+    font-weight: bold;
+    color: #0B9777;
+    text-decoration: none;
+}
+
+.heathse .btns {
+    width: 20%;
+    border: none;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.heathse {
+    display: flex;
+    justify-content: space-between;
+    width: 95%;
+    margin: auto;
+    margin-bottom: 15px;
+    padding: 10px 0;
+    border: 1px solid #0B9777;
+    border-radius: 5px;
+}
+
+.heaths .seach {
+    width: 30%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.seach input {
+    height: 40px;
+    width: 85%;
+    margin: 0;
+    border: none;
+    background-color: white;
+    outline: none;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.03);
+}
+
+.seach button {
+    margin: 0;
+    width: 15%;
+    text-align: right;
+    padding: 5px 15px;
+    background-color: #007A5E;
+    border: none;
+    text-align: center;
+}
+
+.seach i {
+    font-size: 2rem;
+    color: white;
+
+
+}
+
+table {
+    border-collapse: collapse;
+    margin-top: 30px;
+    width: 95%;
+    margin: auto;
+}
+
+table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+table th {
+    background-color: #0B9777;
+    padding: 10px;
+    color: white;
+}
+
+table tr:last-child td {
+    border-bottom: none;
+}
 
 .modals {
     background-color: rgba(0, 0, 0, 0.5);
@@ -328,6 +436,7 @@ export default {
     /* 
     margin: 0 13%; */
 }
+
 .popup-content {
     border-radius: 10px;
     background-color: white;
@@ -338,19 +447,21 @@ export default {
     text-align: center;
 }
 
-.successMes{
+.successMes {
     font-size: 25px;
     font-family: Arial, Helvetica, sans-serif;
     color: #007A5E;
     font-weight: bold;
 }
-.errorMes{
+
+.errorMes {
     font-size: 25px;
     font-family: Arial, Helvetica, sans-serif;
     color: red;
     font-weight: bold;
 }
-.popup-content i{
+
+.popup-content i {
     margin-right: 9px;
 }
 

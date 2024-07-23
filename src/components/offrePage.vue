@@ -140,7 +140,7 @@ export default {
 
         async deleteOffre() {
             try {
-                const response = await axios.delete(`http://localhost:3000/offres/${this.selectedOffre.id}`);
+                const response = await axios.delete(`http://192.168.100.116:3000/offres/${this.selectedOffre.id}`);
                 console.log(response.data);
                 // Supprimer l'offre de la liste offres
                 this.offres = this.offres.filter(offre => offre.id !== this.selectedOffre.id);
@@ -160,7 +160,7 @@ export default {
             formData.append('pdf', this.$refs.pdfInput.files[0]); // Utilisez la référence $refs pour obtenir le fichier sélectionné
 
             try {
-                const response = await axios.post('http://localhost:3000/offres', formData, {
+                const response = await axios.post('http://192.168.100.116:3000/offres', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
@@ -178,7 +178,7 @@ export default {
         },
         async getOffres() {
             try {
-                const response = await axios.get('http://localhost:3000/offres'); // Appeler l'API GET
+                const response = await axios.get('http://192.168.100.116:3000/offres'); // Appeler l'API GET
                 this.offres = response.data;
             } catch (error) {
                 console.error('Erreur lors de la récupération des offres :', error);

@@ -1,14 +1,17 @@
 <template>
-    <div class="heathse">
-        <button class="btns" @click.prevent="showPriseservice">Prise de service</button>
-        <button class="btns">Reprise de service</button>
-        <button class="btns" @click.prevent="showFormation">Mise en stage</button>
-    </div>
     <div class="heaths">
         <form class="seach" @submit.prevent="searchPersonnel">
             <input type="text" v-model="searchTerm" placeholder="Rechercher un employé..." />
             <button type="submit"><i class="fa fa-search"></i></button>
         </form>
+    </div>
+    <div class="heathse">
+        <a class="titre1" href="">Liste des requetes</a>
+        <div style="width: 50%; display: flex; justify-content: space-between;">
+            <button class="btns" @click.prevent="showPriseservice">Prise de service</button>
+            <button class="btns">Reprise de service</button>
+            <button class="btns" @click.prevent="showFormation">Mise en stage</button>
+        </div>
     </div>
 
     <div style="width: 100%;" v-if="service_call">
@@ -33,7 +36,8 @@
                     <td>{{ service.nom_prenom }}</td>
                     <td>{{ formatDate(service.date_naissance) }}</td>
                     <td>{{ service.sex }}</td>
-                    <td :style="{ color: service.status === 'Approuvé' ? '#007A5E' : 'rgba(0, 0, 0, 0.3)' }">{{ service.status }}</td>
+                    <td :style="{ color: service.status === 'Approuvé' ? '#007A5E' : 'rgba(0, 0, 0, 0.3)' }">{{
+                        service.status }}</td>
                     <td>
                         <button style="border: none; color: #007A5E;" type="button" class="btn custom-modal-btn"
                             data-bs-toggle="modal" data-bs-target="#don" @click="showModal3(service)">
@@ -142,7 +146,8 @@
                 </div>
                 <div class="list_detail">
                     <label>Status:</label>
-                    <h3 :style="{ color: selectedService.status === 'Approuvé' ? '#007A5E' : 'rgba(0, 0, 0, 0.3)' }"> {{ selectedService.status }} </h3>
+                    <h3 :style="{ color: selectedService.status === 'Approuvé' ? '#007A5E' : 'rgba(0, 0, 0, 0.3)' }"> {{
+                        selectedService.status }} </h3>
                 </div>
                 <div class="list_detail">
                     <label>Contact:</label>
@@ -202,7 +207,7 @@ export default {
         async showModal2(mise) {
             this.selectedMise = mise;
             try {
-                await axios.get(`http://localhost:3000/mise_stage/` + mise.id_perso).then(
+                await axios.get(`http://192.168.100.116:3000/mise_stage/` + mise.id_perso).then(
                     res => {
                         this.selectedFormations = res.data;
 
@@ -217,7 +222,7 @@ export default {
         async showModal3(service) {
             this.selectedService = service;
             try {
-                await axios.get(`http://localhost:3000/priseService_repriseService/` + service.id_perso).then(
+                await axios.get(`http://192.168.100.116:3000/priseService_repriseService/` + service.id_perso).then(
                     res => {
                         this.selectedPriseservice = res.data;
 
@@ -236,7 +241,7 @@ export default {
         },
         async getMiseStage() {
             try {
-                const response = await axios.get('http://localhost:3000/mise_stage'); // Appeler l'API GET
+                const response = await axios.get('http://192.168.100.116:3000/mise_stage'); // Appeler l'API GET
                 this.mise_stage = response.data;
             } catch (error) {
                 console.error('Erreur lors de la récupération des mise_stage :', error);
@@ -244,7 +249,7 @@ export default {
         },
         async getPriseservice() {
             try {
-                const response = await axios.get('http://localhost:3000/priseService_repriseService'); // Appeler l'API GET
+                const response = await axios.get('http://192.168.100.116:3000/priseService_repriseService'); // Appeler l'API GET
                 this.priseService_repriseService = response.data;
                 console.log({ bonjour: this.priseService_repriseService });
             } catch (error) {
@@ -256,7 +261,7 @@ export default {
                 id_perso: this.selectedService.id_perso
             };
 
-            fetch('http://localhost:3000/update-status/' + this.selectedService.id_perso, {
+            fetch('http://192.168.100.116:3000/update-status/' + this.selectedService.id_perso, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -290,7 +295,59 @@ export default {
     margin: auto;
     margin-bottom: 15px;
 }
+.titre1 {
+    font-size: 25px;
+    font-weight: bold;
+    color: #0B9777;
+    text-decoration: none;
+}
+.heathse .btns {
+    width: 30%;
+    padding: 10px 0;
+    border: none;
+    color: #0B9777;
+    font-weight: bold;
+    font-size: 20px;
+}
+.heathse {
+    display: flex;
+    justify-content: space-between;
+    width: 95%;
+    margin: auto;
+    margin-bottom: 15px;
+    border: 1px solid #0B9777;
+    padding: 10px 0;
+    border-radius: 5px;
+}
+.heaths .seach {
+    width: 30%;
+    display: flex;
+    justify-content: space-between;
+}
+.seach input {
+    height: 40px;
+    width: 85%;
+    margin: 0;
+    border: none;
+    background-color: white;
+    outline: none;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.03);
+}
+.seach button {
+    margin: 0;
+    width: 15%;
+    text-align: right;
+    padding: 5px 15px;
+    background-color: #007A5E;
+    border: none;
+    text-align: center;
+}
+.seach i {
+    font-size: 2rem;
+    color: white;
 
+
+}
 .detailler {
     margin: auto;
     font-size: 20px;
@@ -303,56 +360,6 @@ export default {
     color: white;
 }
 
-.heathse .btns {
-    width: 20%;
-    padding: 10px 0;
-    border: none;
-    background-color: #0B9777;
-    font-weight: bold;
-    color: white;
-    font-size: 20px;
-}
-
-.heathse {
-    display: flex;
-    justify-content: space-between;
-    width: 95%;
-    margin: auto;
-    margin-bottom: 15px;
-}
-
-.heaths .seach {
-    width: 30%;
-    display: flex;
-    justify-content: space-between;
-}
-
-.seach input {
-    height: 40px;
-    width: 85%;
-    margin: 0;
-    border: none;
-    background-color: white;
-    outline: none;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.03);
-}
-
-.seach button {
-    margin: 0;
-    width: 15%;
-    text-align: right;
-    padding: 5px 15px;
-    background-color: #007A5E;
-    border: none;
-    text-align: center;
-}
-
-.seach i {
-    font-size: 2rem;
-    color: white;
-
-
-}
 
 table {
     border-collapse: collapse;

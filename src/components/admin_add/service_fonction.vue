@@ -76,7 +76,7 @@ export default {
 
     async createService() {
       try {
-        const response = await axios.post('http://localhost:3000/service_fonction', {
+        const response = await axios.post('http://192.168.100.116:3000/service_fonction', {
           libelle: this.libelle
         });
         this.success = true;
@@ -90,7 +90,7 @@ export default {
 
     async getService() {
       try {
-        const response = await axios.get('http://localhost:3000/service_fonction'); // Appeler l'API GET
+        const response = await axios.get('http://192.168.100.116:3000/service_fonction'); // Appeler l'API GET
         this.service_fonction = response.data;
         console.log(response.data);
       } catch (error) {

@@ -328,7 +328,7 @@ export default {
             const formData = new FormData();
             formData.append('excelFile', this.$refs.fileInput.files[0]);
 
-            fetch('http://localhost:3000/import', {
+            fetch('http://192.168.100.116:3000/import', {
                 method: 'POST',
                 body: formData,
             })
@@ -348,7 +348,7 @@ export default {
         },
         async fetchPersonnelCount() {
             try {
-                const response = await axios.get('http://localhost:3000/personnel-count')
+                const response = await axios.get('http://192.168.100.116:3000/personnel-count')
                 this.personnelCount = response.data.count;
                 console.log(this.personnelCount);
             } catch (error) {
@@ -357,7 +357,7 @@ export default {
         },
         async fetchAffectationCount() {
             try {
-                const response = await axios.get('http://localhost:3000/lieu_service-count')
+                const response = await axios.get('http://192.168.100.116:3000/lieu_service-count')
                 this.affectationCount = response.data.count;
                 console.log(this.affectationCount);
             } catch (error) {
@@ -366,7 +366,7 @@ export default {
         },
         async fetchMisestageCount() {
             try {
-                const response = await axios.get('http://localhost:3000/mise_stage-count')
+                const response = await axios.get('http://192.168.100.116:3000/mise_stage-count')
                 this.stageCount = response.data.count;
                 console.log(this.stageCount);
             } catch (error) {
@@ -375,7 +375,7 @@ export default {
         },
         async fetchServiceCount() {
             try {
-                const response = await axios.get('http://localhost:3000/priseService_repriseService-count')
+                const response = await axios.get('http://192.168.100.116:3000/priseService_repriseService-count')
                 this.serviceCount = response.data.count;
                 console.log(this.serviceCount);
             } catch (error) {
