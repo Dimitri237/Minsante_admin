@@ -101,7 +101,7 @@ export default {
 
     async createTypeactes() {
       try {
-        const response = await axios.post('http://192.168.100.116:3000/type_actes', {
+        const response = await axios.post('https://minsante-6405bf7b686a.herokuapp.com/type_actes', {
           libelle: this.libelle
         });
         this.hideModal();
@@ -118,7 +118,7 @@ export default {
 
     async getTypeactes() {
       try {
-        const response = await axios.get('http://192.168.100.116:3000/type_actes'); // Appeler l'API GET
+        const response = await axios.get('https://minsante-6405bf7b686a.herokuapp.com/type_actes'); // Appeler l'API GET
         this.type_actes = response.data;
         console.log(response.data);
       } catch (error) {

@@ -239,7 +239,7 @@ export default {
     methods: {
         async fetchLieuService(id_perso) {
             try {
-                await axios.get(`http://192.168.100.116:3000/lieu_service/${id_perso}`).then(
+                await axios.get(`https://minsante-6405bf7b686a.herokuapp.com/lieu_service/${id_perso}`).then(
                     res => {
                         console.log('résultat', res.data);
                     }
@@ -252,7 +252,7 @@ export default {
         },
         async fetchFormation(id_perso) {
             try {
-                await axios.get(`http://192.168.100.116:3000/mise_stage/${id_perso}`).then(
+                await axios.get(`https://minsante-6405bf7b686a.herokuapp.com/mise_stage/${id_perso}`).then(
                     res => {
                         console.log('résultat', res.data);
                     }
@@ -268,7 +268,7 @@ export default {
         },
         async createEmploye() {
             try {
-                const response = await axios.post('http://192.168.100.116:3000/personnel', {
+                const response = await axios.post('https://minsante-6405bf7b686a.herokuapp.com/personnel', {
                     matricule: this.matricule,
                     nom_prenom: this.nom_prenom,
                     date_naissance: this.date_naissance,
@@ -302,7 +302,7 @@ export default {
         },
         async getPersonnel() {
             try {
-                const response = await axios.get('http://192.168.100.116:3000/personnel');
+                const response = await axios.get('https://minsante-6405bf7b686a.herokuapp.com/personnel');
                 this.personnels = response.data;
             } catch (error) {
                 console.error('Erreur lors de la récupération des personnel :', error);
@@ -325,7 +325,7 @@ export default {
         },
         async getStructure() {
             try {
-                const response = await axios.get('http://192.168.100.116:3000/formation_sanitaire'); // Appeler l'API GET
+                const response = await axios.get('https://minsante-6405bf7b686a.herokuapp.com/formation_sanitaire'); // Appeler l'API GET
                 this.formation_sanitaire = response.data;
                 console.log(this.formation_sanitaire);
             } catch (error) {
@@ -340,14 +340,14 @@ export default {
         async showModal2(personnel) {
             this.selectedPersonnel = personnel;
             try {
-                await axios.get(`http://192.168.100.116:3000/mise_stage/` + personnel.matricule).then(
+                await axios.get(`https://minsante-6405bf7b686a.herokuapp.com/mise_stage/` + personnel.matricule).then(
                     res => {
                         this.selectedFormations = res.data
                         console.log('pp', this.selectedFormations);
 
                     }
                 )
-                await axios.get(`http://192.168.100.116:3000/lieu_service/` + personnel.matricule).then(
+                await axios.get(`https://minsante-6405bf7b686a.herokuapp.com/lieu_service/` + personnel.matricule).then(
                     res => {
                         this.selectedAffectations = res.data
                         console.log('pp', this.selectedAffectations);
@@ -372,7 +372,7 @@ export default {
             const formData = new FormData();
             formData.append('excelFile', this.$refs.fileInput.files[0]);
 
-            fetch('http://192.168.100.116:3000/import', {
+            fetch('https://minsante-6405bf7b686a.herokuapp.com/import', {
                 method: 'POST',
                 body: formData,
             })

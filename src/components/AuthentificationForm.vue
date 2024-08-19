@@ -1,7 +1,5 @@
 <template>
-  <button @click="AfficherForm">afficher</button>
-  <button @click="masquerForm">Masquer</button>
-  <div v-if="test" class="container monda-font ">
+  <div  class="container monda-font ">
     <nav>
       <img src="" alt="" />
     </nav>
@@ -32,7 +30,6 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      test: false,
       noms: [
         { nom: "Randy"},
         {nom: "Dimitri"},
@@ -50,15 +47,9 @@ export default {
   },
 
   methods: {
-    AfficherForm (){
-      this.test=true;
-    },
-    masquerForm (){
-      this.test=false;
-    },
     async login() {
       try {
-        const response = await axios.post('http://192.168.100.116:3000/login', this.loginForm);
+        const response = await axios.post('https://minsante-6405bf7b686a.herokuapp.com/login', this.loginForm);
         const { token } = response.data;
 
         if (token) {

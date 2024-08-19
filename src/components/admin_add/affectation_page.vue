@@ -163,7 +163,7 @@ export default {
         },
         async createAffectation() {
             try {
-                const response = await axios.post('http://192.168.100.116:3000/lieu_service', {
+                const response = await axios.post('https://minsante-6405bf7b686a.herokuapp.com/lieu_service', {
                     id_perso: this.id_perso,
                     poste: this.poste,
                     id_acte: this.selectedActeNumber,
@@ -188,7 +188,7 @@ export default {
         },
         async getAffectation() {
             try {
-                const response = await axios.get('http://192.168.100.116:3000/lieu_service'); // Appeler l'API GET
+                const response = await axios.get('https://minsante-6405bf7b686a.herokuapp.com/lieu_service'); // Appeler l'API GET
                 this.lieu_service = response.data;
                 console.log(response.data);
             } catch (error) {
@@ -197,7 +197,7 @@ export default {
         },
         async getStructure() {
             try {
-                const response = await axios.get('http://192.168.100.116:3000/formation_sanitaire'); // Appeler l'API GET
+                const response = await axios.get('https://minsante-6405bf7b686a.herokuapp.com/formation_sanitaire'); // Appeler l'API GET
                 this.formation_sanitaire = response.data;
                 console.log(response.data);
             } catch (error) {
@@ -206,7 +206,7 @@ export default {
         },
         async getActes() {
             try {
-                const response = await axios.get('http://192.168.100.116:3000/actes');
+                const response = await axios.get('https://minsante-6405bf7b686a.herokuapp.com/actes');
                 const actes = response.data; // Utilisez response.data pour obtenir les données de la réponse
                 this.actes = actes;
             } catch (error) {

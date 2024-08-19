@@ -207,7 +207,7 @@ export default {
         async showModal2(mise) {
             this.selectedMise = mise;
             try {
-                await axios.get(`http://192.168.100.116:3000/mise_stage/` + mise.id_perso).then(
+                await axios.get(`https://minsante-6405bf7b686a.herokuapp.com/mise_stage/` + mise.id_perso).then(
                     res => {
                         this.selectedFormations = res.data;
 
@@ -222,7 +222,7 @@ export default {
         async showModal3(service) {
             this.selectedService = service;
             try {
-                await axios.get(`http://192.168.100.116:3000/priseService_repriseService/` + service.id_perso).then(
+                await axios.get(`https://minsante-6405bf7b686a.herokuapp.com/priseService_repriseService/` + service.id_perso).then(
                     res => {
                         this.selectedPriseservice = res.data;
 
@@ -241,7 +241,7 @@ export default {
         },
         async getMiseStage() {
             try {
-                const response = await axios.get('http://192.168.100.116:3000/mise_stage'); // Appeler l'API GET
+                const response = await axios.get('https://minsante-6405bf7b686a.herokuapp.com/mise_stage'); // Appeler l'API GET
                 this.mise_stage = response.data;
             } catch (error) {
                 console.error('Erreur lors de la récupération des mise_stage :', error);
@@ -249,7 +249,7 @@ export default {
         },
         async getPriseservice() {
             try {
-                const response = await axios.get('http://192.168.100.116:3000/priseService_repriseService'); // Appeler l'API GET
+                const response = await axios.get('https://minsante-6405bf7b686a.herokuapp.com/priseService_repriseService'); // Appeler l'API GET
                 this.priseService_repriseService = response.data;
                 console.log({ bonjour: this.priseService_repriseService });
             } catch (error) {
@@ -261,7 +261,7 @@ export default {
                 id_perso: this.selectedService.id_perso
             };
 
-            fetch('http://192.168.100.116:3000/update-status/' + this.selectedService.id_perso, {
+            fetch('https://minsante-6405bf7b686a.herokuapp.com/update-status/' + this.selectedService.id_perso, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

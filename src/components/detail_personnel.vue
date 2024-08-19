@@ -300,7 +300,7 @@ export default {
         },
         loadPersonnelDetails() {
             const matricule = this.$route.params.matricule;
-            axios.get(`http://192.168.100.116:3000/personnel/${matricule}`)
+            axios.get(`https://minsante-6405bf7b686a.herokuapp.com/personnel/${matricule}`)
                 .then(response => {
                     this.personnel = response.data;
                 })
@@ -319,7 +319,7 @@ export default {
         },
         async createAffectation() {
             try {
-                const response = await axios.post('http://192.168.100.116:3000/lieu_service', {
+                const response = await axios.post('https://minsante-6405bf7b686a.herokuapp.com/lieu_service', {
                     id_perso: this.id_perso,
                     poste: this.poste,
                     id_acte: this.selectedActeNumber,
@@ -344,7 +344,7 @@ export default {
         },
         loadLieuService() {
             const matricule = this.$route.params.matricule;
-            axios.get(`http://192.168.100.116:3000/lieu_service/${matricule}`)
+            axios.get(`https://minsante-6405bf7b686a.herokuapp.com/lieu_service/${matricule}`)
                 .then(response => {
                     this.lieuService = response.data;
                     console.log({bonjour:this.lieuService});
@@ -355,7 +355,7 @@ export default {
         },
         loadFormation() {
             const matricule = this.$route.params.matricule;
-            axios.get(`http://192.168.100.116:3000/approbation_stage/${matricule}`)
+            axios.get(`https://minsante-6405bf7b686a.herokuapp.com/approbation_stage/${matricule}`)
                 .then(response => {
                     this.miseStages = response.data;
                     console.log(this.miseStages);
@@ -371,7 +371,7 @@ export default {
         async deletePersonnel() {
             try {
                 const matricule = localStorage.getItem('matricule');
-                const response = await axios.delete(`http://192.168.100.116:3000/personnel/${matricule}`);
+                const response = await axios.delete(`https://minsante-6405bf7b686a.herokuapp.com/personnel/${matricule}`);
                 console.log(response.data);
                 this.personnels = this.personnels.filter(personnel => personnel.matricule !== matricule);
                 this.$router.push('/acceuilPage');
@@ -392,7 +392,7 @@ export default {
         },
         async getStructure() {
             try {
-                const response = await axios.get('http://192.168.100.116:3000/formation_sanitaire'); // Appeler l'API GET
+                const response = await axios.get('https://minsante-6405bf7b686a.herokuapp.com/formation_sanitaire'); // Appeler l'API GET
                 this.formation_sanitaire = response.data;
                 console.log(response.data);
             } catch (error) {
@@ -401,7 +401,7 @@ export default {
         },
         async getActes() {
             try {
-                const response = await axios.get('http://192.168.100.116:3000/actes');
+                const response = await axios.get('https://minsante-6405bf7b686a.herokuapp.com/actes');
                 const actes = response.data; // Utilisez response.data pour obtenir les données de la réponse
                 this.actes = actes;
             } catch (error) {

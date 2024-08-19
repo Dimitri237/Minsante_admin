@@ -95,7 +95,7 @@ export default {
 
     async createTypefs() {
       try {
-        const response = await axios.post('http://192.168.100.116:3000/type_fs', {
+        const response = await axios.post('https://minsante-6405bf7b686a.herokuapp.com/type_fs', {
           libelle: this.libelle
         });
         this.hideModal();
@@ -111,7 +111,7 @@ export default {
 
     async getTypefs() {
       try {
-        const response = await axios.get('http://192.168.100.116:3000/type_fs'); // Appeler l'API GET
+        const response = await axios.get('https://minsante-6405bf7b686a.herokuapp.com/type_fs'); // Appeler l'API GET
         this.type_fs = response.data;
         console.log(response.data);
       } catch (error) {

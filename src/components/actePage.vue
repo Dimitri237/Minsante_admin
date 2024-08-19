@@ -244,7 +244,7 @@ export default {
         },
         async deleteActe() {
             try {
-                const response = await axios.delete(`http://192.168.100.116:3000/actes/${this.selectedActe.id}`);
+                const response = await axios.delete(`https://minsante-6405bf7b686a.herokuapp.com/actes/${this.selectedActe.id}`);
                 console.log(response.data);
                 // Supprimer l'acte de la liste actes
                 this.actes = this.actes.filter(acte => acte.id !== this.selectedActe.id);
@@ -271,7 +271,7 @@ export default {
             formData.append('pdf', this.$refs.pdfInput.files[0]); // Utilisez la référence $refs pour obtenir le fichier sélectionné
 
             try {
-                const response = await axios.post('http://192.168.100.116:3000/actes', formData, {
+                const response = await axios.post('https://minsante-6405bf7b686a.herokuapp.com/actes', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
@@ -298,7 +298,7 @@ export default {
         },
         async getActes() {
             try {
-                const response = await axios.get('http://192.168.100.116:3000/actes');
+                const response = await axios.get('https://minsante-6405bf7b686a.herokuapp.com/actes');
                 const actes = response.data; // Utilisez response.data pour obtenir les données de la réponse
                 this.actes = actes;
             } catch (error) {
@@ -307,7 +307,7 @@ export default {
         },
         async getTypeActes() {
             try {
-                const response = await axios.get('http://192.168.100.116:3000/type_actes'); // Appeler l'API GET
+                const response = await axios.get('https://minsante-6405bf7b686a.herokuapp.com/type_actes'); // Appeler l'API GET
                 this.type_actes = response.data;
                 console.log(this.type_actes);
             } catch (error) {
@@ -316,7 +316,7 @@ export default {
         },
         async getCategorieActes() {
             try {
-                const response = await axios.get('http://192.168.100.116:3000/categorie_acte'); // Appeler l'API GET
+                const response = await axios.get('https://minsante-6405bf7b686a.herokuapp.com/categorie_acte'); // Appeler l'API GET
                 this.categorie_actes = response.data;
                 console.log(this.categorie_actes);
             } catch (error) {
