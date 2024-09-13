@@ -1,5 +1,5 @@
 <template>
-  <div  class="container monda-font ">
+  <div class="container monda-font ">
     <nav>
       <img src="" alt="" />
     </nav>
@@ -9,11 +9,11 @@
     <form @submit.prevent="login">
       <div class="input-field">
         <div><label for="email">Téléphone/Email</label></div>
-        <input id="contact" v-model="loginForm.username" required>
+        <input id="contact" v-model="email" required>
       </div>
       <div class="input-field">
         <div><label for="password">Mot de passe</label></div>
-        <input type="password" id="password" v-model="loginForm.password" required>
+        <input type="password" id="password" v-model="password" required>
       </div>
       <div>
         <button class="btn" type="submit" :disabled="loading">
@@ -30,43 +30,39 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      noms: [
-        { nom: "Randy"},
-        {nom: "Dimitri"},
-        {nom: "Durelle"},
-        {nom: "Patrick"},
-        {nom: "Ange"}
-      ],
-      loginForm: {
-        username: '', 
-        password: ''
-      },
-      loggedIn: false,
-      username: '',
+      email: '',
+      password: '',
+      loading: false,
     };
   },
 
   methods: {
     async login() {
+      this.loading = true;
       try {
-        const response = await axios.post('https://minsante-6405bf7b686a.herokuapp.com/login', this.loginForm);
-        const { token } = response.data;
+        const response = await axios.post('https://minsante-6405bf7b686a.herokuapp.com/login', {
+          email: this.email,
+          password: this.password,
+        });
 
-        if (token) {
-          localStorage.setItem('token', token);
-          localStorage.setItem('username', this.loginForm.username);
-          console.log(this.loginForm.username);
-          this.loggedIn = true;
-          this.username = this.loginForm.username;
-          this.$router.push("acceuilPage");
-        } else {
-          throw new Error('Réponse invalide');
-        }
+        const { token, userId, userName } = response.data;
+
+        // Stocker l'ID de l'utilisateur dans le localStorage
+        localStorage.setItem('userId', userId);
+        localStorage.setItem('userName', userName);
+
+        // Stocker le jeton d'authentification dans une variable ou le localStorage
+        this.token = token;
+
+        // Rediriger l'utilisateur vers une page protégée ou effectuer d'autres actions
+        this.$router.push('/acceuilPage');
       } catch (error) {
-        console.error(error.response?.data || error.message);
-        alert('Échec de la connexion');
+        console.error(error);
+        // Afficher un message d'erreur à l'utilisateur
+      }finally {
+        this.loading = false;
       }
-    }
+    },
   },
 };
 </script>
@@ -152,15 +148,16 @@ label {
   color: rgb(214, 106, 5);
 }
 
+
 .loading-indicator::after {
   content: "";
   display: inline-block;
   width: 23px;
   height: 23px;
   border-radius: 50%;
-  border: 3px solid white;
-  border-top-color: #007A5E;
-  border-bottom-color: #007A5E;
+  border: 3px solid #06283D;
+  border-top-color: white;
+  border-bottom-color: white;
   animation: spin 1s linear infinite;
 }
 

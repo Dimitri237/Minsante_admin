@@ -40,7 +40,7 @@
                     <td>{{ personnel.lieu_service }}</td>
                     <td>
                         <button style="border: none; color: #007A5E;" type="button" class="btn custom-modal-btn"
-                            data-bs-toggle="modal" data-bs-target="#don" @click="showModal2(personnel)">4
+                            data-bs-toggle="modal" data-bs-target="#don" @click="showModal2(personnel)">
                             <i style="font-size: 18px;" class="fa fa-eye" aria-hidden="true"></i>
                         </button>
                     </td>
@@ -165,29 +165,6 @@
                     <label>spécialisation:</label>
                     <h3>{{ selectedPersonnel.specialisation }}</h3>
                 </div>
-                <!-- <div class="lieu-service-section">
-                    <h2 style="color: #007A5E;">Parcours</h2>
-                    <div class="lieu-service-item" v-for="selectedAffectation in selectedAffectations"
-                        :key="selectedAffectation.id">
-                        <div class="list_detail">
-                            <label>inclus dans l'acte N°:</label>
-                            <h3>{{ selectedAffectation.id_acte }}</h3>
-                        </div>
-                        <div class="list_detail">
-                            <label>Affecte de:</label>
-                            <h3>{{ selectedAffectation.id_fsactuel }}</h3>
-                        </div>
-                        <div class="list_detail">
-                            <label>Pour: </label>
-                            <h3>{{ selectedAffectation.id_fsnouvelle }}</h3>
-                        </div>
-                        <div class="list_detail">
-                            <label>Le: </label>
-                            <h3>{{ selectedAffectation.create_at }}</h3>
-                        </div>
-                    </div>
-                </div> -->
-
                 <button class="detailler"><router-link class="s_detailler"
                         :to="'/PersonnelDetails/' + selectedPersonnel.matricule">Plus de details</router-link></button>
             </div>

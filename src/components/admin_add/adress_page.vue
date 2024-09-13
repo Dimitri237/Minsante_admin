@@ -1,25 +1,12 @@
 <template>
-  <div class="all " style="height: 150px; background-color: red; width: 100%;">
-
-  <div class="btn" style="border: none; width: 100%; height: 150px; background-color: #007A5E; color: white;">
-    <button style="border: none; padding: 10px 10px; background-color: #007A5E; color: white;" type="button"
-      class="btn custom-modal-btn" data-bs-toggle="modal" data-bs-target="#don" @click="showModal2">
-      Ajouter une adresse <i style="color: white;" class="fa fa-plus"></i>
-    </button>
-  </div>
-</div>
-  <div v-if="modalVisible2" class="modals2">
-    <div class="details2 animate__animated animate__fadeInDown">
-
-      <div class="close" @click="hideModal">
-        <i class="fa fa-window-close"></i>
-      </div>
+  <div>
+    <div>
       <div style="width: 100%; padding: 10px;">
         <h2 style="margin: 0; color: #007A5E; padding: 0;">Créer une nouvelle adresse</h2>
       </div>
       <form @submit.prevent="createAdress">
         <div class="inp-field">
-          <label for="nom_auteur">Nom de l'infrastructure :</label>
+          <label for="nom_auteur">Nom de l'adress :</label>
           <input type="text" id="libelle" v-model="libelle" required><br>
 
         </div>
@@ -30,30 +17,6 @@
       </form>
     </div>
   </div>
-  <div v-if="success" class="modals2">
-    <div class="popup-content">
-      <div class="close" @click="hideModal">
-        <i class="fa fa-window-close"></i>
-      </div>
-      <div>
-        <p class="successMes">{{ successMessage }}</p>
-      </div>
-    </div>
-
-    <div v-if="error" class="modals2">
-      <div class="popup-content">
-        <div class="close" @click="hideModal">
-          <i class="fa fa-window-close"></i>
-        </div>
-        <div>
-          <p class="errorMes">{{ errorMessage }}</p>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-
 </template>
 
 
@@ -63,59 +26,23 @@ export default {
 
   data() {
     return {
-      modalVisible: false,
-      modalVisible2: false,
-      loading: false,
-      loading2: false,
       libelle: '',
       success: false,
-      successMessage: '',
-      error: false,
-      errorMessage: ''
     };
   },
-  mounted() {
-    this.getAdress();
-  },
   methods: {
-    hideModal() {
-      this.modalVisible = false;
-      this.modalVisible2 = false;
-      this.success = false;
-      this.error = false;
-    },
-
-    showModal(realisation) {
-      this.selectedRealisation = realisation;
-      this.modalVisible = true;
-    },
-    showModal2() {
-      this.modalVisible2 = true;
-    },
-
     async createAdress() {
       try {
         const response = await axios.post('https://minsante-6405bf7b686a.herokuapp.com/adress', {
           libelle: this.libelle
         });
-        this.hideModal();
-        this.success = true;
         this.successMessage = response.data.message;
         this.libelle = '';
+        window.location.reload();
       } catch (error) {
         this.hideModal();
         this.error = true;
         this.errorMessage = error.response.data.message;
-      }
-    },
-
-    async getAdress() {
-      try {
-        const response = await axios.get('https://minsante-6405bf7b686a.herokuapp.com/adress'); // Appeler l'API GET
-        this.structures = response.data;
-        console.log(response.data);
-      } catch (error) {
-        console.error('Erreur lors de la récupération des adresses :', error);
       }
     },
   }
@@ -131,17 +58,6 @@ export default {
   top: 0%;
   height: 100vh;
   /* 
-    margin: 0 13%; */
-}
-
-.modals2 {
-    background-color: rgba(0, 0, 0, 0.5);
-    position: absolute;
-    width: 100%;
-    top: 0%;
-    left: 0%;
-    height: 100vh;
-    /* 
     margin: 0 13%; */
 }
 
@@ -196,7 +112,6 @@ form .inp-field textarea {
   width: 94%;
   font-size: large;
   border: 1px solid rgba(0, 0, 0, 0.5);
-  border-radius: 5px;
 }
 
 form .inp-field input {
@@ -210,19 +125,9 @@ form .inp-field input {
   width: 50%;
   background-color: #007A5E;
   border: none;
-  border-radius: 5px;
   padding: 10px 0;
 }
 
-.close {
-  text-align: end;
-}
-
-.close i {
-  color: rgba(255, 0, 0, 0.945);
-  font-size: 25px;
-  margin-top: 8px;
-}
 
 .details {
   background-color: white;
@@ -234,14 +139,7 @@ form .inp-field input {
 
 }
 
-.details2 {
-  background-color: white;
-  width: 30%;
-  margin: 7% 33%;
-  padding: 25px 25px;
-  border-radius: 5px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-}
+
 
 .actions {
   width: 50%;
@@ -390,5 +288,14 @@ select::-ms-expand {
 
 .select:hover::after {
   color: #23b499;
+}
+.close {
+    text-align: end;
+}
+
+.close i {
+    color: rgba(255, 0, 0, 0.945);
+    font-size: 25px;
+    margin-top: 8px;
 }
 </style>

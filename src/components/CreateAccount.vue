@@ -16,22 +16,30 @@
         <input class="input" type="date" id="date_naissance" v-model="date_naissance" required>
       </div>
       <div class="input-field">
-        <div> <label for="name">Type d'utilisateur</label></div>
-        <select id="type_u" v-model="type_u" required>
-          <option value="client">Client</option>
-          <option value="admin">Admin</option>
+        <div> <label for="name">Sexe</label></div>
+        <select id="sexe" v-model="sexe" required>
+          <option value="Masculin">Masculin</option>
+          <option value="Feminin">Feminin</option>
         </select>
       </div>
       <div class="input-field">
-        <div> <label for="telephone">Telephone/Email</label></div>
-        <input class="input" id="contact" v-model="contact" required>
+        <div> <label for="contact">Telephone</label></div>
+        <input class="input" type="" id="contact" v-model="contact" required>
       </div>
       <div class="input-field">
-        <label for="photoProfil">Photo de profil</label>
-        <input type="file" id="image" @change="handleImageUpload" />
-        <!-- <input class="box" type="file" id="photoProfil" accept="image/*" @change="onFileSelected2" required>
-        
-        <img class="affiche" :src="selectedImageURL2" v-if="selectedImage2"> -->
+        <div> <label for="email">Email</label></div>
+        <input class="input" type="" id="email" v-model="email" required>
+      </div>
+      <div class="input-field">
+        <div> <label for="localisation">Localisation</label></div>
+        <input class="input" type="" id="localisation" v-model="localisation" required>
+      </div>
+      <div class="input-field">
+        <div> <label for="name">Type d'utilisateur</label></div>
+        <select id="type_u" v-model="type_u" required>
+          <option value="basicUser">basicUser</option>
+          <option value="admin">Admin</option>
+        </select>
       </div>
       <div class="input-field">
         <div><label for="password">Mot de passe:</label></div>
@@ -57,65 +65,40 @@ export default {
       username: '',
       date_naissance: '',
       contact: '',
-      image: null,
-      imageBase64: '',
-      type_u: 'client',
+      email: '',
+      sexe: '',
+      type_u: '',
+      create_by: '',
+      localisation: '',
       password: '',
       successMessage: '',
       errorMessage: ''
     };
   },
   methods: {
-    handleImageUpload(event) {
-      this.image = event.target.files[0];
-      this.convertToBase64(this.image)
-        .then(base64 => {
-          this.imageBase64 = base64;
-        })
-        .catch(error => {
-          this.errorMessage = 'Erreur lors de la conversion en base64 : ' + error;
-        });
-    },
-    convertToBase64(file) {
-      return new Promise((resolve, reject) => {
-        const fileReader = new FileReader();
-        fileReader.readAsDataURL(file);
-        fileReader.onload = () => {
-          resolve(fileReader.result);
-        };
-        fileReader.onerror = error => {
-          reject(error);
-        };
-      });
-    },
     async createAccount() {
       try {
-        const formData = new FormData();
-        formData.append('username', this.username);
-        formData.append('date_naissance', this.date_naissance);
-        formData.append('contact', this.contact);
-        formData.append('image', this.image);
-        formData.append('type_u', this.type_u);
-        formData.append('password', this.password);
-
-        await axios.post('https://minsante-6405bf7b686a.herokuapp.com/signup', formData);
+        const response = await axios.post('https://minsante-6405bf7b686a.herokuapp.com/signup', {
+          username: this.username,
+          date_naissance: this.date_naissance,
+          contact: this.contact,
+          sexe: this.sexe,
+          create_by: this.create_by,
+          email: this.email,
+          localisation: this.localisation,
+          type_u: this.type_u,
+          password: this.password,
+        });
         this.successMessage = 'Inscription réussie !';
-        this.resetForm();
+        console.log(response.data.message);
+        console.log('ok');
+
       } catch (error) {
         this.errorMessage = 'Échec de l\'inscription : ' + error.response.data.message;
+        console.log('off');
+
       }
     },
-    resetForm() {
-      this.username = '';
-      this.date_naissance = '';
-      this.contact = '';
-      this.image = null;
-      this.imageBase64 = '';
-      this.type_u = 'client';
-      this.password = '';
-      this.successMessage = '';
-      this.errorMessage = '';
-    }
   }
 };
 </script>
@@ -124,7 +107,7 @@ export default {
 h2 {
   font-size: 25px;
   font-weight: bold;
-  color: rgba(6, 40, 61, 1);
+  color: #007A5E;
 }
 
 .stext {
@@ -137,9 +120,9 @@ h2 {
   text-align: left;
   width: 450px;
   margin: auto;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2) !important;
   padding: 15px;
-  margin-top: 100px;
+  margin-top: 120px;
 }
 
 form {
@@ -151,7 +134,7 @@ form {
   font-family: 'Monda', sans-serif;
 }
 
-.input {
+input {
   width: 98%;
   height: 30px;
   border: none;
@@ -169,8 +152,7 @@ input:nth-child(2) {
 label {
   font-weight: 700;
   font-size: 16px;
-  color: rgba(6, 40, 61, 1);
-
+  color: rgba(6, 40, 61, 0.555)
 }
 
 .mot {
@@ -179,17 +161,10 @@ label {
   font-size: 15px;
 }
 
-.affiche {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  margin-left: 38% !important;
-}
-
 .btn {
   margin-top: 20px;
   font-size: 17px;
-  background: rgba(51, 167, 226, 1);
+  background: #007A5E;
   border: none;
   width: 100%;
   border-radius: 10px;
@@ -214,7 +189,7 @@ label {
   width: 23px;
   height: 23px;
   border-radius: 50%;
-  border: 3px solid #06283D;
+  border: 3px solid white;
   border-top-color: #007A5E;
   border-bottom-color: #007A5E;
   animation: spin 1s linear infinite;
@@ -230,29 +205,5 @@ label {
   display: flex;
   justify-content: center;
   height: 100px;
-}
-
-/*type file*/
-.box {
-  font-size: 15px;
-  background: white;
-  border-radius: 15px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-  width: 100%;
-  outline: none;
-}
-
-::-webkit-file-upload-button {
-  color: white;
-  background: rgba(51, 167, 226, 1);
-  padding: 10px;
-  border: none;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-  border-radius: 15px;
-  outline: none;
-}
-
-::-webkit-file-upload-button:hover {
-  background: rgba(51, 168, 226, 0.678);
 }
 </style>

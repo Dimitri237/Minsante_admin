@@ -68,8 +68,7 @@
 
                         </button>
                     </li>
-                    
-                    <!-- <li>
+                    <li>
                         <button class="butt" :class="{ selected: currentPage === 'process' }"
                             style="display: flex;text-decoration: none;" @click="showPage('process')">
                             <i :style="{ color: currentPage === 'process' ? '#202020c9' : 'white' }"
@@ -77,7 +76,7 @@
                             <h3 :style="{ color: currentPage === 'process' ? '#202020c9' : 'white' }">Processus</h3>
 
                         </button>
-                    </li> -->
+                    </li>
                     
                     <!-- <li>
                         <button class="butt" :class="{ selected: currentPage === 'profil' }"
@@ -113,7 +112,7 @@
         <div class="extra">
             <nav class="headt">
                 <div></div>
-                <h2 style="margin-right: 2%; color: #007A5E;">{{ username }} <button @click="logout"><i
+                <h2 style="margin-right: 2%; color: #007A5E;">{{ userName }} <button @click="logout"><i
                             class="fa fa-power-off" aria-hidden="true"></i></button></h2>
             </nav>
 
@@ -141,7 +140,6 @@
                 </div>
                 <personnelPage />
             </div>
-
             <div style="display: flex; justify-content: space-between; width: 100%; display: block;" class="page notif"
                 v-if="currentPage === 'offres'">
                 <!-- <div v-if="loading" class="loading-indicator">
@@ -149,7 +147,6 @@
                 </div> -->
                 <offrePage />
             </div>
-
             <div class="page" v-if="currentPage === 'Actes'">
                 <actePage />
             </div>
@@ -162,11 +159,9 @@
             <div class="page" v-if="currentPage === 'personnel'">
                 <personnelPage2 />
             </div>
-
             <div class="page" v-if="currentPage === 'profil'">
                 <ProfilePage />
             </div>
-
             <div class="page" v-if="currentPage === 'requetes'">
                 <requetePage />
             </div>
@@ -202,7 +197,7 @@ export default {
         return {
             modalVisible: false,
             showDetails: false,
-            currentPage: 'realisation',
+            currentPage: 'home',
             selectedButton: 'button4',
             loggedIn: false,
             personnelCount: '',
@@ -210,7 +205,7 @@ export default {
             stageCount: '',
             serviceCount: '',
             personnels: [],
-            username: '',
+            userName: '',
             nom_prenom: '',
             loading: false,
             message: '',
@@ -219,7 +214,7 @@ export default {
         };
     },
     mounted() {
-        this.username = localStorage.getItem('username');
+        this.userName = localStorage.getItem('userName');
         this.fetchPersonnelCount()
         this.fetchAffectationCount()
         this.fetchMisestageCount()
@@ -228,7 +223,7 @@ export default {
     methods: {
         logout() {
             localStorage.removeItem('token');
-            localStorage.removeItem('username');
+            localStorage.removeItem('userName');
             this.$router.push("/")
         },
         hideModal() {

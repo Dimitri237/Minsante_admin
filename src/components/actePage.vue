@@ -299,8 +299,10 @@ export default {
         async getActes() {
             try {
                 const response = await axios.get('https://minsante-6405bf7b686a.herokuapp.com/actes');
-                const actes = response.data; // Utilisez response.data pour obtenir les données de la réponse
-                this.actes = actes;
+                this.actes = response.data;
+                console.log(response.data);
+                
+                
             } catch (error) {
                 console.error('Erreur lors de la récupération des actes:', error);
             }
@@ -309,7 +311,6 @@ export default {
             try {
                 const response = await axios.get('https://minsante-6405bf7b686a.herokuapp.com/type_actes'); // Appeler l'API GET
                 this.type_actes = response.data;
-                console.log(this.type_actes);
             } catch (error) {
                 console.error('Erreur lors de la récupération des type_actes :', error);
             }
@@ -318,7 +319,6 @@ export default {
             try {
                 const response = await axios.get('https://minsante-6405bf7b686a.herokuapp.com/categorie_acte'); // Appeler l'API GET
                 this.categorie_actes = response.data;
-                console.log(this.categorie_actes);
             } catch (error) {
                 console.error('Erreur lors de la récupération des type_actes :', error);
             }
