@@ -16,14 +16,6 @@
     <div class="all " style="display: flex; justify-content: space-between; width: 100%; padding: 5px!important;">
 
         <div style="width: 100%;">
-            <!--  <div class="select">
-                <select class="select2" name="format" id="format">
-                    <option selected disabled>Choisir un type</option>
-                    <option v-for="type_acte in type_actes" :value="type_acte.id" v-bind:key="type_acte.id">
-                        {{ type_acte.libelle }}
-                    </option>
-                </select>
-            </div> -->
             <div style="width: 100%;">
                 <table>
                     <thead>
