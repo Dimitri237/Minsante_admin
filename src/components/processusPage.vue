@@ -174,7 +174,7 @@ export default {
         },
         async getAdress() {
             try {
-                const response = await axios.get('https://minsante-6405bf7b686a.herokuapp.com/adress'); // Appeler l'API GET
+                const response = await axios.get('https://minsante-api-636b67309a26.herokuapp.com/adress'); // Appeler l'API GET
                 this.adressFile = response.data;
                 console.log(response.data);
             } catch (error) {

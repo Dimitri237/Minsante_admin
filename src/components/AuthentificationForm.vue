@@ -40,7 +40,7 @@ export default {
     async login() {
       this.loading = true;
       try {
-        const response = await axios.post('https://minsante-6405bf7b686a.herokuapp.com/login', {
+        const response = await axios.post('https://minsante-api-636b67309a26.herokuapp.com/login', {
           email: this.email,
           password: this.password,
         });
@@ -160,6 +160,7 @@ label {
   border-bottom-color: white;
   animation: spin 1s linear infinite;
 }
+
 
 @keyframes spin {
   to {

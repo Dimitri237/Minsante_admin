@@ -236,7 +236,7 @@ export default {
         },
         async deleteActe() {
             try {
-                const response = await axios.delete(`https://minsante-6405bf7b686a.herokuapp.com/actes/${this.selectedActe.id}`);
+                const response = await axios.delete(`https://minsante-api-636b67309a26.herokuapp.com/actes/${this.selectedActe.id}`);
                 console.log(response.data);
                 // Supprimer l'acte de la liste actes
                 this.actes = this.actes.filter(acte => acte.id !== this.selectedActe.id);
@@ -263,7 +263,7 @@ export default {
             formData.append('pdf', this.$refs.pdfInput.files[0]); // Utilisez la référence $refs pour obtenir le fichier sélectionné
 
             try {
-                const response = await axios.post('https://minsante-6405bf7b686a.herokuapp.com/actes', formData, {
+                const response = await axios.post('https://minsante-api-636b67309a26.herokuapp.com/actes', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
@@ -290,7 +290,7 @@ export default {
         },
         async getActes() {
             try {
-                const response = await axios.get('https://minsante-6405bf7b686a.herokuapp.com/actes');
+                const response = await axios.get('https://minsante-api-636b67309a26.herokuapp.com/actes');
                 this.actes = response.data;
                 console.log(response.data);
                 
@@ -301,7 +301,7 @@ export default {
         },
         async getTypeActes() {
             try {
-                const response = await axios.get('https://minsante-6405bf7b686a.herokuapp.com/type_actes'); // Appeler l'API GET
+                const response = await axios.get('https://minsante-api-636b67309a26.herokuapp.com/type_actes'); // Appeler l'API GET
                 this.type_actes = response.data;
             } catch (error) {
                 console.error('Erreur lors de la récupération des type_actes :', error);
@@ -309,7 +309,7 @@ export default {
         },
         async getCategorieActes() {
             try {
-                const response = await axios.get('https://minsante-6405bf7b686a.herokuapp.com/categorie_acte'); // Appeler l'API GET
+                const response = await axios.get('https://minsante-api-636b67309a26.herokuapp.com/categorie_acte'); // Appeler l'API GET
                 this.categorie_actes = response.data;
             } catch (error) {
                 console.error('Erreur lors de la récupération des type_actes :', error);

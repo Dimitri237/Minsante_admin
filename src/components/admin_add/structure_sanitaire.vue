@@ -124,7 +124,7 @@ export default {
 
     async createStructure() {
       try {
-        const response = await axios.post('https://minsante-6405bf7b686a.herokuapp.com/formation_sanitaire', {
+        const response = await axios.post('https://minsante-api-636b67309a26.herokuapp.com/formation_sanitaire', {
           libelle: this.libelle,
           id_type: this.id_type,
           id_adress: this.id_adress,
@@ -147,7 +147,7 @@ export default {
     },
     async getAdress() {
       try {
-        const response = await axios.get('https://minsante-6405bf7b686a.herokuapp.com/adress'); // Appeler l'API GET
+        const response = await axios.get('https://minsante-api-636b67309a26.herokuapp.com/adress'); // Appeler l'API GET
         this.villes = response.data;
       } catch (error) {
         console.error('Erreur lors de la récupération des adress :', error);
@@ -155,7 +155,7 @@ export default {
     },
     async getTypefs() {
       try {
-        const response = await axios.get('https://minsante-6405bf7b686a.herokuapp.com/type_fs'); // Appeler l'API GET
+        const response = await axios.get('https://minsante-api-636b67309a26.herokuapp.com/type_fs'); // Appeler l'API GET
         this.type_fs = response.data;
       } catch (error) {
         console.error('Erreur lors de la récupération des type_fs :', error);
@@ -163,7 +163,7 @@ export default {
     },
     async getRegion() {
       try {
-        const response = await axios.get('https://minsante-6405bf7b686a.herokuapp.com/region'); // Appeler l'API GET
+        const response = await axios.get('https://minsante-api-636b67309a26.herokuapp.com/region'); // Appeler l'API GET
         this.regions = response.data;
         console.log({ toutou: this.regions });
       } catch (error) {
@@ -172,7 +172,7 @@ export default {
     },
     async getStructure() {
       try {
-        const response = await axios.get('https://minsante-6405bf7b686a.herokuapp.com/formation_sanitaire'); // Appeler l'API GET
+        const response = await axios.get('https://minsante-api-636b67309a26.herokuapp.com/formation_sanitaire'); // Appeler l'API GET
         this.formation_sanitaire = response.data;
         console.log(response.data);
       } catch (error) {

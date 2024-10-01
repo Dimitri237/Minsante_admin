@@ -186,7 +186,7 @@ export default {
     methods: {
         loadPersonnelDetails() {
             const matricule = this.$route.params.matricule;
-            axios.get(`https://minsante-6405bf7b686a.herokuapp.com/personnel/${matricule}`)
+            axios.get(`https://minsante-api-636b67309a26.herokuapp.com/personnel/${matricule}`)
                 .then(response => {
                     this.personnel = response.data;
                 })
@@ -196,7 +196,7 @@ export default {
         },
         async createAffectation() {
             try {
-                const response = await axios.post('https://minsante-6405bf7b686a.herokuapp.com/lieu_service', {
+                const response = await axios.post('https://minsante-api-636b67309a26.herokuapp.com/lieu_service', {
                     id_perso: this.id_perso,
                     id_acte: this.id_acte,
                     id_fsactuel: this.id_fsactuel,
@@ -215,7 +215,7 @@ export default {
         },
         loadLieuService() {
             const matricule = this.$route.params.matricule;
-            axios.get(`https://minsante-6405bf7b686a.herokuapp.com/lieu_service/${matricule}`)
+            axios.get(`https://minsante-api-636b67309a26.herokuapp.com/lieu_service/${matricule}`)
                 .then(response => {
                     this.lieuService = response.data;
                 })
@@ -225,7 +225,7 @@ export default {
         },
         loadFormation() {
             const matricule = this.$route.params.matricule;
-            axios.get(`https://minsante-6405bf7b686a.herokuapp.com/mise_stage/${matricule}`)
+            axios.get(`https://minsante-api-636b67309a26.herokuapp.com/mise_stage/${matricule}`)
                 .then(response => {
                     this.miseStages = response.data;
                     console.log(this.miseStages);
@@ -241,7 +241,7 @@ export default {
         async deletePersonnel() {
             try {
                 const matricule = localStorage.getItem('matricule');
-                const response = await axios.delete(`https://minsante-6405bf7b686a.herokuapp.com/personnel/${matricule}`);
+                const response = await axios.delete(`https://minsante-api-636b67309a26.herokuapp.com/personnel/${matricule}`);
                 console.log(response.data);
                 this.personnels = this.personnels.filter(personnel => personnel.matricule !== matricule);
                 this.$router.push('/acceuilPage');
@@ -262,7 +262,7 @@ export default {
         },
         async getStructure() {
             try {
-                const response = await axios.get('https://minsante-6405bf7b686a.herokuapp.com/formation_sanitaire'); // Appeler l'API GET
+                const response = await axios.get('https://minsante-api-636b67309a26.herokuapp.com/formation_sanitaire'); // Appeler l'API GET
                 this.formation_sanitaire = response.data;
                 console.log(response.data);
             } catch (error) {
@@ -271,7 +271,7 @@ export default {
         },
         async getActes() {
             try {
-                const response = await axios.get('https://minsante-6405bf7b686a.herokuapp.com/actes');
+                const response = await axios.get('https://minsante-api-636b67309a26.herokuapp.com/actes');
                 const actes = response.data; // Utilisez response.data pour obtenir les données de la réponse
                 this.actes = actes;
             } catch (error) {

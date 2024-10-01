@@ -245,7 +245,7 @@ export default {
         },
         async fetchLieuService(id_perso) {
             try {
-                await axios.get(`https://minsante-6405bf7b686a.herokuapp.com/lieu_service/${id_perso}`).then(
+                await axios.get(`https://minsante-api-636b67309a26.herokuapp.com/lieu_service/${id_perso}`).then(
                     res => {
                         console.log('résultat', res.data);
                     }
@@ -258,7 +258,7 @@ export default {
         },
         async fetchFormation(id_perso) {
             try {
-                await axios.get(`https://minsante-6405bf7b686a.herokuapp.com/mise_stage/${id_perso}`).then(
+                await axios.get(`https://minsante-api-636b67309a26.herokuapp.com/mise_stage/${id_perso}`).then(
                     res => {
                         console.log('résultat', res.data);
                     }
@@ -274,7 +274,7 @@ export default {
         },
         async createEmploye() {
             try {
-                const response = await axios.post('https://minsante-6405bf7b686a.herokuapp.com/personnel', {
+                const response = await axios.post('https://minsante-api-636b67309a26.herokuapp.com/personnel', {
                     matricule: this.matricule,
                     nom_prenom: this.nom_prenom,
                     date_naissance: this.date_naissance,
@@ -296,7 +296,7 @@ export default {
         },
         async getPersonnel() {
             try {
-                const response = await axios.get('https://minsante-6405bf7b686a.herokuapp.com/personnel');
+                const response = await axios.get('https://minsante-api-636b67309a26.herokuapp.com/personnel');
                 this.personnels = response.data;
             } catch (error) {
                 console.error('Erreur lors de la récupération des personnel :', error);
@@ -304,7 +304,7 @@ export default {
         },
         async getStructure() {
             try {
-                const response = await axios.get('https://minsante-6405bf7b686a.herokuapp.com/formation_sanitaire'); // Appeler l'API GET
+                const response = await axios.get('https://minsante-api-636b67309a26.herokuapp.com/formation_sanitaire'); // Appeler l'API GET
                 this.formation_sanitaire = response.data;
                 console.log(this.formation_sanitaire);
             } catch (error) {
@@ -319,13 +319,13 @@ export default {
         async showModal2(personnel) {
             this.selectedPersonnel = personnel;
             try {
-                await axios.get(`https://minsante-6405bf7b686a.herokuapp.com/mise_stage/` + personnel.matricule).then(
+                await axios.get(`https://minsante-api-636b67309a26.herokuapp.com/mise_stage/` + personnel.matricule).then(
                     res => {
                         this.selectedFormations = res.data;
 
                     }
                 )
-                await axios.get(`https://minsante-6405bf7b686a.herokuapp.com/lieu_service/` + personnel.matricule).then(
+                await axios.get(`https://minsante-api-636b67309a26.herokuapp.com/lieu_service/` + personnel.matricule).then(
                     res => {
                         this.selectedAffectations = res.data;
 
@@ -340,7 +340,7 @@ export default {
         },
         async searchPersonnel() {
             try {
-                const response = await fetch(`https://minsante-6405bf7b686a.herokuapp.com/personnel-search?q=${encodeURIComponent(this.searchTerm)}`)
+                const response = await fetch(`https://minsante-api-636b67309a26.herokuapp.com/personnel-search?q=${encodeURIComponent(this.searchTerm)}`)
                 const data = await response.json()
                 this.employees = data;
                 this.message = data.length === 0 ? 'Aucun résultat trouvé.' : ''
@@ -359,7 +359,7 @@ export default {
             const formData = new FormData();
             formData.append('excelFile', this.$refs.fileInput.files[0]);
 
-            fetch('https://minsante-6405bf7b686a.herokuapp.com/import', {
+            fetch('https://minsante-api-636b67309a26.herokuapp.com/import', {
                 method: 'POST',
                 body: formData,
             })

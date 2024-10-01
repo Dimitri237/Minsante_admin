@@ -33,7 +33,7 @@ export default {
   methods: {
     async createAdress() {
       try {
-        const response = await axios.post('https://minsante-6405bf7b686a.herokuapp.com/adress', {
+        const response = await axios.post('https://minsante-api-636b67309a26.herokuapp.com/adress', {
           libelle: this.libelle
         });
         this.successMessage = response.data.message;

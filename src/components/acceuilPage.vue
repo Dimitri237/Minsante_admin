@@ -250,7 +250,7 @@ export default {
             const formData = new FormData();
             formData.append('excelFile', this.$refs.fileInput.files[0]);
 
-            fetch('https://minsante-6405bf7b686a.herokuapp.com/import', {
+            fetch('https://minsante-api-636b67309a26.herokuapp.com/import', {
                 method: 'POST',
                 body: formData,
             })
@@ -270,7 +270,7 @@ export default {
         },
         async fetchPersonnelCount() {
             try {
-                const response = await axios.get('https://minsante-6405bf7b686a.herokuapp.com/personnel-count')
+                const response = await axios.get('https://minsante-api-636b67309a26.herokuapp.com/personnel-count')
                 this.personnelCount = response.data.count;
                 console.log(this.personnelCount);
             } catch (error) {
@@ -279,7 +279,7 @@ export default {
         },
         async fetchAffectationCount() {
             try {
-                const response = await axios.get('https://minsante-6405bf7b686a.herokuapp.com/lieu_service-count')
+                const response = await axios.get('https://minsante-api-636b67309a26.herokuapp.com/lieu_service-count')
                 this.affectationCount = response.data.count;
                 console.log(this.affectationCount);
             } catch (error) {
@@ -288,7 +288,7 @@ export default {
         },
         async fetchMisestageCount() {
             try {
-                const response = await axios.get('https://minsante-6405bf7b686a.herokuapp.com/mise_stage-count')
+                const response = await axios.get('https://minsante-api-636b67309a26.herokuapp.com/mise_stage-count')
                 this.stageCount = response.data.count;
                 console.log(this.stageCount);
             } catch (error) {
@@ -297,7 +297,7 @@ export default {
         },
         async fetchServiceCount() {
             try {
-                const response = await axios.get('https://minsante-6405bf7b686a.herokuapp.com/priseService_repriseService-count')
+                const response = await axios.get('https://minsante-api-636b67309a26.herokuapp.com/priseService_repriseService-count')
                 this.serviceCount = response.data.count;
                 console.log(this.serviceCount);
             } catch (error) {

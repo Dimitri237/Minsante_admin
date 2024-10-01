@@ -159,7 +159,7 @@ export default {
         },
         async createApprobation() {
             try {
-                const response = await axios.post('https://minsante-6405bf7b686a.herokuapp.com/approbation_stage', {
+                const response = await axios.post('https://minsante-api-636b67309a26.herokuapp.com/approbation_stage', {
                     id_perso: this.id_perso,
                     id_acte: this.selectedActeNumber,
                     date_signatureacte: this.selectedActeSignatureDate,
@@ -184,7 +184,7 @@ export default {
         },
         // async getAffectation() {
         //     try {
-        //         const response = await axios.get('https://minsante-6405bf7b686a.herokuapp.com/lieu_service'); // Appeler l'API GET
+        //         const response = await axios.get('https://minsante-api-636b67309a26.herokuapp.com/lieu_service'); // Appeler l'API GET
         //         this.lieu_service = response.data;
         //         console.log(response.data);
         //     } catch (error) {
@@ -193,7 +193,7 @@ export default {
         // },
         async getStructure() {
             try {
-                const response = await axios.get('https://minsante-6405bf7b686a.herokuapp.com/formation_sanitaire'); // Appeler l'API GET
+                const response = await axios.get('https://minsante-api-636b67309a26.herokuapp.com/formation_sanitaire'); // Appeler l'API GET
                 this.formation_sanitaire = response.data;
                 console.log(response.data);
             } catch (error) {
@@ -202,7 +202,7 @@ export default {
         },
         async getActes() {
             try {
-                const response = await axios.get('https://minsante-6405bf7b686a.herokuapp.com/actes');
+                const response = await axios.get('https://minsante-api-636b67309a26.herokuapp.com/actes');
                 const actes = response.data; // Utilisez response.data pour obtenir les données de la réponse
                 this.actes = actes;
             } catch (error) {

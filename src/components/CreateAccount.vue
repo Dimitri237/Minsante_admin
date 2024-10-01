@@ -78,7 +78,7 @@ export default {
   methods: {
     async createAccount() {
       try {
-        const response = await axios.post('https://minsante-6405bf7b686a.herokuapp.com/signup', {
+        const response = await axios.post('https://minsante-api-636b67309a26.herokuapp.com/signup', {
           username: this.username,
           date_naissance: this.date_naissance,
           contact: this.contact,

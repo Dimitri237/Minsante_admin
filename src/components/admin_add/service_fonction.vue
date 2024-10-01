@@ -76,7 +76,7 @@ export default {
 
     async createService() {
       try {
-        const response = await axios.post('https://minsante-6405bf7b686a.herokuapp.com/service_fonction', {
+        const response = await axios.post('https://minsante-api-636b67309a26.herokuapp.com/service_fonction', {
           libelle: this.libelle
         });
         this.success = true;
@@ -90,7 +90,7 @@ export default {
 
     async getService() {
       try {
-        const response = await axios.get('https://minsante-6405bf7b686a.herokuapp.com/service_fonction'); // Appeler l'API GET
+        const response = await axios.get('https://minsante-api-636b67309a26.herokuapp.com/service_fonction'); // Appeler l'API GET
         this.service_fonction = response.data;
         console.log(response.data);
       } catch (error) {

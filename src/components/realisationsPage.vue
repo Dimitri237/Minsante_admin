@@ -116,7 +116,7 @@ export default {
     async showModal2(affectate) {
       this.selectedAffectate = affectate;
       try {
-        await axios.get(`https://minsante-6405bf7b686a.herokuapp.com/lieu_service/` + affectate.id_perso).then(
+        await axios.get(`https://minsante-api-636b67309a26.herokuapp.com/lieu_service/` + affectate.id_perso).then(
           res => {
             this.selectedTransfert = res.data;
             console.log({ bonjour: this.selectedAffectate });
@@ -134,7 +134,7 @@ export default {
     },
     async getAffectation() {
       try {
-        const response = await axios.get('https://minsante-6405bf7b686a.herokuapp.com/lieu_service'); // Appeler l'API GET
+        const response = await axios.get('https://minsante-api-636b67309a26.herokuapp.com/lieu_service'); // Appeler l'API GET
         this.affectation = response.data;
         console.log({ bonjour: this.affectation });
       } catch (error) {
