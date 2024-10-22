@@ -1,7 +1,7 @@
 <template>
   <div class="heaths">
     <form class="seach" @submit.prevent="searchPersonnel">
-      <input type="text" v-model="searchTerm" placeholder="Rechercher un employé..." />
+      <input type="text" v-model="searchTerm" placeholder="Rechercher un personnel..." />
       <button type="submit"><i class="fa fa-search"></i></button>
     </form>
   </div>

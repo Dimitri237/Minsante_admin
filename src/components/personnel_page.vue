@@ -26,6 +26,7 @@
                     <th></th>
                     <th><label for="" class="attr">Nom & Prenom</label></th>
                     <th><label for="" class="attr">Matricule</label></th>
+                    <th><label for="" class="attr">Region</label></th>
                     <th><label for="" class="attr">Profession</label></th>
                     <th><label for="" class="attr">Services</label></th>
                     <th><label for="" class="attr">Actions</label></th>
@@ -36,6 +37,7 @@
                     <td>{{ index + 1 }}</td>
                     <td>{{ personnel.nom_prenom }}</td>
                     <td>{{ personnel.matricule }}</td>
+                    <td>{{ personnel.region }}</td>
                     <td>{{ personnel.profession }}</td>
                     <td>{{ personnel.lieu_service }}</td>
                     <td>
@@ -53,7 +55,7 @@
             <div class="close" @click="hideModal">
                 <i class="fa fa-window-close"></i>
             </div>
-            <h1 style="color: #0B9777; text-align: center">Ajouter un employe <span style="color: black;">{{
+            <h1 style="color: #0B9777; text-align: center">Ajouter un personnel <span style="color: black;">{{
                 selectedPersonnel.matricule }}</span></h1>
             <form @submit.prevent="createEmploye">
                 <div class="inp-field">
@@ -116,7 +118,7 @@
 
                     <!-- <input type="text" id="lieu_service" v-model="lieu_service" required><br> -->
                     <div style="width: 95%; display: flex; justify-content: space-between;">
-                        <button class="sub_butt" type="submit">Enregistrer l'employé</button>
+                        <button class="sub_butt" type="submit">Enregistrer le personnel</button>
                         <button class="sub_butt" style="background-color: red;" @click="hideModal">Annuler</button>
                     </div>
                 </div>
@@ -126,7 +128,7 @@
     </div>
     <div v-if="ShowPopup1" class="popup modals">
         <div class="popup-content">
-            <h2 style="color: #007A5E; width: 500px; height: 100px; margin: 15% auto;">Employe enregistré avec success
+            <h2 style="color: #007A5E; width: 500px; height: 100px; margin: 15% auto;">Personnel enregistré avec success
                 <br><button class="btnOk" @click="gotoPersonnelPage()">Ok</button>
             </h2>
 
@@ -137,10 +139,13 @@
             <div class="close" @click="hideModal">
                 <i class="fa fa-window-close"></i>
             </div>
-            <h1 style="color: #007A5E; text-align: center">Fiche de suivie de l'employe N° <span
-                    style="color: black;">{{ selectedPersonnel.matricule }}</span></h1>
+            <h1 style="color: #007A5E; text-align: center">Fiche du personnel</h1>
             <div class="text detail_perso">
                 <h2 style="color: #007A5E;">Informations</h2>
+                <div class="list_detail">
+                    <label>Matricule:</label>
+                    <h3>{{ selectedPersonnel.matricule }}</h3>
+                </div>
                 <div class="list_detail">
                     <label>Nom & prenom:</label>
                     <h3>{{ selectedPersonnel.nom_prenom }}</h3>

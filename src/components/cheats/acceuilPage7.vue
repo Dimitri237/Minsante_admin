@@ -122,7 +122,7 @@
                     <div class="s_menu">
                         <div class="contex">
                             <h1>{{ personnelCount }}</h1>
-                            <h2>Employes</h2>
+                            <h2>P</h2>
                         </div>
                         <div class="contex">
                             <h1>{{ affectationCount }}</h1>

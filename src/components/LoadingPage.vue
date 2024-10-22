@@ -1,6 +1,6 @@
 <template>
   <div class="splash-screen">
-    <h1 class="animate__animated animate__fadeInDown">MINESANTE SITE</h1>
+    <h1 class="animate__animated animate__fadeInDown">MINSANTE SITE</h1>
     <h2 class="animate__animated animate__fadeInUp">Manager</h2>
 
   </div>

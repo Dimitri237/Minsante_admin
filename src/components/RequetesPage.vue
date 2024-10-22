@@ -1,7 +1,7 @@
 <template>
     <div class="heaths">
         <form class="seach" @submit.prevent="searchPersonnel">
-            <input type="text" v-model="searchTerm" placeholder="Rechercher un employé..." />
+            <input type="text" v-model="searchTerm" placeholder="Rechercher un personnel..." />
             <button type="submit"><i class="fa fa-search"></i></button>
         </form>
     </div>
@@ -86,7 +86,7 @@
             <div class="close" @click="hideModal">
                 <i class="fa fa-window-close"></i>
             </div>
-            <h1 style="color: #007A5E; text-align: center">Fiche de suivie de l'employe N° <span
+            <h1 style="color: #007A5E; text-align: center">Fiche de suivie de personnel N° <span
                     style="color: black;">{{ selectedMise.id_perso }}</span></h1>
             <div class="text detail_perso">
                 <h2 style="color: #007A5E;">Informations</h2>
@@ -124,7 +124,7 @@
             <div class="close" @click="hideModal">
                 <i class="fa fa-window-close"></i>
             </div>
-            <h1 style="color: #007A5E; text-align: center">Fiche de suivie de l'employe N° <span
+            <h1 style="color: #007A5E; text-align: center">Fiche de suivie de personnel N° <span
                     style="color: black;">{{ selectedService.id_perso }}</span></h1>
             <div class="text detail_perso">
                 <h2 style="color: #007A5E;">Informations</h2>

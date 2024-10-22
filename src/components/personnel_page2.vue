@@ -1,7 +1,7 @@
 <template>
     <div class="heaths">
         <form class="seach" @submit.prevent="searchPersonnel">
-            <input type="text" v-model="searchTerm" placeholder="Rechercher un employé..." />
+            <input type="text" v-model="searchTerm" placeholder="Rechercher un personnel..." />
             <button type="submit"><i class="fa fa-search"></i></button>
         </form>
     </div>
@@ -11,6 +11,7 @@
                 <div class="intitule">
                     <label for="" class="attr">Nom & Prenom</label>
                     <label for="" class="attr">Matricule</label>
+                    <th><label for="" class="attr">Region</label></th>
                     <label for="" class="attr">Profession</label>
                     <label for="" class="attr">Services</label>
                     <label for="" class="attr">Actions</label>
@@ -19,6 +20,7 @@
                     :to="'/PersonnelDetails/' + employee.matricule">
                     <label for="" class="attr">{{ employee.nom_prenom }}</label>
                     <label for="" class="attr">{{ employee.matricule }}</label>
+                    <label for="" class="attr">{{ employee.region }}</label>
                     <label for="" class="attr">{{ employee.profession }}</label>
                     <label for="" class="attr">{{ employee.lieu_service }}</label>
                     <div style="width: 5%; display: flex; justify-content: space-between;" class="action">
@@ -86,7 +88,7 @@
             <div class="close" @click="hideModal">
                 <i class="fa fa-window-close"></i>
             </div>
-            <h1 style="color: #0B9777; text-align: center">Ajouter un employe <span style="color: black;">{{
+            <h1 style="color: #0B9777; text-align: center">Ajouter un personnel <span style="color: black;">{{
                 selectedPersonnel.matricule }}</span></h1>
             <form @submit.prevent="createEmploye">
                 <div class="inp-field">
@@ -149,7 +151,7 @@
 
                 </div>
                 <div style="width: 95%; display: flex; justify-content: space-between;">
-                    <button class="sub_butt" type="submit">Enregistrer l'employé</button>
+                    <button class="sub_butt" type="submit">Enregistrer le personnel</button>
                     <button class="sub_butt" style="background-color: red;" @click="hideModal">Annuler</button>
                 </div>
             </form>
@@ -161,10 +163,13 @@
             <div class="close" @click="hideModal">
                 <i class="fa fa-window-close"></i>
             </div>
-            <h1 style="color: #007A5E; text-align: center">Fiche de suivie de l'employe N° <span
-                    style="color: black;">{{ selectedPersonnel.matricule }}</span></h1>
+            <h1 style="color: #007A5E; text-align: center">Fiche du personnel</h1>
             <div class="text detail_perso">
                 <h2 style="color: #007A5E;">Informations</h2>
+                <div class="list_detail">
+                    <label>Matricule:</label>
+                    <h3>{{ selectedPersonnel.matricule }}</h3>
+                </div>
                 <div class="list_detail">
                     <label>Nom & prenom:</label>
                     <h3>{{ selectedPersonnel.nom_prenom }}</h3>

@@ -3,108 +3,110 @@
         <side_bar />
         <div class="total2">
             <section ref="detailsContainer" class="total">
-            <div class="heaths">
-                <div></div>
-                <div style=" width: 50%; display: flex; justify-content: space-between;">
-                    <button @click="showModal2" style="background-color: rgb(0, 122, 94);">Affecter</button>
-                    <button @click="generatePdf" style="background-color: rgb(0, 122, 94);">Imprimer</button>
-                    <button style="background-color: red;" @click="deletePersonnel">Supprimer</button>
+                <div class="heaths">
+                    <div></div>
+                    <div style=" width: 50%; display: flex; justify-content: space-between;">
+                        <button @click="showModal2" style="background-color: rgb(0, 122, 94);">Affecter</button>
+                        <button @click="generatePdf" style="background-color: rgb(0, 122, 94);">Imprimer</button>
+                        <button style="background-color: red;" @click="deletePersonnel">Supprimer</button>
+                    </div>
                 </div>
-            </div>
-            <div class="Imprimable" id="imprimer_moi" style="margin-top: 30px!important; width: 100%; display: block;">
-                <h1 class="tete" style="color:rgb(0, 122, 94); background-color: white;  width: 100%; margin: auto;">
-                    Fiche du personnel</h1>
-                <div class="personnel1">
-                    <h1 class="title">Détails du personnel</h1>
-                    <div v-if="personnel">
-                        <div class="personnel-details">
-                            <div class="call1">
-                                <div class="detail">
-                                    <label>Matricule :</label>
-                                    <span>{{ personnel.matricule }}</span>
+                <div class="Imprimable" id="imprimer_moi"
+                    style="margin-top: 30px!important; width: 100%; display: block;">
+                    <h1 class="tete"
+                        style="color:rgb(0, 122, 94); background-color: white;  width: 100%; margin: auto;">
+                        Fiche du personnel</h1>
+                    <div class="personnel1">
+                        <h1 class="title">Détails du personnel</h1>
+                        <div v-if="personnel">
+                            <div class="personnel-details">
+                                <div class="call1">
+                                    <div class="detail">
+                                        <label>Matricule :</label>
+                                        <span>{{ personnel.matricule }}</span>
+                                    </div>
+                                    <div class="detail">
+                                        <label>Nom et prénom :</label>
+                                        <span>{{ personnel.nom_prenom }}</span>
+                                    </div>
+                                    <div class="detail">
+                                        <label>Date de naissance :</label>
+                                        <span>{{ formatDate(personnel.date_naissance) }}</span>
+                                    </div>
                                 </div>
-                                <div class="detail">
-                                    <label>Nom et prénom :</label>
-                                    <span>{{ personnel.nom_prenom }}</span>
-                                </div>
-                                <div class="detail">
-                                    <label>Date de naissance :</label>
-                                    <span>{{ formatDate(personnel.date_naissance) }}</span>
-                                </div>
-                            </div>
-                            <div class="call2">
-                                <div class="detail">
-                                    <label>Lieu de naissance :</label>
-                                    <span>{{ personnel.lieu_naissance }}</span>
-                                </div>
-                                <div class="detail">
-                                    <label>Sexe :</label>
-                                    <span>{{ personnel.sexe }}</span>
-                                </div>
-                                <div class="detail">
-                                    <label>Profession :</label>
-                                    <span>{{ personnel.profession }}</span>
+                                <div class="call2">
+                                    <div class="detail">
+                                        <label>Lieu de naissance :</label>
+                                        <span>{{ personnel.lieu_naissance }}</span>
+                                    </div>
+                                    <div class="detail">
+                                        <label>Sexe :</label>
+                                        <span>{{ personnel.sexe }}</span>
+                                    </div>
+                                    <div class="detail">
+                                        <label>Profession :</label>
+                                        <span>{{ personnel.profession }}</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <div v-else>
+                            <p>Chargement des informations...</p>
+                        </div>
                     </div>
-                    <div v-else>
-                        <p>Chargement des informations...</p>
+                    <div class="affectation1">
+                        <h1 class="title">Etats de service</h1>
+                        <table style="width: 100%; text-align: center;">
+                            <thead class="tabH">
+                                <tr>
+                                    <th></th>
+                                    <th><label for="" class="attr">Numéro Acte</label></th>
+                                    <th><label for="" class="attr">Date Signature</label></th>
+                                    <th><label for="" class="attr">Type Acte</label></th>
+                                    <th><label for="" class="attr">Structure</label></th>
+                                    <th><label for="" class="attr">Fonction</label></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="table-row" v-for="(lieu, index) in lieuService" :key="lieu.id">
+                                    <td>{{ index + 1 }}</td>
+                                    <td>{{ lieu.id_acte }}</td>
+                                    <td>{{ formatDate(lieu.date_signatureacte) }}</td>
+                                    <td>{{ lieu.categorie_acte }}</td>
+                                    <td>{{ lieu.id_fsnouvelle }}</td>
+                                    <td>{{ lieu.poste }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                </div>
-                <div class="affectation1">
-                    <h1 class="title">Etats de service</h1>
-                    <table style="width: 100%; text-align: center;">
-                        <thead class="tabH">
-                            <tr>
-                                <th></th>
-                                <th><label for="" class="attr">Numéro Acte</label></th>
-                                <th><label for="" class="attr">Date Signature</label></th>
-                                <th><label for="" class="attr">Type Acte</label></th>
-                                <th><label for="" class="attr">Structure</label></th>
-                                <th><label for="" class="attr">Fonction</label></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="table-row" v-for="(lieu, index) in lieuService" :key="lieu.id">
-                                <td>{{ index + 1 }}</td>
-                                <td>{{ lieu.id_acte }}</td>
-                                <td>{{ formatDate(lieu.date_signatureacte) }}</td>
-                                <td>{{ lieu.categorie_acte }}</td>
-                                <td>{{ lieu.id_fsnouvelle }}</td>
-                                <td>{{ lieu.poste }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="formation1">
-                    <h1 class="title">Formations</h1>
-                    <table style="width: 100%; text-align: center;">
-                        <thead class="tabH">
-                            <tr>
-                                <th></th>
-                                <th><label for="" class="attr">Numéro Acte</label></th>
-                                <th><label for="" class="attr">Date Signature</label></th>
-                                <th><label for="" class="attr">Structure</label></th>
-                                <th><label for="" class="attr">Fonction</label></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="table-row" v-for="(miseStage, index) in miseStages" :key="miseStage.id">
-                                <td>{{ index + 1 }}</td>
-                                <td>{{ miseStage.id_acte }}</td>
-                                <td>{{ formatDate(miseStage.date_signatureacte) }}</td>
-                                <td>{{ miseStage.lieu_stage }}</td>
-                                <td>{{ miseStage.poste }}</td>
-                                
+                    <div class="formation1">
+                        <h1 class="title">Formations</h1>
+                        <table style="width: 100%; text-align: center;">
+                            <thead class="tabH">
+                                <tr>
+                                    <th></th>
+                                    <th><label for="" class="attr">Numéro Acte</label></th>
+                                    <th><label for="" class="attr">Date Signature</label></th>
+                                    <th><label for="" class="attr">Structure</label></th>
+                                    <th><label for="" class="attr">Fonction</label></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="table-row" v-for="(miseStage, index) in miseStages" :key="miseStage.id">
+                                    <td>{{ index + 1 }}</td>
+                                    <td>{{ miseStage.id_acte }}</td>
+                                    <td>{{ formatDate(miseStage.date_signatureacte) }}</td>
+                                    <td>{{ miseStage.lieu_stage }}</td>
+                                    <td>{{ miseStage.poste }}</td>
 
 
-                            </tr>
-                        </tbody>
-                    </table>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
         </div>
     </div>
     <div v-if="modalVisible2" class="modals2">
@@ -275,11 +277,11 @@ export default {
             newDoc.body.appendChild(elementToPrint.cloneNode(true));
 
             let footer = newDoc.createElement('div');
-  footer.setAttribute('style', ' left: 0; margin-top: 30%; border-top: 2px solid rgba(0, 0, 0, 0.6); right: 0; font-family: sans-serif; text-align: center; width: 100%; margin-bottom: 15px;');
-  footer.innerHTML = `
+            footer.setAttribute('style', ' left: 0; margin-top: 30%; border-top: 2px solid rgba(0, 0, 0, 0.6); right: 0; font-family: sans-serif; text-align: center; width: 100%; margin-bottom: 15px;');
+            footer.innerHTML = `
     <p style="font-size: 18px; font-weight: bold;">OBSDRHMINSANTE</p>
   `;
-  newDoc.body.appendChild(footer);
+            newDoc.body.appendChild(footer);
             // Maintenant, générez le PDF
             html2pdf(newDoc.body, {
                 margin: 15,
@@ -347,7 +349,7 @@ export default {
             axios.get(`https://minsante-api-636b67309a26.herokuapp.com/lieu_service/${matricule}`)
                 .then(response => {
                     this.lieuService = response.data;
-                    console.log({bonjour:this.lieuService});
+                    console.log({ bonjour: this.lieuService });
                 })
                 .catch(error => {
                     console.error('Erreur lors du chargement des informations du lieu de service :', error);
@@ -544,7 +546,8 @@ table tr:last-child td {
     /* 
     margin: 0 13%; */
 }
-.popup-content{
+
+.popup-content {
     border-radius: 10px;
     background-color: white;
     width: 500px;
@@ -616,5 +619,4 @@ form .inp-field select {
     border-radius: 5px;
     padding: 10px 0;
 }
-
 </style>

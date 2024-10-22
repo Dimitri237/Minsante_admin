@@ -1,7 +1,7 @@
 <template>
     <div class="heaths">
         <form class="seach" @submit.prevent="searchPersonnel">
-            <input type="text" v-model="searchTerm" placeholder="Rechercher un employé..." />
+            <input type="text" v-model="searchTerm" placeholder="Rechercher un personnel..." />
             <button type="submit"><i class="fa fa-search"></i></button>
         </form>
     </div>
@@ -23,9 +23,7 @@
                             <th></th>
                             <th><label for="" class="attr">Numéro acte</label></th>
                             <th><label for="" class="attr">Categorie Acte</label></th>
-                            <th><label for="" class="attr">Type acte</label></th>
-                            <th><label for="" class="attr">signe le</label></th>
-                            <th><label for="" class="attr">signataire</label></th>
+                            <th><label for="" class="attr">Date signature</label></th>
                             <th><label for="" class="attr">Actions</label></th>
                         </tr>
                     </thead>
@@ -33,10 +31,8 @@
                         <tr class="table-row" v-for="(acte, index) in actes" :key="acte.id">
                             <td>{{ index + 1 }}</td>
                             <td>{{ acte.numero }}</td>
-                            <td>{{ acte.categorie }}</td>
                             <td>{{ acte.type }}</td>
                             <td>{{ acte.signature_date }}</td>
-                            <td>{{ acte.signataire }}</td>
                             <td>
                                 <button style="border: none; color: #007A5E;" type="button" class="btn custom-modal-btn"
                                     data-bs-toggle="modal" data-bs-target="#don" @click="showModal(acte)">
@@ -81,7 +77,7 @@
             </div>
             <form @submit.prevent="createActe">
                 <div class="inp-field">
-                    <label for="nom_concerne">Categorie d'acte :</label>
+                    <label for="nom_concerne">Type d'acte :</label>
                     <select name="" id="" v-model="type">
                         <option v-for="type_acte in type_actes" :value="type_acte.libelle" :key="type_acte.libelle">
                             {{ type_acte.libelle }}
@@ -90,7 +86,7 @@
 
                 </div>
                 <div class="inp-field">
-                    <label for="nom_concerne"> Type d'acte :</label>
+                    <label for="nom_concerne"> Categorie d'acte :</label>
                     <select name="" id="" v-model="categorie">
                         <option v-for="categorie_acte in categorie_actes" :value="categorie_acte.libelle"
                             :key="categorie_acte.libelle">
@@ -100,17 +96,17 @@
 
                 </div>
                 <div class="inp-field">
-                    <label for="">DECISION N° :</label>
+                    <label for="">ACTE N° :</label>
                     <input type="text" id="numero" v-model="numero" required><br>
                 </div>
                 <div class="inp-field">
                     <label for="">Titre :</label>
                     <input type="text" id="titre" v-model="titre" required><br>
                 </div>
-                <div class="inp-field">
+                <!-- <div class="inp-field">
                     <label for="descript">Description :</label>
                     <textarea id="descript" v-model="description" required></textarea><br>
-                </div>
+                </div> -->
                 <div class="inp-field">
                     <label for="">Date de signature :</label>
                     <input type="date" id="signature_date" v-model="signature_date" required><br>
@@ -263,7 +259,7 @@ export default {
             formData.append('pdf', this.$refs.pdfInput.files[0]); // Utilisez la référence $refs pour obtenir le fichier sélectionné
 
             try {
-                const response = await axios.post('https://minsante-api-636b67309a26.herokuapp.com/actes', formData, {
+                const response = await axios.post('http://localhost:3002/actes', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
@@ -290,7 +286,7 @@ export default {
         },
         async getActes() {
             try {
-                const response = await axios.get('https://minsante-api-636b67309a26.herokuapp.com/actes');
+                const response = await axios.get('http://localhost:3002/actes');
                 this.actes = response.data;
                 console.log(response.data);
                 
